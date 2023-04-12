@@ -15,7 +15,7 @@ const payload = {
   width: 512
 };
 
-// txt2img
+// txt2img api request
 async function txt2img() {
   try {
     busyGenerating = true;
@@ -66,14 +66,18 @@ async function loopUntilProgressDone() {
   }, 1000);
 }
 
+// decode base64 output to image
+// place image inside DOM (if there already is an image remove it) 
 async function base64ToImage(arg) {
-  let generatedBase64Image = `data:image/png;base64,${arg}`;
   const img = new Image();
-  img.src = generatedBase64Image;
+  img.src = `data:image/png;base64,${arg}`;
+  await img.decode().catch(() => {}); // wait until image is decoded and continue code execution
+  document.getElementById("generatedImage").firstElementChild?.remove();
   document.getElementById("generatedImage").appendChild(img);
 }
 
-document.getElementById('generate-button').addEventListener('click', function() {
+// prevent overflow of image generation processes by blocken txt2img() function
+document.getElementById('generate-button').addEventListener('click', function () {
   if (!busyGenerating) {
     txt2img();
   } else {
