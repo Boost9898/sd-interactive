@@ -5,7 +5,8 @@ let generatedImageData
 // set payload that will be used during generation process
 const payload = {
   prompt: 'corgi puppy',
-  steps: 3
+  steps: 15,
+  samplername: 'euler'
 };
 
 // txt2img
@@ -20,7 +21,6 @@ async function txt2img() {
     });
     const data = await response.json();
     generatedImageData = data;
-    // console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -42,17 +42,18 @@ async function fetchProgress() {
   }
 }
 
-// stops the loop when diffusion process is finished
+// async function that updates the progress bar
 async function loopUntilProgressDone() {
+  const progressBar = document.getElementById('progress-bar');
   const intervalId = setInterval(async () => {
     const progress = await fetchProgress();
-    console.log(progress);
+    const width = progress * 100;
+    progressBar.style.width = `${width}%`;
     if (progress === 0) {
       clearInterval(intervalId);
-      // console.log(generatedImageData.images[0]);
       base64ToImage(generatedImageData.images[0]);
     }
-  }, 1000);
+  }, 100);
 }
 
 async function base64ToImage(params) {
