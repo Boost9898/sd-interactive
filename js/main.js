@@ -1,3 +1,7 @@
+// import js files
+import { toggleGenerateButton } from './toggleGenerateButton.js';
+
+
 // prepare global variables
 const api = 'http://127.0.0.1:7860';
 let generatedImageData
@@ -76,16 +80,3 @@ document.getElementById('generate-button').addEventListener('click', function() 
     console.log('Currently generating image.')
   }
 });
-
-async function toggleGenerateButton(arg) {
-  const generateButton = document.getElementById('generate-button');
-  if (arg === true) {
-    generateButton.textContent = 'Generating';
-    generateButton.style.color = '#ffffff';
-    generateButton.style.backgroundColor = '#3573bb';
-  } else {
-    generateButton.textContent = 'Generate';
-    generateButton.style.color = '#ffffff';
-    generateButton.style.backgroundColor = '#3aa23a';
-  }
-}
