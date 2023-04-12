@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+/* Set a default font family */
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+#generatedImage {
+  width: 512px;
+  height: 512px;
+}
