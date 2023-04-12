@@ -5,8 +5,7 @@ let generatedImageData
 // set payload that will be used during generation process
 const payload = {
   prompt: 'corgi puppy',
-  steps: 15,
-  samplername: 'euler'
+  steps: 10
 };
 
 // txt2img
@@ -19,8 +18,7 @@ async function txt2img() {
         'Content-Type': 'application/json'
       }
     });
-    const data = await response.json();
-    generatedImageData = data;
+    generatedImageData = await response.json();
   } catch (error) {
     console.error(error);
   }
@@ -53,7 +51,7 @@ async function loopUntilProgressDone() {
       clearInterval(intervalId);
       base64ToImage(generatedImageData.images[0]);
     }
-  }, 100);
+  }, 1000);
 }
 
 async function base64ToImage(params) {
