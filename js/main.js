@@ -66,8 +66,8 @@ async function loopUntilProgressDone() {
   }, 1000);
 }
 
-async function base64ToImage(params) {
-  let generatedBase64Image = `data:image/png;base64,${params}`;
+async function base64ToImage(arg) {
+  let generatedBase64Image = `data:image/png;base64,${arg}`;
   const img = new Image();
   img.src = generatedBase64Image;
   document.getElementById("generatedImage").appendChild(img);

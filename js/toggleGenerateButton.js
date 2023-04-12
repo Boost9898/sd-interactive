@@ -1,4 +1,4 @@
-export function toggleGenerateButton(params) {
+export function toggleGenerateButton(arg) {
   const generateButton = document.getElementById('generate-button');
   if (arg === true) {
     generateButton.textContent = 'Generating';
