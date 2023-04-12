@@ -1,16 +1,22 @@
 // prepare global variables
 const api = 'http://127.0.0.1:7860';
 let generatedImageData
+let busyGenerating = false
 
 // set payload that will be used during generation process
 const payload = {
-  prompt: 'corgi puppy',
-  steps: 10
+  prompt: 'corgi',
+  steps: 15,
+  height: 512,
+  width: 512
 };
 
 // txt2img
 async function txt2img() {
   try {
+    busyGenerating = true;
+    toggleGenerateButton(busyGenerating);
+    loopUntilProgressDone();
     const response = await fetch(`${api}/sdapi/v1/txt2img`, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -19,6 +25,8 @@ async function txt2img() {
       }
     });
     generatedImageData = await response.json();
+    busyGenerating = false;
+    toggleGenerateButton(busyGenerating);
   } catch (error) {
     console.error(error);
   }
@@ -61,5 +69,23 @@ async function base64ToImage(params) {
   document.getElementById("generatedImage").appendChild(img);
 }
 
-txt2img();
-loopUntilProgressDone();
+document.getElementById('generate-button').addEventListener('click', function() {
+  if (!busyGenerating) {
+    txt2img();
+  } else {
+    console.log('Currently generating image.')
+  }
+});
+
+async function toggleGenerateButton(arg) {
+  const generateButton = document.getElementById('generate-button');
+  if (arg === true) {
+    generateButton.textContent = 'Generating';
+    generateButton.style.color = '#ffffff';
+    generateButton.style.backgroundColor = '#3573bb';
+  } else {
+    generateButton.textContent = 'Generate';
+    generateButton.style.color = '#ffffff';
+    generateButton.style.backgroundColor = '#3aa23a';
+  }
+}

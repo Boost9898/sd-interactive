@@ -20,13 +20,15 @@ h1 {
 #generatedImage {
   width: 512px;
   height: 512px;
+  background-color: rgb(196, 196, 196);
+
 }
 
 #progress-bar-container {
   width: 512px;
   height: 20px;
-  border: 2px solid #ccc;
-  margin-top: 20px;
+  background-color: rgb(196, 196, 196);
+  margin-top: 6px;
 }
 
 #progress-bar {
@@ -34,4 +36,13 @@ h1 {
   height: 100%;
   background-color: #4caf50;
   transition: width 1s linear;
+}
+
+#generate-button {
+  width: 150px;
+  height: 40px;
+  background-color: #3aa23a;
+  color: white;
+  font-weight: bold;
+  margin-top: 6px;
 }
