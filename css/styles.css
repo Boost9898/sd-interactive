@@ -10,35 +10,29 @@
 
 /* Set a default font family */
 body {
-  font-family: Arial, sans-serif;
+  font-family: Verdana, Tahoma, sans-serif;
+  background-color: #e8e8e8;
+  color: #212121;
 }
 
 h1 {
   font-size: 3rem;
 }
 
+h2 {
+  font-size: 2rem;
+  font-weight: normal;
+}
+
 #generatedImage {
   width: 512px;
   height: 512px;
-  background-color: rgb(196, 196, 196);
-
+  background-color: #b3b3b3;
 }
 
-#progress-bar-container {
-  width: 512px;
-  height: 20px;
-  background-color: rgb(196, 196, 196);
-  margin-top: 6px;
-}
-
-#progress-bar {
-  width: 0%;
-  height: 100%;
-  background-color: #4caf50;
-  transition: width linear;
-}
-
-#show-models-button, #generate-button, #load-model-button {
+#show-models-button,
+#generate-button,
+#load-model-button {
   width: 150px;
   height: 40px;
   color: white;
@@ -56,4 +50,38 @@ h1 {
 
 #load-model-button {
   background-color: #2d71c0;
+}
+
+/* ------------------------------------------- */
+/* ------------------------------------------- */
+#loader-container {
+  opacity: 0;
+}
+
+#loader-container.show {
+  opacity: 1;
+}
+
+#loader h2 {
+  text-align: center;
+  color: #e8e8e8;
+}
+
+#loader {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 512px;
+  height: 512px;
+  background: linear-gradient(-45deg, #00000000, #000000);
+  background-size: 500% 500%;
+  animation: gradient 2500ms ease-in-out infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

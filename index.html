@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,14 +10,20 @@
     <script type="module" src="/js/toggleGenerateButton.js" defer></script>
     <title>Document</title>
 </head>
+
 <body>
     <h1>Dev test</h1>
-    <div id="generatedImage"></div>
-    <div id="progress-bar-container">
-        <div id="progress-bar"></div>
+    <div class="container">
+        <div id="loader-container">
+            <div id="loader">
+                <h2>Making something beautiful</h2>
+            </div>
+        </div>
+        <div id="generatedImage"></div>
     </div>
     <button id="generate-button">Generate</button>
     <button id="show-models-button">Log models</button>
     <button id="load-model-button">Load model</button>
 </body>
+
 </html>

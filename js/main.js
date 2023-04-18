@@ -12,6 +12,7 @@ import { showModels } from './showModels.js';
 export const api = 'http://127.0.0.1:7860';
 let currentlyGenerating = undefined
 let generatedImageData = null
+const loader = document.querySelector("#loader-container");
 
 
 // ************************************************** \\
@@ -19,7 +20,7 @@ let generatedImageData = null
 // ************************************************** \\
 let payload = {
   prompt: undefined,
-  steps: 8,
+  steps: 6,
   height: 512,
   width: 512
 };
@@ -33,6 +34,7 @@ async function txt2img() {
   console.log(`Selected prompt: ${payload.prompt}`)
   try {
     toggleGenerateButton(true);
+    fadeIn(loader, 1000);
     const response = await fetch(`${api}/sdapi/v1/txt2img`, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -42,12 +44,12 @@ async function txt2img() {
     });
     generatedImageData = await response.json();
     base64ToImage(generatedImageData.images[0]);
+    fadeOut(loader, 500);
     toggleGenerateButton(false);
   } catch (error) {
     console.error(error);
   }
 }
-
 
 // ************************************************** \\
 // ENCODE BASE64 TO IMAGE
@@ -61,6 +63,19 @@ async function base64ToImage(arg) {
   document.getElementById("generatedImage").appendChild(img);
 }
 
+// ************************************************** \\
+// LOADER FADE IN/FADE OUT
+// ************************************************** \\
+function fadeIn(element, duration) {
+  element.style.transition = `opacity ${duration}ms ease-in-out`;
+  element.classList.add("show");
+}
+
+// Fade out function
+function fadeOut(element, duration) {
+  element.style.transition = `opacity ${duration}ms ease-in-out`;
+  element.classList.remove("show");
+}
 
 // ************************************************** \\
 // GENERATE-BUTTON FUNCTIONALITY
@@ -81,3 +96,36 @@ document.getElementById('generate-button').addEventListener('click', function ()
 document.getElementById('show-models-button').addEventListener('click', function () {
   showModels()
 });
+
+
+// ************************************************** \\
+// SET MODEL DEMO CODE
+// ************************************************** \\
+// // setModel
+// document.getElementById('load-model-button').addEventListener('click', function () {
+//   if (!currentlyGenerating) {
+//     setModel('v1-5-pruned-emaonly.safetensors [6ce0161689]');
+//   } else {
+//     console.log('Currently generating image.')
+//   }
+// });
+
+// async function setModel(model) {
+//   const option_payload = {
+//     "sd_model_checkpoint": `${model}`,
+//     "CLIP_stop_at_last_layers": 2
+//   };
+//   try {
+//     const response = await fetch(`${api}/sdapi/v1/options`, {
+//       method: 'POST',
+//       body: JSON.stringify(option_payload),
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+//     let data = await response.json();
+//     console.log(data);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
