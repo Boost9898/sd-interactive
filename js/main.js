@@ -1,26 +1,38 @@
-// import js files
+// ************************************************** \\
+// IMPORTS
+// ************************************************** \\
 import { toggleGenerateButton } from './toggleGenerateButton.js';
+import { randomPrompt } from './randomPrompt.js';
+import { showModels } from './showModels.js';
 
 
-// prepare global variables
-const api = 'http://127.0.0.1:7860';
-let generatedImageData
-let busyGenerating = false
+// ************************************************** \\
+// GLOBAL AND EXPORTED VARIABELS
+// ************************************************** \\
+export const api = 'http://127.0.0.1:7860';
+let currentlyGenerating = undefined
+let generatedImageData = null
 
-// set payload that will be used during generation process
-const payload = {
-  prompt: 'corgi',
-  steps: 15,
+
+// ************************************************** \\
+// PAYLOAD FOR GENERATION PROCESS
+// ************************************************** \\
+let payload = {
+  prompt: undefined,
+  steps: 8,
   height: 512,
   width: 512
 };
 
-// txt2img api request
+
+// ************************************************** \\
+// TXT2IMG API REQUEST
+// ************************************************** \\
 async function txt2img() {
+  payload.prompt = randomPrompt();
+  console.log(`Selected prompt: ${payload.prompt}`)
   try {
-    busyGenerating = true;
-    toggleGenerateButton(busyGenerating);
-    loopUntilProgressDone();
+    toggleGenerateButton(true);
     const response = await fetch(`${api}/sdapi/v1/txt2img`, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -29,58 +41,43 @@ async function txt2img() {
       }
     });
     generatedImageData = await response.json();
-    busyGenerating = false;
-    toggleGenerateButton(busyGenerating);
+    base64ToImage(generatedImageData.images[0]);
+    toggleGenerateButton(false);
   } catch (error) {
     console.error(error);
   }
 }
 
-// return current progress of diffusion process
-async function fetchProgress() {
-  try {
-    const response = await fetch(`${api}/sdapi/v1/progress?skip_current_image=false`, {
-      method: 'GET',
-      headers: {
-        'accept': 'application/json'
-      }
-    });
-    const data = await response.json();
-    return data.progress;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-// async function that updates the progress bar
-async function loopUntilProgressDone() {
-  const progressBar = document.getElementById('progress-bar');
-  const intervalId = setInterval(async () => {
-    const progress = await fetchProgress();
-    const width = progress * 100;
-    progressBar.style.width = `${width}%`;
-    if (progress === 0) {
-      clearInterval(intervalId);
-      base64ToImage(generatedImageData.images[0]);
-    }
-  }, 1000);
-}
-
-// decode base64 output to image
-// place image inside DOM (if there already is an image remove it) 
+// ************************************************** \\
+// ENCODE BASE64 TO IMAGE
+// place image in DOM (if already present, remove it
+// ************************************************** \\
 async function base64ToImage(arg) {
   const img = new Image();
   img.src = `data:image/png;base64,${arg}`;
-  await img.decode().catch(() => {}); // wait until image is decoded and continue code execution
+  await img.decode().catch(() => { }); // wait until image is decoded and continue code execution
   document.getElementById("generatedImage").firstElementChild?.remove();
   document.getElementById("generatedImage").appendChild(img);
 }
 
-// prevent overflow of image generation processes by blocken txt2img() function
+
+// ************************************************** \\
+// GENERATE-BUTTON FUNCTIONALITY
+// prevent overflow of image generation processes
+// ************************************************** \\
 document.getElementById('generate-button').addEventListener('click', function () {
-  if (!busyGenerating) {
+  if (!currentlyGenerating) {
     txt2img();
   } else {
     console.log('Currently generating image.')
   }
+});
+
+
+// ************************************************** \\
+// SHOW-MODELS-BUTTON
+// ************************************************** \\
+document.getElementById('show-models-button').addEventListener('click', function () {
+  showModels()
 });

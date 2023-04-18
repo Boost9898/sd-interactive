@@ -35,14 +35,25 @@ h1 {
   width: 0%;
   height: 100%;
   background-color: #4caf50;
-  transition: width 1s linear;
+  transition: width linear;
 }
 
-#generate-button {
+#show-models-button, #generate-button, #load-model-button {
   width: 150px;
   height: 40px;
-  background-color: #3aa23a;
   color: white;
   font-weight: bold;
   margin-top: 6px;
+}
+
+#show-models-button {
+  background-color: #c77313;
+}
+
+#generate-button {
+  background-color: #3aa23a;
+}
+
+#load-model-button {
+  background-color: #2d71c0;
 }
