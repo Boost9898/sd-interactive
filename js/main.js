@@ -21,8 +21,8 @@ const loader = document.querySelector("#loader-container");
 let payload = {
   prompt: undefined,
   steps: 10,
-  height: 512,
-  width: 512
+  width: 512,
+  height: 768
 };
 
 
@@ -58,11 +58,17 @@ async function txt2img() {
 // place image in DOM (if already present, remove it
 // ************************************************** \\
 async function base64ToImage(arg) {
-  const img = new Image();
-  img.src = `data:image/png;base64,${arg}`;
-  await img.decode().catch(() => { }); // wait until image is decoded and continue code execution
+  const generatedImage = new Image();
+  generatedImage.src = `data:image/png;base64,${arg}`;
+  await generatedImage.decode().catch(() => { }); // wait until image is decoded and continue code execution
+  setImageOverlay()
   document.getElementById("generatedImage").firstElementChild?.remove();
-  document.getElementById("generatedImage").appendChild(img);
+  document.getElementById("generatedImage").appendChild(generatedImage);
+}
+
+function setImageOverlay() {
+  const generatedImage = document.getElementById('staticImage');
+  generatedImage.style.backgroundImage = "url('images/image-01-mask-cut.png')";
 }
 
 // ************************************************** \\
@@ -99,40 +105,6 @@ document.getElementById('show-models-button').addEventListener('click', function
   showModels()
 });
 
-
-// ************************************************** \\
-// SET MODEL DEMO CODE
-// ************************************************** \\
-// // setModel
-// document.getElementById('load-model-button').addEventListener('click', function () {
-//   if (!currentlyGenerating) {
-//     setModel('v1-5-pruned-emaonly.safetensors [6ce0161689]');
-//   } else {
-//     console.log('Currently generating image.')
-//   }
-// });
-
-// async function setModel(model) {
-//   const option_payload = {
-//     "sd_model_checkpoint": `${model}`,
-//     "CLIP_stop_at_last_layers": 2
-//   };
-//   try {
-//     const response = await fetch(`${api}/sdapi/v1/options`, {
-//       method: 'POST',
-//       body: JSON.stringify(option_payload),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-//     let data = await response.json();
-//     console.log(data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-
 // ************************************************** \\
 // IMG2IMG STUFF (TODO: comments)
 // ************************************************** \\
@@ -151,30 +123,33 @@ function test() {
         });
       });
   }
-  
+
   const fetchImage = fetchBase64('images/input/image-01.png');
   const fetchMask = fetchBase64('images/input/image-01-mask.png');
-  
+
   Promise.all([fetchImage, fetchMask])
     .then(([base64StringImage, base64StringMask]) => {
       clearnBase64Strings(base64StringImage, base64StringMask);
     });
-  
+
   function clearnBase64Strings(image, mask) {
     mask = mask.substring("data:image/png;base64,".length);
     image = image = image.substring("data:image/png;base64,".length);
     img2img(mask, image);
   }
-  
-  
+
   async function img2img(mask, initImages) {
     const payload = {
-      steps: 5,
-      height: 512,
+      steps: 8,
       width: 512,
-      prompt: randomPrompt(),
-      mask: mask,
-      init_images: [initImages]
+      height: 768,
+      denoising_strength: 0.4,
+      sampler_index: 'DPM++ 2M Karras',
+      // mask_blur: 10,
+      // prompt: randomPrompt(),
+      prompt: 'warrior, close up, portrait, Rembrandt, oil painting, greg rutkowski',
+      // mask: mask,
+      init_images: [initImages],
     };
     console.log(payload.prompt);
     try {

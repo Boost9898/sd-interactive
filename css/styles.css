@@ -11,12 +11,12 @@
 /* Set a default font family */
 body {
   font-family: Verdana, Tahoma, sans-serif;
-  background-color: #e8e8e8;
-  color: #212121;
+  background-color: #202124;
+  color: #e8e8e8;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 h2 {
@@ -24,10 +24,16 @@ h2 {
   font-weight: normal;
 }
 
+#staticImage {
+  position: absolute;
+  width: 512px;
+  height: 768px;
+}
+
 #generatedImage {
   width: 512px;
   height: 768px;
-  background-color: #b3b3b3;
+  background-color: #e8e8e8;
 }
 
 #show-models-button,
@@ -55,9 +61,10 @@ h2 {
   background-color: #2d71c0;
 }
 
-/* ------------------------------------------- */
-/* ------------------------------------------- */
+
 #loader-container {
+  position: absolute;
+  z-index: 10;
   opacity: 0;
 }
 
@@ -71,7 +78,6 @@ h2 {
 }
 
 #loader {
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
