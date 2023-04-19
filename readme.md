@@ -8,3 +8,7 @@ set SAFETENSORS_FAST_GPU=1
 set COMMANDLINE_ARGS=--xformers --medvram --cors-allow-origins=* --api
 
 call webui.bat
+
+<!--  -->
+
+Make sure images in `sd-interactive\images\input` have the same resolution as the POST request sends
