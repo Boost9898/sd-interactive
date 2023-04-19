@@ -26,7 +26,7 @@ h2 {
 
 #generatedImage {
   width: 512px;
-  height: 512px;
+  height: 768px;
   background-color: #b3b3b3;
 }
 
@@ -75,9 +75,8 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   width: 512px;
-  height: 512px;
+  height: 768px;
   background: linear-gradient(-45deg, #00000000, #000000);
   background-size: 500% 500%;
   animation: gradient 2500ms ease-in-out infinite;
