@@ -31,9 +31,10 @@ h2 {
 }
 
 #show-models-button,
-#generate-button,
+#generate-txt2img-button,
+#generate-img2img-button,
 #load-model-button {
-  width: 150px;
+  width: 253px;
   height: 40px;
   color: white;
   font-weight: bold;
@@ -44,9 +45,11 @@ h2 {
   background-color: #c77313;
 }
 
-#generate-button {
+#generate-txt2img-button,
+#generate-img2img-button {
   background-color: #3aa23a;
 }
+
 
 #load-model-button {
   background-color: #2d71c0;
@@ -81,7 +84,15 @@ h2 {
 }
 
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }

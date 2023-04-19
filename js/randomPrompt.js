@@ -1,9 +1,11 @@
+const prompt = "(((Rembrandt, Dutch oil painting)))"
+
 const prompts = [
-  "futuristic cityscape at night, with neon lights, flying cars, and tall skyscrapers reaching towards the sky, cinematic, atmospheric",
-  "portrait of a warrior princess, with long flowing hair, wearing armor and carrying a sword, hyperrealistic, detailed, sharp focus, dynamic lighting",
-  "abstract landscape, vibrant colors, surreal, dreamlike, otherworldly, painterly style, sense of movement.",
-  "photo of a ultra realistic sailing ship, dramatic light, cinematic, low angle, trending on artstation, 4k, hyper realistic, focused, unreal engine 5, cinematic, masterpiece",
-  "still life of a fruit bowl, variety of fruits in different colors, bright, colorful, texture, hyperrealistic, detailed, depth.",
+  `futuristic robot man at night, neon lights, ${prompt}`,
+  `warrior princess, long red hair, hyperrealistic, ${prompt}`,
+  `abstract person, vibrant colors, dreamlike, painterly style, sense of movement, ${prompt}`,
+  `photo of a ultra realistic baby, trending on artstation, 4k, masterpiece, ${prompt}`,
+  `head made of sponges, bright, colorful, texture, hyperrealistic, detailed, ${prompt}`,
 ];
 
 export function randomPrompt() {

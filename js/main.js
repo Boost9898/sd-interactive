@@ -20,7 +20,7 @@ const loader = document.querySelector("#loader-container");
 // ************************************************** \\
 let payload = {
   prompt: undefined,
-  steps: 6,
+  steps: 10,
   height: 512,
   width: 512
 };
@@ -33,7 +33,8 @@ async function txt2img() {
   payload.prompt = randomPrompt();
   console.log(`Selected prompt: ${payload.prompt}`)
   try {
-    toggleGenerateButton(true);
+    toggleGenerateButton('txt2img', true);
+    currentlyGenerating = true;
     fadeIn(loader, 1000);
     const response = await fetch(`${api}/sdapi/v1/txt2img`, {
       method: 'POST',
@@ -45,7 +46,8 @@ async function txt2img() {
     generatedImageData = await response.json();
     base64ToImage(generatedImageData.images[0]);
     fadeOut(loader, 500);
-    toggleGenerateButton(false);
+    toggleGenerateButton('txt2img', false);
+    currentlyGenerating = false;
   } catch (error) {
     console.error(error);
   }
@@ -78,10 +80,10 @@ function fadeOut(element, duration) {
 }
 
 // ************************************************** \\
-// GENERATE-BUTTON FUNCTIONALITY
+// GENERATE-TXT2IMG-BUTTON FUNCTIONALITY
 // prevent overflow of image generation processes
 // ************************************************** \\
-document.getElementById('generate-button').addEventListener('click', function () {
+document.getElementById('generate-txt2img-button').addEventListener('click', function () {
   if (!currentlyGenerating) {
     txt2img();
   } else {
@@ -129,3 +131,82 @@ document.getElementById('show-models-button').addEventListener('click', function
 //     console.error(error);
 //   }
 // }
+
+
+// ************************************************** \\
+// IMG2IMG STUFF (TODO: comments)
+// ************************************************** \\
+
+function test() {
+  const fetchBase64 = (url) => {
+    return fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        return new Promise((resolve) => {
+          reader.onloadend = () => {
+            resolve(reader.result);
+          }
+        });
+      });
+  }
+  
+  const fetchImage = fetchBase64('images/input/image-01.png');
+  const fetchMask = fetchBase64('images/input/image-01-mask.png');
+  
+  Promise.all([fetchImage, fetchMask])
+    .then(([base64StringImage, base64StringMask]) => {
+      clearnBase64Strings(base64StringImage, base64StringMask);
+    });
+  
+  function clearnBase64Strings(image, mask) {
+    mask = mask.substring("data:image/png;base64,".length);
+    image = image = image.substring("data:image/png;base64,".length);
+    img2img(mask, image);
+  }
+  
+  
+  async function img2img(mask, initImages) {
+    const payload = {
+      steps: 5,
+      height: 512,
+      width: 512,
+      prompt: randomPrompt(),
+      mask: mask,
+      init_images: [initImages]
+    };
+    console.log(payload.prompt);
+    try {
+      toggleGenerateButton('img2img', true);
+      currentlyGenerating = true;
+      fadeIn(loader, 1000);
+      const response = await fetch(`${api}/sdapi/v1/img2img`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      generatedImageData = await response.json();
+      base64ToImage(generatedImageData.images[0]);
+      fadeOut(loader, 500);
+      toggleGenerateButton('img2img', false);
+      currentlyGenerating = false;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+// ************************************************** \\
+// GENERATE-IMG2IMG-BUTTON FUNCTIONALITY
+// prevent overflow of image generation processes
+// ************************************************** \\
+document.getElementById('generate-img2img-button').addEventListener('click', function () {
+  if (!currentlyGenerating) {
+    test();
+  } else {
+    console.log('Currently generating image.')
+  }
+});
