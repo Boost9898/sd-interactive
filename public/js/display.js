@@ -1,5 +1,5 @@
 // ************************************************** \\
-// TODO, FIX NAME FOR THIS
+// TOUCHSCREEN CLIENT SCRIPT FOR SOCKET.IO SERVER
 // ************************************************** \\
 console.log('display.js')
 
@@ -9,7 +9,7 @@ let clientId = 'unknown',
 /* Socket: receive initial data */
 socket.on('initialData', function (data) {
   clientId = data.clientId;
-  window.location.hash = clientId;
+  // window.location.hash = clientId;
 });
 
 /* Socket: receive single update */

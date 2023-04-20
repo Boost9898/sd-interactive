@@ -1,5 +1,5 @@
 // ************************************************** \\
-// TODO, FIX NAME FOR THIS
+// TOUCHSCREEN CLIENT SCRIPT FOR SOCKET.IO SERVER
 // ************************************************** \\
 console.log('touchscreen.js');
 
@@ -9,7 +9,7 @@ let clientId = 'unknown',
 /* Socket: receive initial data */
 socket.on('initialData', function (data) {
   clientId = data.clientId;
-  window.location.hash = clientId;
+  // window.location.hash = clientId;
 });
 
 /* Socket: receive single update */
@@ -20,6 +20,13 @@ socket.on('update', function (data) {
 
 /* Socket: identify */
 socket.emit('identify', { type: clientType });
+
+
+document.body.addEventListener('click', () => {
+  console.log('STUUR JAAP');
+  socket.emit('jaapClicked');
+});
+
 
 // ************************************************** \\
 // IMPORTS

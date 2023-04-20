@@ -1,0 +1,20 @@
+{
+  "name": "step-into-art",
+  "version": "1.0.0",
+  "description": "Connected experience",
+  "main": "app.js",
+  "scripts": {
+    "dev": "npx pm2 start pm2-dev.json && npx pm2 logs app",
+    "once": "node app.js",
+    "start": "npx pm2 start app.js",
+    "stop": "npx pm2 delete all",
+    "postinstall": "node copy-vendors.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pm2": "^5.1.0",
+    "socket.io": "^4.1.2"
+  }
+}
