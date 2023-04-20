@@ -12,3 +12,9 @@ call webui.bat
 <!--  -->
 
 Make sure images in `sd-interactive\images\input` have the same resolution as the POST request sends
+
+## Setup
+
+ - Update project name in package.json + package-lock.json
+ - Run "npm install"
+ - Update path in sass-watch.bat to root of project folder
