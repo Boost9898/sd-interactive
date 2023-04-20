@@ -1,4 +1,4 @@
-import { api } from './main.js';
+import { api } from '../touchscreen.js';
 
 export async function showModels() {
   try {

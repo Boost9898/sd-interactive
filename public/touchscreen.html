@@ -6,13 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-    <script type="module" src="/js/main.js" defer></script>
-    <script type="module" src="/js/toggleGenerateButton.js" defer></script>
+    <script type="module" src="./js/touchscreen.js" defer></script>
     <title>Document</title>
 </head>
 
 <body>
-    <h1>DEV: SD-INTERACTIVE</h1>
+    <h1>DEV: TOUCHSCREEN</h1>
     <div class="container">
         <div id="loader-container">
             <div id="loader">
@@ -26,6 +25,11 @@
     <button id="generate-img2img-button">Generate img2img</button>
     <button id="show-models-button">Log models</button>
     <button id="load-model-button">Load model</button>
+
+    <script src='./js/vendor/socket.io.min.js'></script>
+    <script src="./js/common.js"></script>
+    <script src="./js/touchscreen.js"></script>
+    <script>let clientType = 'screen';</script>
 </body>
 
 </html>

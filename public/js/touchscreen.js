@@ -1,9 +1,33 @@
 // ************************************************** \\
+// TODO, FIX NAME FOR THIS
+// ************************************************** \\
+console.log('touchscreen.js');
+
+let clientId = 'unknown',
+  debugMode = false;
+
+/* Socket: receive initial data */
+socket.on('initialData', function (data) {
+  clientId = data.clientId;
+  window.location.hash = clientId;
+});
+
+/* Socket: receive single update */
+socket.on('update', function (data) {
+
+  if (debugMode != data.debugMode) { debugMode = data.debugMode; }
+});
+
+/* Socket: identify */
+socket.emit('identify', { type: clientType });
+
+// ************************************************** \\
 // IMPORTS
 // ************************************************** \\
-import { toggleGenerateButton } from './toggleGenerateButton.js';
-import { randomPrompt } from './randomPrompt.js';
-import { showModels } from './showModels.js';
+import { toggleGenerateButton } from './touchscreen/toggle-generate-button.js';
+import { fadeIn, fadeOut } from './touchscreen/fades.js';
+import { randomPrompt } from './touchscreen/random-prompt.js';
+import { showModels } from './touchscreen/show-models.js';
 
 
 // ************************************************** \\
@@ -13,24 +37,19 @@ export const api = 'http://127.0.0.1:7860';
 let currentlyGenerating = undefined
 let generatedImageData = null
 const loader = document.querySelector("#loader-container");
-
-
-// ************************************************** \\
-// PAYLOAD FOR GENERATION PROCESS
-// ************************************************** \\
-let payload = {
-  prompt: undefined,
-  steps: 10,
-  width: 512,
-  height: 768
-};
+let staticImage = document.getElementById('staticImage');
 
 
 // ************************************************** \\
 // TXT2IMG API REQUEST
 // ************************************************** \\
 async function txt2img() {
-  payload.prompt = randomPrompt();
+  let payload = {
+    prompt: randomPrompt(),
+    steps: 10,
+    width: 512,
+    height: 768
+  };
   console.log(`Selected prompt: ${payload.prompt}`)
   try {
     toggleGenerateButton('txt2img', true);
@@ -45,6 +64,7 @@ async function txt2img() {
     });
     generatedImageData = await response.json();
     base64ToImage(generatedImageData.images[0]);
+    removeImageOverlay();
     fadeOut(loader, 500);
     toggleGenerateButton('txt2img', false);
     currentlyGenerating = false;
@@ -61,29 +81,19 @@ async function base64ToImage(arg) {
   const generatedImage = new Image();
   generatedImage.src = `data:image/png;base64,${arg}`;
   await generatedImage.decode().catch(() => { }); // wait until image is decoded and continue code execution
-  setImageOverlay()
   document.getElementById("generatedImage").firstElementChild?.remove();
   document.getElementById("generatedImage").appendChild(generatedImage);
 }
 
 function setImageOverlay() {
-  const generatedImage = document.getElementById('staticImage');
-  generatedImage.style.backgroundImage = "url('images/image-01-mask-cut.png')";
+  staticImage.style.backgroundImage = "url('images/image-01-mask-cut.png')";
 }
 
-// ************************************************** \\
-// LOADER FADE IN/FADE OUT
-// ************************************************** \\
-function fadeIn(element, duration) {
-  element.style.transition = `opacity ${duration}ms ease-in-out`;
-  element.classList.add("show");
+function removeImageOverlay() {
+  staticImage.style.backgroundImage = "none";
 }
 
-// Fade out function
-function fadeOut(element, duration) {
-  element.style.transition = `opacity ${duration}ms ease-in-out`;
-  element.classList.remove("show");
-}
+
 
 // ************************************************** \\
 // GENERATE-TXT2IMG-BUTTON FUNCTIONALITY
@@ -109,7 +119,7 @@ document.getElementById('show-models-button').addEventListener('click', function
 // IMG2IMG STUFF (TODO: comments)
 // ************************************************** \\
 
-function test() {
+function fetchBase64FromUrl() {
   const fetchBase64 = (url) => {
     return fetch(url)
       .then(response => response.blob())
@@ -164,6 +174,7 @@ function test() {
         }
       });
       generatedImageData = await response.json();
+      setImageOverlay();
       base64ToImage(generatedImageData.images[0]);
       fadeOut(loader, 500);
       toggleGenerateButton('img2img', false);
@@ -180,7 +191,7 @@ function test() {
 // ************************************************** \\
 document.getElementById('generate-img2img-button').addEventListener('click', function () {
   if (!currentlyGenerating) {
-    test();
+    fetchBase64FromUrl();
   } else {
     console.log('Currently generating image.')
   }
