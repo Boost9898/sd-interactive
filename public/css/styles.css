@@ -39,7 +39,9 @@ h2 {
 #show-models-button,
 #generate-txt2img-button,
 #generate-img2img-button,
-#load-model-button {
+#load-model-button,
+#send-button,
+#delete-button {
   width: 253px;
   height: 40px;
   color: white;
@@ -59,6 +61,10 @@ h2 {
 
 #load-model-button {
   background-color: #2d71c0;
+}
+
+#send-button, #delete-button {
+  background-color: rgb(225, 65, 65);
 }
 
 

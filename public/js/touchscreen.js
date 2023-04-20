@@ -6,26 +6,44 @@ console.log('touchscreen.js');
 let clientId = 'unknown',
   debugMode = false;
 
-/* Socket: receive initial data */
+// Socket: receive initial data
 socket.on('initialData', function (data) {
   clientId = data.clientId;
   // window.location.hash = clientId;
 });
 
-/* Socket: receive single update */
+// Socket: receive single update
 socket.on('update', function (data) {
-
   if (debugMode != data.debugMode) { debugMode = data.debugMode; }
 });
 
-/* Socket: identify */
+// Socket: identify
 socket.emit('identify', { type: clientType });
 
-
-document.body.addEventListener('click', () => {
-  console.log('STUUR JAAP');
-  socket.emit('jaapClicked');
+document.getElementById('send-button').addEventListener('click', function () {
+  socketSendTest();
 });
+
+document.getElementById('delete-button').addEventListener('click', function () {
+  socketSendDeleteTest();
+});
+
+let dataTest = {
+  state: '0',
+  state_name: 'attract',
+  message: 'Hello, world!'
+};
+
+function socketSendTest() {
+  console.log('Sent: ');
+  console.log(dataTest);
+  socket.emit('touchscreen_data', dataTest);
+}
+
+function socketSendDeleteTest() {
+  console.log('Sent delete');
+  socket.emit('touchscreen_data_delete', 'delete');
+}
 
 
 // ************************************************** \\

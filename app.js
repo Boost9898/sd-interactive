@@ -24,12 +24,14 @@ app.get('/display',     function(req, res) { res.sendFile('./public/display.html
 
 /* -- Start server -- */
 /* -------------------------------------------------------------------------------------- */
-serv.listen(3000);
-console.log(' ');
-console.log('--== Server started ==--');
-console.log('Open http://localhost:3000/dev to monitor screens');
-console.log('Open http://localhost:3000/touchscreen for main touchscreen');
-console.log('Open http://localhost:3000/display for display');
+serv.listen(3000, () => {
+  console.log('Server listening on port 3000');
+  console.log(' ');
+  console.log('--== Server started ==--');
+  console.log('Open http://localhost:3000/dev to monitor screens');
+  console.log('Open http://localhost:3000/touchscreen for main touchscreen');
+  console.log('Open http://localhost:3000/display for display');
+});
 
 
 /* -- Basic functions -- */
@@ -59,8 +61,9 @@ Interval.prototype.stop = function(){
 }
 
 
-/* -- Touchscreen -- */
-/* -------------------------------------------------------------------------------------- */
+// ************************************************** \\
+// TOUCHSCREEN
+// ************************************************** \\
 global.Touchscreen = function(id) {
   let self = { id: id }
   Touchscreen.list[id] = self;
@@ -74,9 +77,22 @@ Touchscreen.onConnect = function(socket) {
   connectedScreens++;
   Touchscreen.update();
 
-  // Touchscreen clicks hi button
-  socket.on('jaapClicked', function(data) {
-    console.log(`${socket.id} has clicked JAAP!`);
+  // Handle touchscreen clicks on touchscreen_data button
+  socket.on('touchscreen_data', function(data) {
+    console.log(`${socket.id} clicked on testbutton (touchscreen_data)`);
+    console.log(data)
+
+    // Emit the data to all connected display clients
+    Display.update(data)
+  });
+
+  // Handle touchscreen clicks on touchscreen_data_delete button
+  socket.on('touchscreen_data_delete', function(data) {
+    console.log(`${socket.id} clicked on test delete button (touchscreen_data_delete)`);
+    console.log(data)
+
+    // Emit the data to all connected display clients
+    Display.update2(data)
   });
 
 };
@@ -97,8 +113,9 @@ Touchscreen.onDisconnect = function(socket) {
 };
 
 
-/* -- Display -- */
-/* -------------------------------------------------------------------------------------- */
+// ************************************************** \\
+// DISPLAY
+// ************************************************** \\
 global.Display = function(id) {
   let self = { id: id }
   Display.list[id] = self;
@@ -111,16 +128,19 @@ Display.onConnect = function(socket) {
   console.log('=[ Display connected              '+socket.id);
   connectedScreens++;
 
-  // Add emission catchers here
+  // TODO: Add emission catchers here
 
 };
 
-Display.update = function() {
-  let updatePack = {
-    debugMode: debugMode,
-  };
+Display.update = function(display_data) {
   for (let i in Display.list) {
-    SOCKET_LIST[Display.list[i].id].emit('update', updatePack);
+    SOCKET_LIST[Display.list[i].id].emit('display_data', display_data);
+  }
+};
+
+Display.update2 = function(display_data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('display_data_delete', display_data);
   }
 };
 
