@@ -1,18 +1,16 @@
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-  box-sizing: border-box;
+/* ______________________________________________________________ */
+@font-face {
+  font-family: "Arimo";
+  src: url("../fonts/Arimo-Regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-
-/* Set a default font family */
 body {
   font-family: Verdana, Tahoma, sans-serif;
-  background-color: #202124;
-  color: #e8e8e8;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 h1 {
@@ -21,89 +19,140 @@ h1 {
 
 h2 {
   font-size: 2rem;
-  font-weight: normal;
 }
 
-#staticImage {
-  position: absolute;
-  width: 512px;
-  height: 768px;
+h3 {
+  font-size: 1.5rem;
 }
 
-#generatedImage {
-  width: 512px;
-  height: 768px;
-  background-color: #e8e8e8;
+p {
+  font-size: 1rem;
 }
 
-#show-models-button,
-#generate-txt2img-button,
-#generate-img2img-button,
-#load-model-button,
-#send-button,
-#delete-button {
-  width: 253px;
-  height: 40px;
-  color: white;
-  font-weight: bold;
-  margin-top: 6px;
+.container {
+  width: 100%;
+  padding: 0 15px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: plum;
 }
 
-#show-models-button {
-  background-color: #c77313;
-}
-
-#generate-txt2img-button,
-#generate-img2img-button {
-  background-color: #3aa23a;
-}
-
-
-#load-model-button {
-  background-color: #2d71c0;
-}
-
-#send-button, #delete-button {
-  background-color: rgb(225, 65, 65);
-}
-
-
-#loader-container {
-  position: absolute;
-  z-index: 10;
-  opacity: 0;
-}
-
-#loader-container.show {
-  opacity: 1;
-}
-
-#loader h2 {
-  text-align: center;
-  color: #e8e8e8;
-}
-
-#loader {
+.button {
+  max-width: 240px;
+  min-height: 50px;
+  padding: 10px;
+  font-size: 1.2rem;
+  color: #FFF;
+  background: #0F62FE;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 512px;
-  height: 768px;
-  background: linear-gradient(-45deg, #00000000, #000000);
-  background-size: 500% 500%;
-  animation: gradient 2500ms ease-in-out infinite;
+  justify-content: center;
+  text-align: center;
+  line-height: 24px;
+  margin: 0;
+  text-decoration: none;
+  user-select: none;
+}
+.button.centered {
+  margin: 0 auto;
+}
+.button.small {
+  max-width: 180px;
+  min-height: 30px;
+  font-size: 1rem;
+  height: 40px;
+}
+.button:hover {
+  background-color: #0158fd;
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  user-select: none;
+  outline: 1px dashed red;
+  outline-offset: -1px;
 }
+
+body {
+  color: #FFF;
+  background-color: #050F19;
+}
+body .dev-title {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+#attract-screen {
+  width: 100vw;
+  height: 100vh;
+}
+#attract-screen #attract-title {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  font-size: 4rem;
+  text-align: center;
+  color: #e5dfcf;
+}
+#attract-screen #language-buttons {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: bold;
+  column-gap: 20px;
+}
+#attract-screen #language-buttons p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #002E66;
+  width: 100px;
+  height: 100px;
+  font-size: 2rem;
+}
+#attract-screen #language-buttons p.active {
+  background-color: #0F62FE;
+}
+#attract-screen #background-elements #bg-element-yellow {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 372px;
+  height: 769px;
+  background: url("/images/bg/blob-yellow.svg");
+  z-index: -1;
+}
+#attract-screen #background-elements #bg-element-blue {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 806px;
+  height: 351px;
+  background: url("/images/bg/blob-blue.svg");
+  z-index: -1;
+}
+#attract-screen #background-elements #bg-element-red {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 952px;
+  height: 298px;
+  background: url("/images/bg/blob-red.svg");
+  z-index: -1;
+}
+
+/*# sourceMappingURL=styles.css.map */

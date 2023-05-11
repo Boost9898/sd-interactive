@@ -1,0 +1,31 @@
+.button {
+  max-width: 240px;
+  min-height: 50px;
+  padding: 10px;
+  font-size: 1.2rem;
+  color: $w;
+  background: $color-main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 24px;
+  margin: 0;
+  text-decoration: none;
+  user-select: none;
+
+  &.centered {
+    margin: 0 auto;
+  }
+
+  &.small {
+    max-width: 180px;
+    min-height: 30px;
+    font-size: 1rem;
+    height: 40px;
+  }
+
+  &:hover {
+    background-color: darken($color-main, 3);
+  }
+}
