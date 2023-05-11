@@ -14,31 +14,23 @@ socket.on('initialData', function (data) {
 
 // Socket: receive single update
 socket.on('update', function (data) {
-  if (debugMode != data.debugMode) { debugMode = data.debugMode; }
+  if (debugMode != data.debugMode) { 
+    debugMode = data.debugMode;
+  }
 });
 
 // Socket: identify
 socket.emit('identify', { type: clientType });
 
 document.getElementById('send-button').addEventListener('click', function () {
-  socketSendTest();
+  console.log('clicked: send-button');
+  socket.emit('touchscreen_data');
 });
 
 document.getElementById('delete-button').addEventListener('click', function () {
   socketSendDeleteTest();
 });
 
-let dataTest = {
-  state: '0',
-  state_name: 'attract',
-  message: 'Hello, world!'
-};
-
-function socketSendTest() {
-  console.log('Sent: ');
-  console.log(dataTest);
-  socket.emit('touchscreen_data', dataTest);
-}
 
 function socketSendDeleteTest() {
   console.log('Sent delete');
@@ -58,7 +50,7 @@ import { showModels } from './touchscreen/show-models.js';
 // ************************************************** \\
 // GLOBAL AND EXPORTED VARIABELS
 // ************************************************** \\
-export const api = 'http://127.0.0.1:7860';
+export const api = 'http://127.0.0.1:7861';
 let currentlyGenerating = undefined
 let generatedImageData = null
 const loader = document.querySelector("#loader-container");
@@ -175,17 +167,17 @@ function fetchBase64FromUrl() {
 
   async function img2img(mask, initImages) {
     const payload = {
-      steps: 8,
+      steps: 25,
       width: 512,
       height: 768,
-      denoising_strength: 0.4,
-      sampler_index: 'DPM++ 2M Karras',
-      // mask_blur: 10,
-      // prompt: randomPrompt(),
-      prompt: 'warrior, close up, portrait, Rembrandt, oil painting, greg rutkowski',
+      denoising_strength: 0.7,
+      sampler_index: 'Euler',
+      prompt: 'young man, brown hair, portrait painting, detailed oil painting, renaissance, hyper realistic, 8k, detail, <lora:monet-wd14v10-000015:0.6>',
+      negative_prompt: 'EasyNegative:0.2',
       // mask: mask,
       init_images: [initImages],
     };
+    console.log(payload)
     console.log(payload.prompt);
     try {
       toggleGenerateButton('img2img', true);

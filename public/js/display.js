@@ -14,7 +14,9 @@ socket.on('initialData', function (data) {
 
 // Socket: receive single update
 socket.on('update', function (data) {
-  if (debugMode != data.debugMode) { debugMode = data.debugMode; }
+  if (debugMode != data.debugMode) { 
+    debugMode = data.debugMode; 
+  }
 });
 
 // Socket: identify

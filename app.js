@@ -1,11 +1,13 @@
 'use strict';
 
+
 /* -- Requires -- */
 /* -------------------------------------------------------------------------------------- */
 const express = require('express');
 const app     = express();
 const serv    = require('http').Server(app);
 const io      = require('socket.io')(serv, { pingTimeout: 30000 });
+
 
 /* -- Variables -- */
 /* -------------------------------------------------------------------------------------- */
@@ -15,12 +17,15 @@ let SOCKET_LIST = {},
     pingCounter = 0,
     connectedScreens = 0;
 
+
 /* -- Routing -- */
 /* -------------------------------------------------------------------------------------- */
 app.use(express.static(__dirname + '/public'));
 app.get('/dev',         function(req, res) { res.sendFile('./public/pages/test-screens.html', { root: __dirname }); });
 app.get('/touchscreen', function(req, res) { res.sendFile('./public/touchscreen.html', { root: __dirname }); });
 app.get('/display',     function(req, res) { res.sendFile('./public/display.html', { root: __dirname }); });
+app.get('/webcam',      function(req, res) { res.sendFile('./public/webcam-demo.html', { root: __dirname }); });
+
 
 /* -- Start server -- */
 /* -------------------------------------------------------------------------------------- */
@@ -28,9 +33,10 @@ serv.listen(3000, () => {
   console.log('Server listening on port 3000');
   console.log(' ');
   console.log('--== Server started ==--');
-  console.log('Open http://localhost:3000/dev to monitor screens');
-  console.log('Open http://localhost:3000/touchscreen for main touchscreen');
-  console.log('Open http://localhost:3000/display for display');
+  console.log('Open http://localhost:3000/dev           to monitor screens');
+  console.log('Open http://localhost:3000/touchscreen   for main touchscreen');
+  console.log('Open http://localhost:3000/display       for display');
+  console.log('Open http://localhost:3000/webcam        for test webcam demo');
 });
 
 
@@ -61,9 +67,29 @@ Interval.prototype.stop = function(){
 }
 
 
-// ************************************************** \\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
 // TOUCHSCREEN
-// ************************************************** \\
+/* -------------------------------------------------------------------------------------- */
 global.Touchscreen = function(id) {
   let self = { id: id }
   Touchscreen.list[id] = self;
@@ -80,10 +106,15 @@ Touchscreen.onConnect = function(socket) {
   // Handle touchscreen clicks on touchscreen_data button
   socket.on('touchscreen_data', function(data) {
     console.log(`${socket.id} clicked on testbutton (touchscreen_data)`);
-    console.log(data)
+
+    let testData = {
+      state: '0',
+      state_name: 'attract',
+      message: 'Hello, world!'
+    };
 
     // Emit the data to all connected display clients
-    Display.update(data)
+    Display.update(testData)
   });
 
   // Handle touchscreen clicks on touchscreen_data_delete button
@@ -92,7 +123,7 @@ Touchscreen.onConnect = function(socket) {
     console.log(data)
 
     // Emit the data to all connected display clients
-    Display.update2(data)
+    Display.delete(data)
   });
 
 };
@@ -113,9 +144,30 @@ Touchscreen.onDisconnect = function(socket) {
 };
 
 
-// ************************************************** \\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
 // DISPLAY
-// ************************************************** \\
+/* -------------------------------------------------------------------------------------- */
 global.Display = function(id) {
   let self = { id: id }
   Display.list[id] = self;
@@ -138,7 +190,7 @@ Display.update = function(display_data) {
   }
 };
 
-Display.update2 = function(display_data) {
+Display.delete = function(display_data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('display_data_delete', display_data);
   }
