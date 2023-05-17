@@ -71,7 +71,7 @@ confirmApplicationButton.addEventListener('click', function () {
 // 
 // PHOTOGRAPH 1 SCREEN
 //
-enablePhotoPreview(); // enable photo preview of next state in advance to make sure it's running
+enablePhotoPreview(); // enable photo preview in advance, (if not, too much delay from webcam request)
 
 const takePhotographButton = document.getElementById('take-photo-button');
 const countdownElement = document.getElementById('countdown');
