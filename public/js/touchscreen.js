@@ -76,6 +76,8 @@ enablePhotoPreview(); // enable photo preview in advance, (if not, too much dela
 const takePhotographButton = document.getElementById('take-photo-button');
 const countdownElement = document.getElementById('countdown');
 const photoFieldElement = document.getElementById('photo-flash');
+const photoPreviewElement = document.getElementById('photo-preview');
+let videoStream = null; // To store the webcam stream
 
 takePhotographButton.addEventListener('click', function () {
   takePhotographButton.textContent = 'De foto wordt genomen';
@@ -100,6 +102,7 @@ function startCountdown() {
       flashBackground();
       countdownElement.style.display = 'none';
       takePhotographButton.textContent = 'Foto maken';
+      captureFrame(); // Call the function to capture the frame
     } else {
       count--;
       setTimeout(updateCountdown, 1000);
@@ -110,10 +113,9 @@ function startCountdown() {
 }
 
 function enablePhotoPreview() {
-  const photoPreviewElement = document.getElementById('photo-preview');
-
   navigator.mediaDevices.getUserMedia({ video: { aspectRatio: 704/795 } })
     .then(stream => {
+      videoStream = stream; // Store the webcam stream
       const videoElement = document.createElement('video');
       videoElement.srcObject = stream;
       videoElement.autoplay = true;
@@ -122,6 +124,36 @@ function enablePhotoPreview() {
     .catch(error => {
       console.error('Error accessing webcam:', error);
     });
+}
+
+function captureFrame() {
+  if (!videoStream) {
+    console.error('Webcam stream not available');
+    return;
+  }
+
+  const videoTrack = videoStream.getVideoTracks()[0];
+  const imageCapture = new ImageCapture(videoTrack);
+
+  imageCapture.grabFrame()
+    .then(imageBitmap => {
+      const canvas = document.createElement('canvas');
+      canvas.width = imageBitmap.width;
+      canvas.height = imageBitmap.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(imageBitmap, 0, 0);
+      const imageDataURL = canvas.toDataURL('image/png');
+      displayPhotoPreview(imageDataURL);
+    })
+    .catch(error => {
+      console.error('Error capturing frame:', error);
+    });
+}
+
+function displayPhotoPreview(imageDataURL) {
+  const imageElement = document.createElement('img');
+  imageElement.src = imageDataURL;
+  photoPreviewElement.appendChild(imageElement);
 }
 
 
