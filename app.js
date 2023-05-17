@@ -105,9 +105,19 @@ Touchscreen.onConnect = function(socket) {
   
   let applicationData = {
     state: 0,
-    state_names: ['touch-attract-state', 'touch-legal-state', 'photo-1', 'photo-2'],
+    state_names: ['touch-attract-state', 'touch-legal-state', 'touch-photograph-1-state', 'touch-photograph-2-state'],
   };
 
+  // 
+  // SCREEN STATE SWITCH
+  //
+  Touchscreen.sateSwitchTouchscreen = function(touchscreen_data) {
+    for (let i in Touchscreen.list) {
+      SOCKET_LIST[Touchscreen.list[i].id].emit('touchscreen_state_switch', touchscreen_data);
+    }
+  };
+
+  
   // 
   // TEST CODE
   //
@@ -123,50 +133,47 @@ Touchscreen.onConnect = function(socket) {
   // 
   // ATTRACT SCREEN
   //
-  // Handle touchscreen clicks on touchscreen_data_delete button
   socket.on('language_clicked', function(data) {
     console.log(`${socket.id} language_clicked: ${data}`);
 
     Display.languageSwitch(data)
 
-    applicationData.state = 1;
+    applicationData.state++;
     applicationData.state_names[applicationData.state];
     console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+    Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
   });
-
-
+  
+  
   // 
   // LEGAL SCREEN
   //
+  socket.on('confirm_application_clicked', function() {
+    console.log(`${socket.id} confirm_application_clicked`);
 
-  
-  // 
-  // SCREEN STATE SWITCH
-  //
-  Touchscreen.sateSwitchTouchscreen = function(touchscreen_data) {
-    for (let i in Touchscreen.list) {
-      SOCKET_LIST[Touchscreen.list[i].id].emit('touchscreen_state_switch', touchscreen_data);
-    }
-  };
-
-
-  socket.on('language_clicked', function(data) {
-    console.log(`${socket.id} language_clicked: ${data}`);
-
-    Display.languageSwitch(data)
-    
-    applicationData.state = 1;
+    applicationData.state++;
     applicationData.state_names[applicationData.state];
     console.log(`State: ${applicationData.state_names[applicationData.state]}`)
     Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
   });
 
+
   
-  
+// 
+// PHOTOGRAPH 1 SCREEN
+//
+// socket.on('confirm_application_clicked', function(data) {
+//   console.log(`${socket.id} confirm_application_clicked: ${data}`);
+
+//   applicationData.state++;
+//   applicationData.state_names[applicationData.state];
+//   console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+// });
+
   
   // Display.languageSwitch = function(display_data) {
-  //   for (let i in Display.list) {
-  //     SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
+    //   for (let i in Display.list) {
+      //     SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
   //   }
   // };
 

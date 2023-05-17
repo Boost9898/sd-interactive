@@ -12,14 +12,21 @@
 <body>
     <h1 class="dev-title">DEV: TOUCHSCREEN</h1>
 
+    <div id="touch-overlay" class="touchscreen-state">
+        <h1 class="dev-touch-overlay">touch-overlay</h1>
+
+        <div>Oof</div>
+    </div>
+
     <div id="touch-attract-state" class="touchscreen-state">
+        <h1 class="dev-state-title">touch-attract-state</h1>
         <h1 id="attract-title">Stap in de kunst en ontdek</h1>
         <div id="language-buttons">
             <p id="nl" class="">nl</p>
             <p id="en" class="">en</p>
             <p id="de" class="">de</p>
             <p id="fr" class="">fr</p>
-        </div>        
+        </div>
         <div id="background-elements">
             <div id="bg-element-yellow"></div>
             <div id="bg-element-blue"></div>
@@ -31,12 +38,55 @@
     </div>
 
     <div id="touch-legal-state" class="touchscreen-state">
-        <h1>Legal screen</h1>
-        <p>Progress</p>
+        <h1 class="dev-state-title">touch-legal-state</h1>
+        <div id="content">
+            <div id="title">
+                <h2>Stap in de kunst</h2>
+                <h3>en ontdek het meesterwerk</h3>
+            </div>
+            <div id="body-text">
+                <p>Na het klikken op de knop wordt er een foto gemaakt</p>
+                <p>waardoor je deel uitmaakt van het kunstwerk in deze interactive.</p>
+            </div>
+            <p id="confirm-application-button">Ga akkoord en stap in de kunst</p>
+        </div>
+    </div>
+
+    <div id="touch-photograph-1-state" class="touchscreen-state">
+        <h1 class="dev-state-title">touch-photograph-1-state</h1>
+        <div id="header">
+            <h1 id="header-title">Maak een fotootje</h1>
+            <div id="header-buttons">
+                <div id="header-info-button">X</div>
+                <div id="header-restart-button">X</div>
+                <div id="header-language-button">X</div>
+            </div>
+        </div>
+        <div id="content">
+            <div id="column-left">
+                <p>Neem dezelfde houding aan als het portret aan de muur en maak een foto.</p>
+            </div>
+            <div id="photo-field">
+                <div id="photo-flash"></div>
+                <p id="countdown"></p>
+                <div id="photo-preview">
+                    <div id="photo-overlay"></div>
+                    <!-- video will be here -->
+                </div>
+            </div>
+            <div id="column-right">
+
+            </div>
+        </div>
+        <div id="take-photo-button">Foto maken</div>
+    </div>
+
+    <div id="touch-photograph-2-state" class="touchscreen-state">
+        <h1 class="dev-state-title">touch-photograph-2-state</h1>
     </div>
 
     <div id="touch-test-state" class="touchscreen-state">
-        <h1>Test screen</h1>
+        <h1 class="dev-state-title">Test screen</h1>
     </div>
 
 

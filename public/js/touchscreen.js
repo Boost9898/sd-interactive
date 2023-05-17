@@ -29,6 +29,9 @@ document.getElementById('send-button').addEventListener('click', function () {
 
 
 
+// 
+// TEST
+//
 document.getElementById('delete-button').addEventListener('click', function () {
   socketSendDeleteTest();
 });
@@ -40,6 +43,9 @@ function socketSendDeleteTest() {
 
 
 
+// 
+// ATTRACT SCREEN
+//
 // add click event listener to every language button and click function
 const languageButtons = document.querySelectorAll('#language-buttons p');
 languageButtons.forEach(button => {
@@ -53,6 +59,102 @@ function languageButtonClick(event) {
 }
 
 
+// 
+// LEGAL SCREEN
+//
+const confirmApplicationButton = document.getElementById('confirm-application-button');
+confirmApplicationButton.addEventListener('click', function () {
+  socket.emit('confirm_application_clicked');
+});
+
+
+// 
+// PHOTOGRAPH 1 SCREEN
+//
+enablePhotoPreview(); // enable photo preview of next state in advance to make sure it's running
+
+const takePhotographButton = document.getElementById('take-photo-button');
+takePhotographButton.addEventListener('click', function () {
+  console.log('fotootje maken, smileeee')
+
+  // Change button text to 'Taking photo'
+  takePhotographButton.textContent = 'De foto wordt genomen';
+
+  startCountdown();
+
+  function startCountdown() {
+    const countdownElement = document.getElementById('countdown');
+    const photoFieldElement = document.getElementById('photo-flash');
+    countdownElement.style.display = 'block';
+
+    let count = 3;
+
+    function flashBackground() {
+      photoFieldElement.style.backgroundColor = 'white';
+      setTimeout(() => {
+        photoFieldElement.style.backgroundColor = '';
+      }, 1000);
+    }
+
+    function updateCountdown() {
+      if (count > 0) {
+        countdownElement.textContent = count;
+      } else {
+        flashBackground();
+        countdownElement.style.display = 'none';
+        takePhotographButton.textContent = 'Foto maken';
+      }
+      count--;
+
+      if (count >= 0) {
+        setTimeout(updateCountdown, 1000);
+      }
+    }
+
+    updateCountdown();
+  }
+});
+
+function enablePhotoPreview() {
+  const photoPreviewElement = document.getElementById('photo-preview');
+
+  // Request access to the user's webcam
+  navigator.mediaDevices.getUserMedia({ video: { aspectRatio: 704/795 } })
+    .then(stream => {
+      // Create a video element and set the stream as the source
+      const videoElement = document.createElement('video');
+      videoElement.srcObject = stream;
+      videoElement.autoplay = true;
+
+      // Append the video element to the photo-preview element
+      photoPreviewElement.appendChild(videoElement);
+    })
+    .catch(error => {
+      console.error('Error accessing webcam:', error);
+    });
+}
+
+// 
+// OVERLAY MANAGER
+//
+const buttonIds = ['header-info-button', 'header-restart-button', 'header-language-button'];
+
+for (const buttonId of buttonIds) {
+  const button = document.getElementById(buttonId);
+  button.addEventListener('click', () => buttonClickHandler(buttonId));
+}
+
+function buttonClickHandler(buttonId) {
+  console.log(`Button ${buttonId} was clicked!`);
+  // Handle button click event here
+}
+
+
+
+
+// 
+// STATE MANAGER
+//
 // Function to show a specific state and hide the others
 function activateState(divId) {
   const divs = document.getElementsByClassName('touchscreen-state');
@@ -70,6 +172,8 @@ socket.on('touchscreen_state_switch', function (data) {
   activateState(data);
 });
 
+// Inital start of main screen
+// TODO: activate it by default from app.js
 activateState('touch-attract-state');
 
 

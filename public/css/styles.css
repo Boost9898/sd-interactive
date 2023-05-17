@@ -75,7 +75,6 @@ p {
   vertical-align: baseline;
   box-sizing: border-box;
   user-select: none;
-  outline: 1px dashed red;
   outline-offset: -1px;
 }
 
@@ -89,9 +88,25 @@ body .dev-title {
   left: 0px;
   opacity: 50%;
 }
+body .dev-state-title {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 50%;
+}
 
 .touchscreen-state {
   display: none;
+}
+
+#touch-overlay {
+  position: absolute;
+  display: block;
+  background-color: yellowgreen;
+  width: 100vw;
+  height: 100vh;
+  opacity: 50%;
+  z-index: 10;
 }
 
 #touch-attract-state {
@@ -158,6 +173,155 @@ body .dev-title {
   height: 298px;
   background: url("/images/bg/blob-red.svg");
   z-index: -1;
+}
+
+#touch-legal-state #content {
+  text-align: center;
+}
+#touch-legal-state #content #title {
+  position: relative;
+  top: 10rem;
+}
+#touch-legal-state #content #title h2 {
+  font-size: 3.5rem;
+}
+#touch-legal-state #content #title h3 {
+  font-size: 2rem;
+}
+#touch-legal-state #content #body-text {
+  position: relative;
+  top: 20rem;
+  font-weight: lighter;
+  line-height: 1.5rem;
+  margin: 0 auto;
+}
+#touch-legal-state #content #confirm-application-button {
+  position: absolute;
+  display: flex;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 700px;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+  background-color: #0F62FE;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#touch-photograph-1-state #header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #002E66;
+}
+#touch-photograph-1-state #header h1 {
+  margin: 0;
+}
+#touch-photograph-1-state #header-title {
+  padding-left: 18px;
+}
+#touch-photograph-1-state #header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-left: auto;
+  padding-right: 5px;
+}
+#touch-photograph-1-state #header-info-button,
+#touch-photograph-1-state #header-restart-button,
+#touch-photograph-1-state #header-language-button {
+  width: 50px;
+  height: 50px;
+  background-color: #0F62FE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+#touch-photograph-1-state #content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+#touch-photograph-1-state #column-left,
+#touch-photograph-1-state #column-right {
+  width: 30%;
+  height: 900px;
+  background-color: #002E66;
+  margin: 20px;
+}
+#touch-photograph-1-state #column-left p,
+#touch-photograph-1-state #column-right p {
+  padding: 40px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+#touch-photograph-1-state #column-right {
+  margin-right: 40px;
+  opacity: 0;
+}
+#touch-photograph-1-state #column-left {
+  margin-left: 40px;
+}
+#touch-photograph-1-state #photo-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 795px;
+  background-color: #002E66;
+  margin: 20px;
+}
+#touch-photograph-1-state #photo-field #photo-flash {
+  position: absolute;
+  width: 704px;
+  height: 795px;
+  z-index: 30;
+}
+#touch-photograph-1-state #photo-field p {
+  font-size: 15rem;
+  font-weight: bold;
+}
+#touch-photograph-1-state #photo-field #photo-preview {
+  margin-top: 2px;
+}
+#touch-photograph-1-state #photo-field #photo-preview #photo-overlay {
+  position: absolute;
+  width: 704px;
+  height: 795px;
+  background-image: url("/images/preview/photo-preview-02.png");
+}
+#touch-photograph-1-state #photo-field #photo-preview video {
+  width: 704px;
+  height: 795px;
+}
+#touch-photograph-1-state #photo-field #countdown {
+  position: absolute;
+  z-index: 20;
+}
+#touch-photograph-1-state #take-photo-button {
+  position: absolute;
+  display: flex;
+  bottom: 40px;
+  height: 65px;
+  width: calc(40% - 65px);
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #0F62FE;
 }
 
 /*# sourceMappingURL=styles.css.map */
