@@ -102,20 +102,74 @@ Touchscreen.onConnect = function(socket) {
   console.log('=[ Touchscreen connected          '+socket.id);
   connectedScreens++;
   Touchscreen.update();
+  
+  let applicationData = {
+    state: 0,
+    state_names: ['touch-attract-state', 'touch-legal-state', 'photo-1', 'photo-2'],
+  };
 
+  // 
+  // TEST CODE
+  //
   // Handle touchscreen clicks on touchscreen_data button
   socket.on('touchscreen_data', function(data) {
     console.log(`${socket.id} clicked on testbutton (touchscreen_data)`);
 
-    let testData = {
-      state: '0',
-      state_name: 'attract',
-      message: 'Hello, world!'
-    };
-
     // Emit the data to all connected display clients
-    Display.update(testData)
+    Display.update(applicationData)
   });
+
+
+  // 
+  // ATTRACT SCREEN
+  //
+  // Handle touchscreen clicks on touchscreen_data_delete button
+  socket.on('language_clicked', function(data) {
+    console.log(`${socket.id} language_clicked: ${data}`);
+
+    Display.languageSwitch(data)
+
+    applicationData.state = 1;
+    applicationData.state_names[applicationData.state];
+    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+  });
+
+
+  // 
+  // LEGAL SCREEN
+  //
+
+  
+  // 
+  // SCREEN STATE SWITCH
+  //
+  Touchscreen.sateSwitchTouchscreen = function(touchscreen_data) {
+    for (let i in Touchscreen.list) {
+      SOCKET_LIST[Touchscreen.list[i].id].emit('touchscreen_state_switch', touchscreen_data);
+    }
+  };
+
+
+  socket.on('language_clicked', function(data) {
+    console.log(`${socket.id} language_clicked: ${data}`);
+
+    Display.languageSwitch(data)
+    
+    applicationData.state = 1;
+    applicationData.state_names[applicationData.state];
+    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+    Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
+  });
+
+  
+  
+  
+  // Display.languageSwitch = function(display_data) {
+  //   for (let i in Display.list) {
+  //     SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
+  //   }
+  // };
+
 
   // Handle touchscreen clicks on touchscreen_data_delete button
   socket.on('touchscreen_data_delete', function(data) {
@@ -163,8 +217,6 @@ Touchscreen.onDisconnect = function(socket) {
 
 
 
-
-
 /* -------------------------------------------------------------------------------------- */
 // DISPLAY
 /* -------------------------------------------------------------------------------------- */
@@ -179,20 +231,24 @@ Display.list = {};
 Display.onConnect = function(socket) {
   console.log('=[ Display connected              '+socket.id);
   connectedScreens++;
-
   // TODO: Add emission catchers here
-
 };
 
 Display.update = function(display_data) {
   for (let i in Display.list) {
-    SOCKET_LIST[Display.list[i].id].emit('display_data', display_data);
+    SOCKET_LIST[Display.list[i].id].emit('send_test_data', display_data);
   }
 };
 
 Display.delete = function(display_data) {
   for (let i in Display.list) {
-    SOCKET_LIST[Display.list[i].id].emit('display_data_delete', display_data);
+    SOCKET_LIST[Display.list[i].id].emit('data_delete', display_data);
+  }
+};
+
+Display.languageSwitch = function(display_data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
   }
 };
 

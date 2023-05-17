@@ -115,10 +115,15 @@ body {
     position: absolute;
     bottom: 0px;
     left: 0px;
+    opacity: 50%;
   }
 }
 
-#attract-screen {
+.touchscreen-state {
+  display: none;
+}
+
+#touch-attract-state {
   width: 100vw;
   height: 100vh;
 

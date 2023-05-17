@@ -14,27 +14,33 @@ socket.on('initialData', function (data) {
 
 // Socket: receive single update
 socket.on('update', function (data) {
-  if (debugMode != data.debugMode) { 
-    debugMode = data.debugMode; 
+  if (debugMode != data.debugMode) {
+    debugMode = data.debugMode;
   }
 });
 
 // Socket: identify
 socket.emit('identify', { type: clientType });
 
-socket.on('display_data', function (data) {
+socket.on('send_test_data', function (data) {
   console.log('Received data from server:', data);
-  const container = document.getElementById("test-container");
+  const container = document.getElementById('test-container');
   const count = container.childElementCount + 1;
-  const newDiv = document.createElement("div");
-  newDiv.textContent = `${data.message} ${count}`;
+  const newDiv = document.createElement('div');
+  newDiv.textContent = `${data.state_names[data.state]} ${count}`;
   container.appendChild(newDiv);
 });
 
-socket.on('display_data_delete', function () {
+socket.on('data_delete', function () {
   let testContainer = document.getElementById("test-container");
   testContainer.removeChild(testContainer.lastChild);
 });
+
+socket.on('display_language_switch', function (data) {
+  const setLanguageElement = document.getElementById('set-language');
+  setLanguageElement.textContent = `Language set to: ${data} `;
+});
+
 
 
 
