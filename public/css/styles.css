@@ -212,7 +212,7 @@ body .dev-state-title {
   text-transform: uppercase;
 }
 
-#touch-photograph-1-state #header {
+#touch-photograph-state #header {
   display: flex;
   align-items: center;
   width: 100%;
@@ -221,22 +221,22 @@ body .dev-state-title {
   margin-bottom: 20px;
   background-color: #002E66;
 }
-#touch-photograph-1-state #header h1 {
+#touch-photograph-state #header h1 {
   margin: 0;
 }
-#touch-photograph-1-state #header-title {
+#touch-photograph-state #header-title {
   padding-left: 18px;
 }
-#touch-photograph-1-state #header-buttons {
+#touch-photograph-state #header-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
   margin-left: auto;
   padding-right: 5px;
 }
-#touch-photograph-1-state #header-info-button,
-#touch-photograph-1-state #header-restart-button,
-#touch-photograph-1-state #header-language-button {
+#touch-photograph-state #header-info-button,
+#touch-photograph-state #header-restart-button,
+#touch-photograph-state #header-language-button {
   width: 50px;
   height: 50px;
   background-color: #0F62FE;
@@ -247,32 +247,32 @@ body .dev-state-title {
   left: 0;
   right: 0;
 }
-#touch-photograph-1-state #content {
+#touch-photograph-state #content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
-#touch-photograph-1-state #column-left,
-#touch-photograph-1-state #column-right {
+#touch-photograph-state #column-left,
+#touch-photograph-state #column-right {
   width: 30%;
   height: 900px;
   background-color: #002E66;
   margin: 20px;
 }
-#touch-photograph-1-state #column-left p,
-#touch-photograph-1-state #column-right p {
+#touch-photograph-state #column-left p,
+#touch-photograph-state #column-right p {
   padding: 40px;
   text-align: center;
   font-size: 1.5rem;
 }
-#touch-photograph-1-state #column-right {
+#touch-photograph-state #column-right {
   margin-right: 40px;
   opacity: 0;
 }
-#touch-photograph-1-state #column-left {
+#touch-photograph-state #column-left {
   margin-left: 40px;
 }
-#touch-photograph-1-state #photo-field {
+#touch-photograph-state #photo-field {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -281,34 +281,44 @@ body .dev-state-title {
   background-color: #002E66;
   margin: 20px;
 }
-#touch-photograph-1-state #photo-field #photo-flash {
+#touch-photograph-state #photo-field #photo-flash {
   position: absolute;
   width: 704px;
   height: 795px;
   z-index: 30;
 }
-#touch-photograph-1-state #photo-field p {
+#touch-photograph-state #photo-field p {
   font-size: 15rem;
   font-weight: bold;
 }
-#touch-photograph-1-state #photo-field #photo-preview {
+#touch-photograph-state #photo-field #photo-preview {
   margin-top: 2px;
 }
-#touch-photograph-1-state #photo-field #photo-preview #photo-overlay {
+#touch-photograph-state #photo-field #photo-preview #photo-overlay {
   position: absolute;
+  top: 140px;
+  left: 608px;
   width: 704px;
   height: 795px;
   background-image: url("/images/preview/photo-preview-02.png");
+  z-index: 1;
 }
-#touch-photograph-1-state #photo-field #photo-preview video {
+#touch-photograph-state #photo-field #photo-preview video {
   width: 704px;
   height: 795px;
 }
-#touch-photograph-1-state #photo-field #countdown {
+#touch-photograph-state #photo-field #photo-preview #photo-preview-capture {
+  position: absolute;
+  width: 704px;
+  height: 795px;
+  top: 140px;
+  left: 608px;
+}
+#touch-photograph-state #photo-field #countdown {
   position: absolute;
   z-index: 20;
 }
-#touch-photograph-1-state #take-photo-button {
+#touch-photograph-state #take-photo-button {
   position: absolute;
   display: flex;
   bottom: 40px;

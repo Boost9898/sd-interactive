@@ -263,7 +263,7 @@ body {
   }
 }
 
-#touch-photograph-1-state {
+#touch-photograph-state {
   #header {
     display: flex;
     align-items: center;
@@ -356,18 +356,30 @@ body {
 
     #photo-preview {
       margin-top: 2px;
+
       #photo-overlay {
         position: absolute;
+        top: 140px;
+        left: 608px;
         width: 704px;
         height: 795px;
         background-image: url('/images/preview/photo-preview-02.png');
+        z-index: 1;
       }
 
       video {
-
         width: 704px;
         height: 795px;
         // opacity: 75%;
+      }
+
+      #photo-preview-capture {
+        position: absolute;
+        width: 704px;
+        height: 795px;
+        top: 140px;
+        left: 608px;
+        // z-index: 0;
       }
     }
 

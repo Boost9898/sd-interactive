@@ -69,7 +69,7 @@ confirmApplicationButton.addEventListener('click', function () {
 
 
 // 
-// PHOTOGRAPH 1 SCREEN
+// PHOTOGRAPH SCREEN (make photo)
 //
 enablePhotoPreview(); // enable photo preview in advance, (if not, too much delay from webcam request)
 
@@ -102,7 +102,7 @@ function startCountdown() {
       flashBackground();
       countdownElement.style.display = 'none';
       takePhotographButton.textContent = 'Foto maken';
-      captureFrame(); // Call the function to capture the frame
+      captureFrame();
     } else {
       count--;
       setTimeout(updateCountdown, 1000);
@@ -151,9 +151,10 @@ function captureFrame() {
 }
 
 function displayPhotoPreview(imageDataURL) {
-  const imageElement = document.createElement('img');
-  imageElement.src = imageDataURL;
-  photoPreviewElement.appendChild(imageElement);
+  const PhotoPreviewCapture = document.createElement('img');
+  PhotoPreviewCapture.src = imageDataURL;
+  PhotoPreviewCapture.id = 'photo-preview-capture';
+  photoPreviewElement.appendChild(PhotoPreviewCapture);
 }
 
 
