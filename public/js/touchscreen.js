@@ -77,6 +77,7 @@ const takePhotographButton = document.getElementById('take-photo-button');
 const countdownElement = document.getElementById('countdown');
 const photoFieldElement = document.getElementById('photo-flash');
 const photoPreviewElement = document.getElementById('photo-preview');
+let photoTaken = false;
 let videoStream = null; // To store the webcam stream
 
 takePhotographButton.addEventListener('click', function () {
@@ -151,11 +152,19 @@ function captureFrame() {
 }
 
 function displayPhotoPreview(imageDataURL) {
-  const PhotoPreviewCapture = document.createElement('img');
-  PhotoPreviewCapture.src = imageDataURL;
-  PhotoPreviewCapture.id = 'photo-preview-capture';
-  photoPreviewElement.appendChild(PhotoPreviewCapture);
+  const PhotoPreviewCapture = document.getElementById('photo-preview-capture');
+
+  if (PhotoPreviewCapture) {
+    PhotoPreviewCapture.src = imageDataURL;
+  } else {
+    const newPhotoPreviewCapture = document.createElement('img');
+    newPhotoPreviewCapture.src = imageDataURL;
+    newPhotoPreviewCapture.classList.add('derp');
+    newPhotoPreviewCapture.id = 'photo-preview-capture';
+    photoPreviewElement.appendChild(newPhotoPreviewCapture);
+  }
 }
+
 
 
 // 
