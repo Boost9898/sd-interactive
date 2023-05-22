@@ -85,7 +85,7 @@ Touchscreen.onConnect = function(socket) {
   
   let applicationData = {
     state: 0,
-    state_names: ['touch-attract-state', 'touch-legal-state', 'touch-photograph-state', 'discover-state'],
+    state_names: ['touch-attract-state', 'touch-legal-state', 'touch-photograph-state', 'touch-discover-state'],
   };
 
   // 
@@ -116,7 +116,6 @@ Touchscreen.onConnect = function(socket) {
   socket.on('language_clicked', function(data) {
     console.log(`${socket.id} language_clicked: ${data}`);
     Display.languageSwitch(data)
-
     nextStateSwitch();
   });
   
@@ -133,8 +132,8 @@ Touchscreen.onConnect = function(socket) {
   // 
   // PHOTOGRAPH SCREEN
   //
-  socket.on('take-photo-button_clicked', function() {
-    console.log(`${socket.id} take-photo-button_clicked`);
+  socket.on('continue_photo_button_clicked', function() {
+    console.log(`${socket.id} continue_photo_button_clicked`);
     nextStateSwitch();
   });
 
@@ -156,7 +155,7 @@ Touchscreen.onConnect = function(socket) {
   function nextStateSwitch() {
     applicationData.state++;
     applicationData.state_names[applicationData.state];
-    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+    console.log(`Current state: ${applicationData.state_names[applicationData.state]}`)
     Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
   }
 
