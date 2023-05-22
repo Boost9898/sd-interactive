@@ -77,7 +77,6 @@ const takePhotographButton = document.getElementById('take-photo-button');
 const countdownElement = document.getElementById('countdown');
 const photoFieldElement = document.getElementById('photo-flash');
 const photoPreviewElement = document.getElementById('photo-preview');
-let photoTaken = false;
 let videoStream = null; // store the webcam stream
 
 takePhotographButton.addEventListener('click', function () {
@@ -154,14 +153,13 @@ function captureFrame() {
 }
 
 function displayPhotoPreview(imageDataURL) {
-  const PhotoPreviewCapture = document.getElementById('photo-preview-capture');
+  const photoPreviewCapture = document.getElementById('photo-preview-capture');
 
-  if (PhotoPreviewCapture) {
-    PhotoPreviewCapture.src = imageDataURL;
+  if (photoPreviewCapture) {
+    photoPreviewCapture.src = imageDataURL;
   } else {
     const newPhotoPreviewCapture = document.createElement('img');
     newPhotoPreviewCapture.src = imageDataURL;
-    newPhotoPreviewCapture.classList.add('derp');
     newPhotoPreviewCapture.id = 'photo-preview-capture';
     photoPreviewElement.appendChild(newPhotoPreviewCapture);
   }
@@ -191,8 +189,17 @@ function switchPhotoButtons() {
 
   RetakePhotographButton.addEventListener('click', function () {
     console.log('clicked: RetakePhotographButton');
+    startCountdown()
+
+    // remove current photo-preview-capture
+    document.getElementById('photo-preview-capture').remove();
   });
 }
+
+
+// 
+// DISCOVER SCREEN
+//
 
 
 
@@ -218,6 +225,7 @@ function buttonClickHandler(buttonId) {
 // STATE MANAGER
 //
 // Function to show a specific state and hide the others
+// NOTE: always call this function via app.js to prevent misalignment of states
 function activateState(divId) {
   const divs = document.getElementsByClassName('touchscreen-state');
   for (const div of divs) {
