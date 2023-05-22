@@ -85,7 +85,7 @@ Touchscreen.onConnect = function(socket) {
   
   let applicationData = {
     state: 0,
-    state_names: ['touch-attract-state', 'touch-legal-state', 'touch-photograph-state', '-state'],
+    state_names: ['touch-attract-state', 'touch-legal-state', 'touch-photograph-state', 'discover-state'],
   };
 
   // 
@@ -115,13 +115,9 @@ Touchscreen.onConnect = function(socket) {
   //
   socket.on('language_clicked', function(data) {
     console.log(`${socket.id} language_clicked: ${data}`);
-
     Display.languageSwitch(data)
 
-    applicationData.state++;
-    applicationData.state_names[applicationData.state];
-    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
-    Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
+    nextStateSwitch();
   });
   
   
@@ -130,11 +126,7 @@ Touchscreen.onConnect = function(socket) {
   //
   socket.on('confirm_application_clicked', function() {
     console.log(`${socket.id} confirm_application_clicked`);
-
-    applicationData.state++;
-    applicationData.state_names[applicationData.state];
-    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
-    Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
+    nextStateSwitch();
   });
 
   
@@ -143,11 +135,14 @@ Touchscreen.onConnect = function(socket) {
   //
   socket.on('take-photo-button_clicked', function() {
     console.log(`${socket.id} take-photo-button_clicked`);
-
-    applicationData.state++;
-    applicationData.state_names[applicationData.state];
-    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+    nextStateSwitch();
   });
+
+
+  // 
+  // DISCOVER SCREEN
+  //
+  // TODO CODE
 
 
   Display.languageSwitch = function(display_data) {
@@ -156,6 +151,14 @@ Touchscreen.onConnect = function(socket) {
     }
   };
 
+  
+  // Increments the next state of the application, updates the state, logs the current state, and triggers the state switch on the touchscreen
+  function nextStateSwitch() {
+    applicationData.state++;
+    applicationData.state_names[applicationData.state];
+    console.log(`State: ${applicationData.state_names[applicationData.state]}`)
+    Touchscreen.sateSwitchTouchscreen(applicationData.state_names[applicationData.state])
+  }
 
   // Handle touchscreen clicks on touchscreen_data_delete button
   socket.on('touchscreen_data_delete', function(data) {
@@ -167,6 +170,7 @@ Touchscreen.onConnect = function(socket) {
   });
 
 };
+
 
 Touchscreen.update = function(sectionPack = false) {
   let updatePack = {
