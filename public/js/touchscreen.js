@@ -78,6 +78,7 @@ const countdownElement = document.getElementById('countdown');
 const photoFieldElement = document.getElementById('photo-flash');
 const photoPreviewElement = document.getElementById('photo-preview');
 let videoStream = null; // store the webcam stream
+let photoDataUrl = undefined;
 
 takePhotographButton.addEventListener('click', function () {
   takePhotographButton.textContent = 'De foto wordt genomen';
@@ -86,13 +87,14 @@ takePhotographButton.addEventListener('click', function () {
 
 function startCountdown() {
   countdownElement.style.display = 'block';
-  let count = 3;
+  let count = 1;
 
   function flashBackground() {
     photoFieldElement.style.backgroundColor = 'white';
     setTimeout(() => {
       photoFieldElement.style.backgroundColor = '';
       switchPhotoButtons()
+      updateLeftColumnInfo();
     }, 1000);
   }
 
@@ -112,6 +114,14 @@ function startCountdown() {
   }
 
   updateCountdown();
+}
+
+function updateLeftColumnInfo() {
+  const columnLeft = document.getElementById('column-left');
+  columnLeft.querySelector('p').remove();
+  const confirmText = document.createElement('p');
+  confirmText.innerHTML  = '<b>Ga door als je tevreden bent met de foto.</b><br><br> Niet tevreden? Maak de foto opnieuw.';
+  columnLeft.appendChild(confirmText);
 }
 
 function enablePhotoPreview() {
@@ -144,22 +154,22 @@ function captureFrame() {
       canvas.height = imageBitmap.height;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(imageBitmap, 0, 0);
-      const imageDataURL = canvas.toDataURL('image/png');
-      displayPhotoPreview(imageDataURL);
+      photoDataUrl = canvas.toDataURL('image/png');
+      displayPhotoPreview();
     })
     .catch(error => {
       console.error('Error capturing frame:', error);
     });
 }
 
-function displayPhotoPreview(imageDataURL) {
+function displayPhotoPreview() {
   const photoPreviewCapture = document.getElementById('photo-preview-capture');
 
   if (photoPreviewCapture) {
-    photoPreviewCapture.src = imageDataURL;
+    photoPreviewCapture.src = photoDataUrl;
   } else {
     const newPhotoPreviewCapture = document.createElement('img');
-    newPhotoPreviewCapture.src = imageDataURL;
+    newPhotoPreviewCapture.src = photoDataUrl;
     newPhotoPreviewCapture.id = 'photo-preview-capture';
     photoPreviewElement.appendChild(newPhotoPreviewCapture);
   }
@@ -184,11 +194,10 @@ function switchPhotoButtons() {
 
   // click handlers for continue and retake buttons
   ContinuePhotographButton.addEventListener('click', function () {
-    console.log('clicked: ContinuePhotographButton');
+    socket.emit('continue_photo_button_clicked');
   });
 
   RetakePhotographButton.addEventListener('click', function () {
-    console.log('clicked: RetakePhotographButton');
     startCountdown()
 
     // remove current photo-preview-capture
@@ -200,6 +209,7 @@ function switchPhotoButtons() {
 // 
 // DISCOVER SCREEN
 //
+
 
 
 
