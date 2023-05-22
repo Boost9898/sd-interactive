@@ -78,7 +78,7 @@ const countdownElement = document.getElementById('countdown');
 const photoFieldElement = document.getElementById('photo-flash');
 const photoPreviewElement = document.getElementById('photo-preview');
 let photoTaken = false;
-let videoStream = null; // To store the webcam stream
+let videoStream = null; // store the webcam stream
 
 takePhotographButton.addEventListener('click', function () {
   takePhotographButton.textContent = 'De foto wordt genomen';
@@ -93,6 +93,7 @@ function startCountdown() {
     photoFieldElement.style.backgroundColor = 'white';
     setTimeout(() => {
       photoFieldElement.style.backgroundColor = '';
+      switchPhotoButtons()
     }, 1000);
   }
 
@@ -102,19 +103,20 @@ function startCountdown() {
     if (count === 0) {
       flashBackground();
       countdownElement.style.display = 'none';
-      takePhotographButton.textContent = 'Foto maken';
+      // takePhotographButton.textContent = 'Foto maken';
       captureFrame();
     } else {
       count--;
       setTimeout(updateCountdown, 1000);
     }
+
   }
 
   updateCountdown();
 }
 
 function enablePhotoPreview() {
-  navigator.mediaDevices.getUserMedia({ video: { aspectRatio: 704/795 } })
+  navigator.mediaDevices.getUserMedia({ video: { aspectRatio: 704 / 795 } })
     .then(stream => {
       videoStream = stream; // Store the webcam stream
       const videoElement = document.createElement('video');
@@ -163,6 +165,33 @@ function displayPhotoPreview(imageDataURL) {
     newPhotoPreviewCapture.id = 'photo-preview-capture';
     photoPreviewElement.appendChild(newPhotoPreviewCapture);
   }
+}
+
+function switchPhotoButtons() {
+
+  // hide first take photo button
+  if (takePhotographButton) {
+    takePhotographButton.style.display = 'none';
+  }
+
+  // create and show continue and retake photo buttons
+  const ContinuePhotographButton = document.createElement('div');
+  const RetakePhotographButton = document.createElement('div');
+  takePhotographButton.parentNode.insertBefore(ContinuePhotographButton, takePhotographButton.nextSibling);
+  takePhotographButton.parentNode.insertBefore(RetakePhotographButton, takePhotographButton.nextSibling);
+  ContinuePhotographButton.id = 'continue-photo-button';
+  ContinuePhotographButton.textContent = 'Ga door';
+  RetakePhotographButton.id = 'retake-photo-button';
+  RetakePhotographButton.textContent = 'Opnieuw';
+
+  // click handlers for continue and retake buttons
+  ContinuePhotographButton.addEventListener('click', function () {
+    console.log('clicked: ContinuePhotographButton');
+  });
+
+  RetakePhotographButton.addEventListener('click', function () {
+    console.log('clicked: RetakePhotographButton');
+  });
 }
 
 

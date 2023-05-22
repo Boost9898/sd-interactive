@@ -75,6 +75,7 @@ p {
   vertical-align: baseline;
   box-sizing: border-box;
   user-select: none;
+  outline: 1px dashed rgba(255, 0, 0, 0.5);
   outline-offset: -1px;
 }
 
@@ -332,6 +333,38 @@ body .dev-state-title {
   right: 0;
   margin: 0 auto;
   background-color: #0F62FE;
+}
+#touch-photograph-state #continue-photo-button {
+  position: absolute;
+  display: flex;
+  bottom: 40px;
+  height: 65px;
+  width: calc(20% - 53px);
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  right: -373px;
+  margin: 0 auto;
+  background-color: #0F62FE;
+  background-color: yellowgreen;
+}
+#touch-photograph-state #retake-photo-button {
+  position: absolute;
+  display: flex;
+  bottom: 40px;
+  height: 65px;
+  width: calc(20% - 53px);
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: -373px;
+  right: 0;
+  margin: 0 auto;
+  background-color: #0F62FE;
+  background-color: tomato;
 }
 
 /*# sourceMappingURL=styles.css.map */
