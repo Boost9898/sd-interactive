@@ -225,19 +225,19 @@ body .dev-state-title {
 #touch-photograph-state #header h1 {
   margin: 0;
 }
-#touch-photograph-state #header-title {
+#touch-photograph-state #header #header-title {
   padding-left: 18px;
 }
-#touch-photograph-state #header-buttons {
+#touch-photograph-state #header #header-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
   margin-left: auto;
   padding-right: 5px;
 }
-#touch-photograph-state #header-info-button,
-#touch-photograph-state #header-restart-button,
-#touch-photograph-state #header-language-button {
+#touch-photograph-state #header #header-info-button,
+#touch-photograph-state #header #header-restart-button,
+#touch-photograph-state #header #header-language-button {
   width: 50px;
   height: 50px;
   background-color: #0F62FE;
@@ -365,6 +365,91 @@ body .dev-state-title {
   margin: 0 auto;
   background-color: #0F62FE;
   background-color: tomato;
+}
+
+#touch-discover-state #header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #002E66;
+}
+#touch-discover-state #header h1 {
+  margin: 0;
+}
+#touch-discover-state #header #header-title {
+  padding-left: 18px;
+}
+#touch-discover-state #header #header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-left: auto;
+  padding-right: 5px;
+}
+#touch-discover-state #header #header-info-button,
+#touch-discover-state #header #header-restart-button,
+#touch-discover-state #header #header-language-button {
+  width: 50px;
+  height: 50px;
+  background-color: #0F62FE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+#touch-discover-state #content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+#touch-discover-state #column-left,
+#touch-discover-state #column-right {
+  width: 30%;
+  height: 900px;
+  background-color: #002E66;
+  margin: 20px;
+}
+#touch-discover-state #column-left p,
+#touch-discover-state #column-right p {
+  padding: 40px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+#touch-discover-state #column-right {
+  margin-right: 40px;
+  opacity: 0;
+}
+#touch-discover-state #column-left {
+  margin-left: 40px;
+}
+#touch-discover-state #photo-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 795px;
+  background-color: #002E66;
+  margin: 20px;
+}
+#touch-discover-state #take-photo-button {
+  position: absolute;
+  display: flex;
+  bottom: 40px;
+  height: 65px;
+  width: calc(40% - 65px);
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #0F62FE;
 }
 
 /*# sourceMappingURL=styles.css.map */
