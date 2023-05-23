@@ -1,0 +1,25 @@
+{
+  "markers": [
+    {
+      "id": 1,
+      "label": "Element 1",
+      "desc": "Random text that will describe element 1",
+      "x": 100,
+      "y": 100
+    },
+    {
+      "id": 2,
+      "label": "Element 2",
+      "desc": "Random text that will describe element 2",
+      "x": 200,
+      "y": 200
+    },
+    {
+      "id": 3,
+      "label": "Element 3",
+      "desc": "Random text that will describe element 3",
+      "x": 300,
+      "y": 300
+    }
+  ]
+}
