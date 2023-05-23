@@ -87,6 +87,7 @@
 @import 'utilities/variables';
 @import 'utilities/mixins';
 
+@import 'animations/animations';
 @import 'base/fonts';
 @import 'base/typography';
 @import 'layout/common';
@@ -104,7 +105,7 @@
   user-select: none;
 
   // TODO: DEV
-  outline: 1px dashed rgba($color: #ff0000, $alpha: 0.5);
+  // outline: 1px dashed rgba($color: #ff0000, $alpha: 0.5);
   outline-offset: -1px;
 }
 
@@ -459,9 +460,11 @@ body {
 
       .marker {
         position: absolute;
-        width: 120px;
-        height: 30px;
-        border: 1px solid blue;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        animation: pulse 10s infinite;
+        border: none;
       }
     }
 

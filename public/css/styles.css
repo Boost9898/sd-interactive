@@ -1,4 +1,15 @@
 /* ______________________________________________________________ */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
 @font-face {
   font-family: "Arimo";
   src: url("../fonts/Arimo-Regular-webfont.woff") format("woff");
@@ -75,7 +86,6 @@ p {
   vertical-align: baseline;
   box-sizing: border-box;
   user-select: none;
-  outline: 1px dashed rgba(255, 0, 0, 0.5);
   outline-offset: -1px;
 }
 
@@ -248,6 +258,15 @@ body .dev-state-title {
   left: 0;
   right: 0;
 }
+#touch-photograph-state #header #header-info-button {
+  background-image: url("/images/icons/icon-info.svg");
+}
+#touch-photograph-state #header #header-restart-button {
+  background-image: url("/images/icons/icon-restart.svg");
+}
+#touch-photograph-state #header #header-language-button {
+  background-image: url("/images/icons/icon-globe.svg");
+}
 #touch-photograph-state #content {
   display: flex;
   justify-content: space-between;
@@ -403,6 +422,15 @@ body .dev-state-title {
   left: 0;
   right: 0;
 }
+#touch-discover-state #header #header-info-button {
+  background-image: url("/images/icons/icon-info.svg");
+}
+#touch-discover-state #header #header-restart-button {
+  background-image: url("/images/icons/icon-restart.svg");
+}
+#touch-discover-state #header #header-language-button {
+  background-image: url("/images/icons/icon-globe.svg");
+}
 #touch-discover-state #content {
   display: flex;
   justify-content: space-between;
@@ -446,9 +474,11 @@ body .dev-state-title {
 }
 #touch-discover-state #photo-field #markers .marker {
   position: absolute;
-  width: 120px;
-  height: 30px;
-  border: 1px solid blue;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: pulse 10s infinite;
+  border: none;
 }
 #touch-discover-state #photo-field #painting {
   position: absolute;
