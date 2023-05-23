@@ -36,12 +36,22 @@ socket.on('data_delete', function () {
   testContainer.removeChild(testContainer.lastChild);
 });
 
+// DEV TODO: testing purpose
 socket.on('display_language_switch', function (data) {
   const setLanguageElement = document.getElementById('set-language');
   setLanguageElement.textContent = `Language set to: ${data} `;
 });
 
+socket.on('photo_data_url', function (photoDataUrl) {
+  console.log(photoDataUrl);
+  displayBase64Image(photoDataUrl);
+})
 
+function displayBase64Image(base64String) {
+  const image = new Image();
+  image.src = base64String;
+  document.body.appendChild(image);
+}
 
 
 // ************************************************** \\
