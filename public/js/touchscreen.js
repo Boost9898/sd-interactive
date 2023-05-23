@@ -5,7 +5,7 @@
 // ************************************************** \\
 import * as sd from '../js/scripts/sd.js';
 
-const takePhotographButton = document.getElementById('take-photo-button');
+const takePhotoButton = document.getElementById('take-photo-button');
 const countdownElement = document.getElementById('countdown');
 const photoFieldElement = document.getElementById('photo-flash');
 const photoPreviewElement = document.getElementById('photo-preview');
@@ -89,14 +89,14 @@ confirmApplicationButton.addEventListener('click', function () {
 // 
 // PHOTOGRAPH SCREEN
 //
-takePhotographButton.addEventListener('click', function () {
-  takePhotographButton.textContent = 'De foto wordt genomen';
+takePhotoButton.addEventListener('click', function () {
+  takePhotoButton.textContent = 'De foto wordt genomen';
   startCountdown();
 });
 
 function startCountdown() {
   countdownElement.style.display = 'block';
-  let count = 1;
+  let count = 0;
 
   function flashBackground() {
     photoFieldElement.style.backgroundColor = 'white';
@@ -113,7 +113,7 @@ function startCountdown() {
     if (count === 0) {
       flashBackground();
       countdownElement.style.display = 'none';
-      // takePhotographButton.textContent = 'Foto maken';
+      // takePhotoButton.textContent = 'Foto maken';
       captureFrame();
     } else {
       count--;
@@ -187,27 +187,27 @@ function displayPhotoPreview() {
 function switchPhotoButtons() {
 
   // hide first take photo button
-  if (takePhotographButton) {
-    takePhotographButton.style.display = 'none';
+  if (takePhotoButton) {
+    takePhotoButton.style.display = 'none';
   }
 
   // create and show continue and retake photo buttons
-  const continuePhotographButton = document.createElement('div');
-  const retakePhotographButton = document.createElement('div');
-  takePhotographButton.parentNode.insertBefore(continuePhotographButton, takePhotographButton.nextSibling);
-  takePhotographButton.parentNode.insertBefore(retakePhotographButton, takePhotographButton.nextSibling);
-  continuePhotographButton.id = 'continue-photo-button';
-  continuePhotographButton.textContent = 'Ga door';
-  retakePhotographButton.id = 'retake-photo-button';
-  retakePhotographButton.textContent = 'Opnieuw';
+  const continuePhotoButton = document.createElement('div');
+  const retakePhotobutton = document.createElement('div');
+  takePhotoButton.parentNode.insertBefore(continuePhotoButton, takePhotoButton.nextSibling);
+  takePhotoButton.parentNode.insertBefore(retakePhotobutton, takePhotoButton.nextSibling);
+  continuePhotoButton.id = 'continue-photo-button';
+  continuePhotoButton.textContent = 'Ga door';
+  retakePhotobutton.id = 'retake-photo-button';
+  retakePhotobutton.textContent = 'Opnieuw';
 
   // click handlers for continue and retake buttons
-  continuePhotographButton.addEventListener('click', function () {
+  continuePhotoButton.addEventListener('click', function () {
     socket.emit('continue_photo_button_clicked');
     initDiscoverScreen();
   });
 
-  RetakePhotographButton.addEventListener('click', function () {
+  retakePhotobutton.addEventListener('click', function () {
     startCountdown()
 
     // remove current photo-preview-capture
@@ -226,15 +226,67 @@ function initDiscoverScreen() {
   // load painting in
   document.getElementById('painting').style.backgroundImage = 'url("./images/input/image-01.png")';
 
-  // create and show continue and retake photo buttons
-  const takePhotographButton = document.createElement('div');
-  const RetakePhotographButton = document.createElement('div');
-  takePhotographButton.parentNode.insertBefore(continuePhotographButton, takePhotographButton.nextSibling);
-  takePhotographButton.parentNode.insertBefore(retakePhotographButton, takePhotographButton.nextSibling);
-  continuePhotographButton.id = 'continue-photo-button';
-  continuePhotographButton.textContent = 'Ga door';
-  RetakePhotographButton.id = 'retake-photo-button';
-  RetakePhotographButton.textContent = 'Opnieuw';
+  createDiscoverButtons();
+  // fetchJsonData();
+  createDiscoverMarkers();
+
+  function createDiscoverButtons() {
+    // create and fill content discover buttons
+    const getPhotoButton = document.createElement('div');
+    getPhotoButton.id = 'get-photo-button';
+    getPhotoButton.textContent = 'Neem mee';
+
+    const deletePhotoButton = document.createElement('div');
+    deletePhotoButton.id = 'delete-photo-button';
+    deletePhotoButton.textContent = 'Verwijder';
+
+    // append the div elements to parent DOM element
+    const discoverButtons = document.getElementById('discover-buttons');
+    discoverButtons.appendChild(getPhotoButton);
+    discoverButtons.appendChild(deletePhotoButton);
+
+    // ddd event listeners to the buttons
+    deletePhotoButton.addEventListener('click', function () {
+      console.log('deletePhotoButton clicked');
+    });
+
+    getPhotoButton.addEventListener('click', function () {
+      console.log('getPhotoButton clicked');
+    });
+  }
+
+  function createDiscoverMarkers() {
+    const divContainer = document.getElementById('markers');
+    // Fetch json data
+    fetch('/data/data.json')
+      .then(response => response.json())
+      .then(data => {
+
+        data.markers.forEach(marker => {
+          const markerElement = document.createElement('div');
+          markerElement.textContent = marker.label;
+          markerElement.classList.add('marker');
+          markerElement.id = `element-${marker.id}`;
+
+          // Set CSS left and top properties based on 'x' and 'y' values in JSON
+          markerElement.style.left = `${marker.x}px`;
+          markerElement.style.top = `${marker.y}px`;
+
+          // TODO: handle emit to display
+          markerElement.addEventListener('click', () => {
+            console.log(`Clicked marker with ID: ${marker.id}`);
+          });
+
+          divContainer.appendChild(markerElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+
+
 }
 
 
