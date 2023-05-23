@@ -437,9 +437,23 @@ body .dev-state-title {
   background-color: #0F62FE;
   margin: 20px;
 }
+#touch-discover-state #photo-field #markers {
+  position: absolute;
+  width: 704px;
+  height: 795px;
+  border: 20px solid #002E66;
+  z-index: 10;
+}
+#touch-discover-state #photo-field #markers .marker {
+  position: absolute;
+  width: 120px;
+  height: 30px;
+  border: 1px solid blue;
+}
 #touch-discover-state #photo-field #painting {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  width: 704px;
+  height: 795px;
   border: 20px solid #002E66;
   background-size: cover;
 }
@@ -457,6 +471,38 @@ body .dev-state-title {
   right: 0;
   margin: 0 auto;
   background-color: #0F62FE;
+}
+#touch-discover-state #discover-buttons #get-photo-button {
+  position: absolute;
+  display: flex;
+  bottom: 40px;
+  height: 65px;
+  width: calc(20% - 53px);
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: -373px;
+  right: 0;
+  margin: 0 auto;
+  background-color: #0F62FE;
+  background-color: yellowgreen;
+}
+#touch-discover-state #discover-buttons #delete-photo-button {
+  position: absolute;
+  display: flex;
+  bottom: 40px;
+  height: 65px;
+  width: calc(20% - 53px);
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  right: -373px;
+  margin: 0 auto;
+  background-color: #0F62FE;
+  background-color: tomato;
 }
 
 /*# sourceMappingURL=styles.css.map */

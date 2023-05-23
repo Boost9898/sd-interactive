@@ -450,9 +450,25 @@ body {
     background-color: $color-main;
     margin: 20px;
 
+    #markers {
+      position: absolute;
+      width: 704px;
+      height: 795px;
+      border: 20px solid $btn-bg;
+      z-index: 10;
+
+      .marker {
+        position: absolute;
+        width: 120px;
+        height: 30px;
+        border: 1px solid blue;
+      }
+    }
+
     #painting {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      width: 704px;
+      height: 795px;
       border: 20px solid $btn-bg;
       background-size: cover;
     }
@@ -474,4 +490,43 @@ body {
 
     background-color: $color-main;
   }
+
+  #discover-buttons {
+    #get-photo-button {
+      position: absolute;
+      display: flex;
+      bottom: 40px;
+      height: 65px;
+      width: calc(20% - 53px);
+      font-size: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      left: -373px;
+      right: 0;
+      margin: 0 auto;
+      background-color: $color-main;
+      // todo dev
+      background-color: yellowgreen;
+    }
+
+    #delete-photo-button {
+      position: absolute;
+      display: flex;
+      bottom: 40px;
+      height: 65px;
+      width: calc(20% - 53px);
+      font-size: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      left: 0;
+      right: -373px;
+      margin: 0 auto;
+      background-color: $color-main;
+      // todo dev
+      background-color: tomato;
+    }
+  }
+
 }
