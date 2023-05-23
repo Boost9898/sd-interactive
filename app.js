@@ -137,6 +137,10 @@ Touchscreen.onConnect = function(socket) {
     nextStateSwitch();
   });
 
+  socket.on('pass_photo_data_url', function(data) {
+    Display.photoDataUrl(data)
+  });
+
 
   // 
   // DISCOVER SCREEN
@@ -151,7 +155,8 @@ Touchscreen.onConnect = function(socket) {
   };
 
   
-  // Increments the next state of the application, updates the state, logs the current state, and triggers the state switch on the touchscreen
+  // Increments the next state of the application, updates the state, logs the current state,
+  // and triggers the state switch on the touchscreen
   function nextStateSwitch() {
     applicationData.state++;
     applicationData.state_names[applicationData.state];
@@ -223,6 +228,19 @@ Display.onConnect = function(socket) {
   // TODO: Add emission catchers here
 };
 
+// 
+// DISCOVER SCREEN
+//
+Display.photoDataUrl = function(data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('photo_data_url', data);
+  }
+};
+
+
+// 
+// DEV TEST
+//
 Display.update = function(display_data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('send_test_data', display_data);

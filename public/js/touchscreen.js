@@ -1,5 +1,23 @@
 // ************************************************** \\
-// TOUCHSCREEN CLIENT SCRIPT FOR SOCKET.IO SERVER
+// INIT FUNCTIONALITY
+// IMPORT LOCAL STABLE DIFFUSION API
+// DECLARE GLOBAL VARIABLES
+// ************************************************** \\
+import * as sd from '../js/scripts/sd.js';
+
+const takePhotographButton = document.getElementById('take-photo-button');
+const countdownElement = document.getElementById('countdown');
+const photoFieldElement = document.getElementById('photo-flash');
+const photoPreviewElement = document.getElementById('photo-preview');
+
+let videoStream = null;
+let photoDataUrl = undefined;
+
+// enable photo preview in advance, (if not, too much delay from webcam request)
+enablePhotoPreview();
+
+// ************************************************** \\
+// TOUCHSCREEN CLIENT FOR SOCKET.IO SERVER
 // ************************************************** \\
 console.log('touchscreen.js');
 
@@ -69,17 +87,8 @@ confirmApplicationButton.addEventListener('click', function () {
 
 
 // 
-// PHOTOGRAPH SCREEN (make photo)
+// PHOTOGRAPH SCREEN
 //
-enablePhotoPreview(); // enable photo preview in advance, (if not, too much delay from webcam request)
-
-const takePhotographButton = document.getElementById('take-photo-button');
-const countdownElement = document.getElementById('countdown');
-const photoFieldElement = document.getElementById('photo-flash');
-const photoPreviewElement = document.getElementById('photo-preview');
-let videoStream = null; // store the webcam stream
-let photoDataUrl = undefined;
-
 takePhotographButton.addEventListener('click', function () {
   takePhotographButton.textContent = 'De foto wordt genomen';
   startCountdown();
@@ -120,7 +129,7 @@ function updateLeftColumnInfo() {
   const columnLeft = document.getElementById('column-left');
   columnLeft.querySelector('p').remove();
   const confirmText = document.createElement('p');
-  confirmText.innerHTML  = '<b>Ga door als je tevreden bent met de foto.</b><br><br> Niet tevreden? Maak de foto opnieuw.';
+  confirmText.innerHTML = '<b>Ga door als je tevreden bent met de foto.</b><br><br> Niet tevreden? Maak de foto opnieuw.';
   columnLeft.appendChild(confirmText);
 }
 
@@ -183,18 +192,19 @@ function switchPhotoButtons() {
   }
 
   // create and show continue and retake photo buttons
-  const ContinuePhotographButton = document.createElement('div');
-  const RetakePhotographButton = document.createElement('div');
-  takePhotographButton.parentNode.insertBefore(ContinuePhotographButton, takePhotographButton.nextSibling);
-  takePhotographButton.parentNode.insertBefore(RetakePhotographButton, takePhotographButton.nextSibling);
-  ContinuePhotographButton.id = 'continue-photo-button';
-  ContinuePhotographButton.textContent = 'Ga door';
-  RetakePhotographButton.id = 'retake-photo-button';
-  RetakePhotographButton.textContent = 'Opnieuw';
+  const continuePhotographButton = document.createElement('div');
+  const retakePhotographButton = document.createElement('div');
+  takePhotographButton.parentNode.insertBefore(continuePhotographButton, takePhotographButton.nextSibling);
+  takePhotographButton.parentNode.insertBefore(retakePhotographButton, takePhotographButton.nextSibling);
+  continuePhotographButton.id = 'continue-photo-button';
+  continuePhotographButton.textContent = 'Ga door';
+  retakePhotographButton.id = 'retake-photo-button';
+  retakePhotographButton.textContent = 'Opnieuw';
 
   // click handlers for continue and retake buttons
-  ContinuePhotographButton.addEventListener('click', function () {
+  continuePhotographButton.addEventListener('click', function () {
     socket.emit('continue_photo_button_clicked');
+    initDiscoverScreen();
   });
 
   RetakePhotographButton.addEventListener('click', function () {
@@ -209,8 +219,23 @@ function switchPhotoButtons() {
 // 
 // DISCOVER SCREEN
 //
+function initDiscoverScreen() {
+  socket.emit('pass_photo_data_url', photoDataUrl);
+  console.log('touchscreen.js: initDiscoverScreen()')
 
+  // load painting in
+  document.getElementById('painting').style.backgroundImage = 'url("./images/input/image-01.png")';
 
+  // create and show continue and retake photo buttons
+  const takePhotographButton = document.createElement('div');
+  const RetakePhotographButton = document.createElement('div');
+  takePhotographButton.parentNode.insertBefore(continuePhotographButton, takePhotographButton.nextSibling);
+  takePhotographButton.parentNode.insertBefore(retakePhotographButton, takePhotographButton.nextSibling);
+  continuePhotographButton.id = 'continue-photo-button';
+  continuePhotographButton.textContent = 'Ga door';
+  RetakePhotographButton.id = 'retake-photo-button';
+  RetakePhotographButton.textContent = 'Opnieuw';
+}
 
 
 // 
@@ -255,204 +280,3 @@ socket.on('touchscreen_state_switch', function (data) {
 // Inital start of main screen
 // TODO: activate it by default from app.js
 activateState('touch-attract-state');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//TODO REBUILD THIS IN THE INTERACTIVE
-
-// // ************************************************** \\
-// // IMPORTS
-// // ************************************************** \\
-// import { toggleGenerateButton } from './touchscreen/toggle-generate-button.js';
-// import { fadeIn, fadeOut } from './touchscreen/fades.js';
-// import { randomPrompt } from './touchscreen/random-prompt.js';
-// import { showModels } from './touchscreen/show-models.js';
-
-
-// // ************************************************** \\
-// // GLOBAL AND EXPORTED VARIABELS
-// // ************************************************** \\
-// export const api = 'http://127.0.0.1:7861';
-// let currentlyGenerating = undefined
-// let generatedImageData = null
-// const loader = document.querySelector("#loader-container");
-// let staticImage = document.getElementById('staticImage');
-
-
-// // ************************************************** \\
-// // TXT2IMG API REQUEST
-// // ************************************************** \\
-// async function txt2img() {
-//   let payload = {
-//     prompt: randomPrompt(),
-//     steps: 10,
-//     width: 512,
-//     height: 768
-//   };
-//   console.log(`Selected prompt: ${payload.prompt}`)
-//   try {
-//     toggleGenerateButton('txt2img', true);
-//     currentlyGenerating = true;
-//     fadeIn(loader, 1000);
-//     const response = await fetch(`${api}/sdapi/v1/txt2img`, {
-//       method: 'POST',
-//       body: JSON.stringify(payload),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-//     generatedImageData = await response.json();
-//     base64ToImage(generatedImageData.images[0]);
-//     removeImageOverlay();
-//     fadeOut(loader, 500);
-//     toggleGenerateButton('txt2img', false);
-//     currentlyGenerating = false;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// // ************************************************** \\
-// // ENCODE BASE64 TO IMAGE
-// // place image in DOM (if already present, remove it
-// // ************************************************** \\
-// async function base64ToImage(arg) {
-//   const generatedImage = new Image();
-//   generatedImage.src = `data:image/png;base64,${arg}`;
-//   await generatedImage.decode().catch(() => { }); // wait until image is decoded and continue code execution
-//   document.getElementById("generatedImage").firstElementChild?.remove();
-//   document.getElementById("generatedImage").appendChild(generatedImage);
-// }
-
-// function setImageOverlay() {
-//   staticImage.style.backgroundImage = "url('images/image-01-mask-cut.png')";
-// }
-
-// function removeImageOverlay() {
-//   staticImage.style.backgroundImage = "none";
-// }
-
-
-
-// // ************************************************** \\
-// // GENERATE-TXT2IMG-BUTTON FUNCTIONALITY
-// // prevent overflow of image generation processes
-// // ************************************************** \\
-// document.getElementById('generate-txt2img-button').addEventListener('click', function () {
-//   if (!currentlyGenerating) {
-//     txt2img();
-//   } else {
-//     console.log('Currently generating image.')
-//   }
-// });
-
-
-// // ************************************************** \\
-// // SHOW-MODELS-BUTTON
-// // ************************************************** \\
-// document.getElementById('show-models-button').addEventListener('click', function () {
-//   showModels()
-// });
-
-// // ************************************************** \\
-// // IMG2IMG STUFF (TODO: comments)
-// // ************************************************** \\
-
-// function fetchBase64FromUrl() {
-//   const fetchBase64 = (url) => {
-//     return fetch(url)
-//       .then(response => response.blob())
-//       .then(blob => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(blob);
-//         return new Promise((resolve) => {
-//           reader.onloadend = () => {
-//             resolve(reader.result);
-//           }
-//         });
-//       });
-//   }
-
-//   const fetchImage = fetchBase64('images/input/image-01.png');
-//   const fetchMask = fetchBase64('images/input/image-01-mask.png');
-
-//   Promise.all([fetchImage, fetchMask])
-//     .then(([base64StringImage, base64StringMask]) => {
-//       clearnBase64Strings(base64StringImage, base64StringMask);
-//     });
-
-//   function clearnBase64Strings(image, mask) {
-//     mask = mask.substring("data:image/png;base64,".length);
-//     image = image = image.substring("data:image/png;base64,".length);
-//     img2img(mask, image);
-//   }
-
-//   async function img2img(mask, initImages) {
-//     const payload = {
-//       steps: 25,
-//       width: 512,
-//       height: 768,
-//       denoising_strength: 0.7,
-//       sampler_index: 'Euler',
-//       prompt: 'young man, brown hair, portrait painting, detailed oil painting, renaissance, hyper realistic, 8k, detail, <lora:monet-wd14v10-000015:0.6>',
-//       negative_prompt: 'EasyNegative:0.2',
-//       // mask: mask,
-//       init_images: [initImages],
-//     };
-//     console.log(payload)
-//     console.log(payload.prompt);
-//     try {
-//       toggleGenerateButton('img2img', true);
-//       currentlyGenerating = true;
-//       fadeIn(loader, 1000);
-//       const response = await fetch(`${api}/sdapi/v1/img2img`, {
-//         method: 'POST',
-//         body: JSON.stringify(payload),
-//         headers: {
-//           'Content-Type': 'application/json'
-//         }
-//       });
-//       generatedImageData = await response.json();
-//       setImageOverlay();
-//       base64ToImage(generatedImageData.images[0]);
-//       fadeOut(loader, 500);
-//       toggleGenerateButton('img2img', false);
-//       currentlyGenerating = false;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// }
-
-// // ************************************************** \\
-// // GENERATE-IMG2IMG-BUTTON FUNCTIONALITY
-// // prevent overflow of image generation processes
-// // ************************************************** \\
-// document.getElementById('generate-img2img-button').addEventListener('click', function () {
-//   if (!currentlyGenerating) {
-//     fetchBase64FromUrl();
-//   } else {
-//     console.log('Currently generating image.')
-//   }
-// });
