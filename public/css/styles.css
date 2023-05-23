@@ -301,6 +301,7 @@ body .dev-state-title {
   left: 608px;
   width: 704px;
   height: 795px;
+  border: 20px solid #002E66;
   background-image: url("/images/preview/photo-preview-02.png");
   z-index: 1;
 }
@@ -433,8 +434,14 @@ body .dev-state-title {
   align-items: center;
   width: 40%;
   height: 795px;
-  background-color: #002E66;
+  background-color: #0F62FE;
   margin: 20px;
+}
+#touch-discover-state #photo-field #painting {
+  width: 100%;
+  height: 100%;
+  border: 20px solid #002E66;
+  background-size: cover;
 }
 #touch-discover-state #take-photo-button {
   position: absolute;
