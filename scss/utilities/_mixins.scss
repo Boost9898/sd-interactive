@@ -46,5 +46,17 @@
       left: 0;
       right: 0;
     }
+
+    #header-info-button {
+      background-image: url("/images/icons/icon-info.svg");
+    }
+
+    #header-restart-button {
+      background-image: url("/images/icons/icon-restart.svg");
+    }
+
+    #header-language-button {
+      background-image: url("/images/icons/icon-globe.svg");
+    }
   }
 }
