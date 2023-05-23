@@ -2,24 +2,38 @@
   "markers": [
     {
       "id": 1,
-      "label": "Element 1",
+      "title": "Element 1",
       "desc": "Random text that will describe element 1",
-      "x": 100,
+      "x": 80,
       "y": 100
     },
     {
       "id": 2,
-      "label": "Element 2",
+      "title": "Element 2",
       "desc": "Random text that will describe element 2",
-      "x": 200,
-      "y": 200
+      "x": 210,
+      "y": 240
     },
     {
       "id": 3,
-      "label": "Element 3",
+      "title": "Element 3",
       "desc": "Random text that will describe element 3",
-      "x": 300,
-      "y": 300
+      "x": 540,
+      "y": 340
+    },
+    {
+      "id": 4,
+      "title": "Element 4",
+      "desc": "Random text that will describe element 4",
+      "x": 140,
+      "y": 550
+    },
+    {
+      "id": 5,
+      "title": "Element 5",
+      "desc": "Random text that will describe element 5",
+      "x": 560,
+      "y": 650
     }
   ]
 }
