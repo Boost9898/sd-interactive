@@ -264,13 +264,22 @@ function initDiscoverScreen() {
 
         data.markers.forEach(marker => {
           const markerElement = document.createElement('div');
-          markerElement.textContent = marker.label;
+          // markerElement.textContent = marker.id; //DEV: show marker id inside marker
           markerElement.classList.add('marker');
-          markerElement.id = `element-${marker.id}`;
+          markerElement.id = `marker-${marker.id}`;
 
-          // Set CSS left and top properties based on 'x' and 'y' values in JSON
+          // Set inline css left and top properties based on 'x' and 'y' values in JSON
           markerElement.style.left = `${marker.x}px`;
           markerElement.style.top = `${marker.y}px`;
+
+          // Set animation delay based on index
+          markerElement.style.animationDelay = `${getRandomNumber(0, 10)}s`;
+
+          // Return random round number between min and max (including extremes)
+          function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+          }
+
 
           // TODO: handle emit to display
           markerElement.addEventListener('click', () => {
@@ -306,8 +315,6 @@ function buttonClickHandler(buttonId) {
 }
 
 
-
-
 // 
 // STATE MANAGER
 //
@@ -332,3 +339,29 @@ socket.on('touchscreen_state_switch', function (data) {
 // Inital start of main screen
 // TODO: activate it by default from app.js
 activateState('touch-attract-state');
+
+
+// 
+// INACTIVITY TRACKER
+//
+let inactivityTimeout;
+
+function checkInactivity() {
+  clearTimeout(inactivityTimeout);
+  
+  inactivityTimeout = setTimeout(() => {
+    console.log('User is inactive');
+  }, 60_000); // 60_000 milliseconds = 1 minute
+}
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimeout);
+  checkInactivity();
+}
+
+// call the resetInactivityTimer function whenever there's user activity
+document.addEventListener('mousemove', resetInactivityTimer);
+document.addEventListener('click', resetInactivityTimer);
+
+// Initial start of the inactivity timer
+checkInactivity();
