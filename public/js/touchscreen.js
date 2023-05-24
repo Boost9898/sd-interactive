@@ -219,7 +219,11 @@ function switchPhotoButtons() {
 // 
 // DISCOVER SCREEN
 //
+
+// Start image generation process via API in sd.js
 function initDiscoverScreen() {
+  sd.img2img(photoDataUrl);
+  
   socket.emit('pass_photo_data_url', photoDataUrl);
   console.log('touchscreen.js: initDiscoverScreen()')
 
@@ -227,7 +231,6 @@ function initDiscoverScreen() {
   document.getElementById('painting').style.backgroundImage = 'url("./images/input/image-01.png")';
 
   createDiscoverButtons();
-  // fetchJsonData();
   createDiscoverMarkers();
 
   function createDiscoverButtons() {
@@ -348,7 +351,7 @@ let inactivityTimeout;
 
 function checkInactivity() {
   clearTimeout(inactivityTimeout);
-  
+
   inactivityTimeout = setTimeout(() => {
     console.log('User is inactive');
   }, 60_000); // 60_000 milliseconds = 1 minute
