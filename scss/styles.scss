@@ -475,6 +475,13 @@ body {
       border: 20px solid $btn-bg;
       background-size: cover;
     }
+
+    #generated-image {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+    }
   }
 
   #take-photo-button {
