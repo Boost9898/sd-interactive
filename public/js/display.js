@@ -42,16 +42,32 @@ socket.on('display_language_switch', function (data) {
   setLanguageElement.textContent = `Language set to: ${data} `;
 });
 
+
+// 
+// RECEIVING AND SHOWING IMAGES
+//
 socket.on('photo_data_url', function (photoDataUrl) {
+  console.log(1);
   console.log(photoDataUrl);
   displayBase64Image(photoDataUrl);
 })
 
+socket.on('photo_data', function (photoData) {
+  console.log(2);
+  console.log(photoData.photoData);
+  displayBase64Image(photoData.photoData);
+})
+
 function displayBase64Image(base64String) {
   const image = new Image();
-  image.src = base64String;
+  if (base64String.startsWith('data:image/png;base64,')) {
+    image.src = base64String;
+  } else {
+    image.src = `data:image/png;base64,${base64String}`;
+  }
   document.body.appendChild(image);
 }
+
 
 
 // ************************************************** \\

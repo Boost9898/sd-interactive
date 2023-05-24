@@ -4,27 +4,27 @@
 /* -- Requires -- */
 /* -------------------------------------------------------------------------------------- */
 const express = require('express');
-const app     = express();
-const serv    = require('http').Server(app);
-const io      = require('socket.io')(serv, { pingTimeout: 30000 });
+const app = express();
+const serv = require('http').Server(app);
+const io = require('socket.io')(serv, { pingTimeout: 30000 });
 
 
 /* -- Variables -- */
 /* -------------------------------------------------------------------------------------- */
 global.debugMode = false;
 let SOCKET_LIST = {},
-    PING_LIST = {},
-    pingCounter = 0,
-    connectedScreens = 0;
+  PING_LIST = {},
+  pingCounter = 0,
+  connectedScreens = 0;
 
 
 /* -- Routing -- */
 /* -------------------------------------------------------------------------------------- */
 app.use(express.static(__dirname + '/public'));
-app.get('/dev',         function(req, res) { res.sendFile('./public/pages/test-screens.html', { root: __dirname }); });
-app.get('/touchscreen', function(req, res) { res.sendFile('./public/touchscreen.html', { root: __dirname }); });
-app.get('/display',     function(req, res) { res.sendFile('./public/display.html', { root: __dirname }); });
-app.get('/webcam',      function(req, res) { res.sendFile('./public/webcam-demo.html', { root: __dirname }); });
+app.get('/dev', function (req, res) { res.sendFile('./public/pages/test-screens.html', { root: __dirname }); });
+app.get('/touchscreen', function (req, res) { res.sendFile('./public/touchscreen.html', { root: __dirname }); });
+app.get('/display', function (req, res) { res.sendFile('./public/display.html', { root: __dirname }); });
+app.get('/webcam', function (req, res) { res.sendFile('./public/webcam-demo.html', { root: __dirname }); });
 
 
 /* -- Start server -- */
@@ -43,7 +43,7 @@ serv.listen(3000, () => {
 /* -- Basic functions -- */
 /* -------------------------------------------------------------------------------------- */
 function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
@@ -54,15 +54,15 @@ function Interval(func, duration) {
   this.duration = duration;
   this.run();
 };
-Interval.prototype.run = function() {
+Interval.prototype.run = function () {
   if (typeof this.baseline === "undefined") { this.baseline = +new Date(); }
   this.func.call(global);
   this.baseline += this.duration;
   let nextTick = this.duration + this.baseline - new Date();
   if (nextTick < 0) nextTick = 0;
-  (function(i) { i.timer = setTimeout(function() { i.run(); }, nextTick); }(this));
+  (function (i) { i.timer = setTimeout(function () { i.run(); }, nextTick); }(this));
 };
-Interval.prototype.stop = function(){
+Interval.prototype.stop = function () {
   clearTimeout(this.timer);
 }
 
@@ -70,7 +70,7 @@ Interval.prototype.stop = function(){
 /* -------------------------------------------------------------------------------------- */
 // TOUCHSCREEN
 /* -------------------------------------------------------------------------------------- */
-global.Touchscreen = function(id) {
+global.Touchscreen = function (id) {
   let self = { id: id }
   Touchscreen.list[id] = self;
   return self;
@@ -78,11 +78,11 @@ global.Touchscreen = function(id) {
 
 Touchscreen.list = {};
 
-Touchscreen.onConnect = function(socket) {
-  console.log('=[ Touchscreen connected          '+socket.id);
+Touchscreen.onConnect = function (socket) {
+  console.log('=[ Touchscreen connected          ' + socket.id);
   connectedScreens++;
   Touchscreen.update();
-  
+
   let applicationData = {
     state: 0,
     state_names: ['touch-attract-state', 'touch-legal-state', 'touch-photograph-state', 'touch-discover-state'],
@@ -91,18 +91,18 @@ Touchscreen.onConnect = function(socket) {
   // 
   // SCREEN STATE SWITCH
   //
-  Touchscreen.sateSwitchTouchscreen = function(touchscreen_data) {
+  Touchscreen.sateSwitchTouchscreen = function (touchscreen_data) {
     for (let i in Touchscreen.list) {
       SOCKET_LIST[Touchscreen.list[i].id].emit('touchscreen_state_switch', touchscreen_data);
     }
   };
 
-  
+
   // 
   // TEST CODE
   //
   // Handle touchscreen clicks on touchscreen_data button
-  socket.on('touchscreen_data', function(data) {
+  socket.on('touchscreen_data', function (data) {
     console.log(`${socket.id} clicked on testbutton (touchscreen_data)`);
 
     // Emit the data to all connected display clients
@@ -113,31 +113,31 @@ Touchscreen.onConnect = function(socket) {
   // 
   // ATTRACT SCREEN
   //
-  socket.on('language_clicked', function(data) {
+  socket.on('language_clicked', function (data) {
     console.log(`${socket.id} language_clicked: ${data}`);
     Display.languageSwitch(data)
     nextStateSwitch();
   });
-  
-  
+
+
   // 
   // LEGAL SCREEN
   //
-  socket.on('confirm_application_clicked', function() {
+  socket.on('confirm_application_clicked', function () {
     console.log(`${socket.id} confirm_application_clicked`);
     nextStateSwitch();
   });
 
-  
+
   // 
   // PHOTOGRAPH SCREEN
   //
-  socket.on('continue_photo_button_clicked', function() {
+  socket.on('continue_photo_button_clicked', function () {
     console.log(`${socket.id} continue_photo_button_clicked`);
     nextStateSwitch();
   });
 
-  socket.on('pass_photo_data_url', function(data) {
+  socket.on('pass_photo_data_url', function (data) {
     Display.photoDataUrl(data)
   });
 
@@ -145,16 +145,21 @@ Touchscreen.onConnect = function(socket) {
   // 
   // DISCOVER SCREEN
   //
-  // TODO CODE
+  socket.on('pass_photo_data', (photoData) => {
+    Display.photoData(photoData)
+  });
 
 
-  Display.languageSwitch = function(display_data) {
+  // 
+  // LANGUAGE
+  //
+  Display.languageSwitch = function (display_data) {
     for (let i in Display.list) {
       SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
     }
   };
 
-  
+
   // Increments the next state of the application, updates the state, logs the current state,
   // and triggers the state switch on the touchscreen
   function nextStateSwitch() {
@@ -165,7 +170,7 @@ Touchscreen.onConnect = function(socket) {
   }
 
   // Handle touchscreen clicks on touchscreen_data_delete button
-  socket.on('touchscreen_data_delete', function(data) {
+  socket.on('touchscreen_data_delete', function (data) {
     console.log(`${socket.id} clicked on test delete button (touchscreen_data_delete)`);
     console.log(data)
 
@@ -176,7 +181,7 @@ Touchscreen.onConnect = function(socket) {
 };
 
 
-Touchscreen.update = function(sectionPack = false) {
+Touchscreen.update = function (sectionPack = false) {
   let updatePack = {
     debugMode: debugMode,
   };
@@ -185,7 +190,7 @@ Touchscreen.update = function(sectionPack = false) {
   }
 };
 
-Touchscreen.onDisconnect = function(socket) {
+Touchscreen.onDisconnect = function (socket) {
   console.log(`=] Touchscreen disconnected       ${socket.id}`);
   delete Touchscreen.list[socket.id];
   connectedScreens--;
@@ -214,7 +219,7 @@ Touchscreen.onDisconnect = function(socket) {
 /* -------------------------------------------------------------------------------------- */
 // DISPLAY
 /* -------------------------------------------------------------------------------------- */
-global.Display = function(id) {
+global.Display = function (id) {
   let self = { id: id }
   Display.list[id] = self;
   return self;
@@ -222,8 +227,8 @@ global.Display = function(id) {
 
 Display.list = {};
 
-Display.onConnect = function(socket) {
-  console.log('=[ Display connected              '+socket.id);
+Display.onConnect = function (socket) {
+  console.log('=[ Display connected              ' + socket.id);
   connectedScreens++;
   // TODO: Add emission catchers here
 };
@@ -231,9 +236,15 @@ Display.onConnect = function(socket) {
 // 
 // DISCOVER SCREEN
 //
-Display.photoDataUrl = function(data) {
+Display.photoDataUrl = function (data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('photo_data_url', data);
+  }
+};
+
+Display.photoData = function (data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('photo_data', data);
   }
 };
 
@@ -241,25 +252,25 @@ Display.photoDataUrl = function(data) {
 // 
 // DEV TEST
 //
-Display.update = function(display_data) {
+Display.update = function (display_data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('send_test_data', display_data);
   }
 };
 
-Display.delete = function(display_data) {
+Display.delete = function (display_data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('data_delete', display_data);
   }
 };
 
-Display.languageSwitch = function(display_data) {
+Display.languageSwitch = function (display_data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
   }
 };
 
-Display.onDisconnect = function(socket) {
+Display.onDisconnect = function (socket) {
   console.log(`=] Display disconnected           ${socket.id}`);
   delete Display.list[socket.id];
   connectedScreens--;
@@ -268,7 +279,7 @@ Display.onDisconnect = function(socket) {
 
 /* -- Common code -- */
 /* -------------------------------------------------------------------------------------- */
-global.updateAll = function() {
+global.updateAll = function () {
   Touchscreen.update();
   Display.update();
 }
@@ -276,7 +287,7 @@ global.updateAll = function() {
 
 /* -- Socket code -- */
 /* -------------------------------------------------------------------------------------- */
-io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function (socket) {
   socket.id = uuidv4();
   socket.type = 'unknown';
   SOCKET_LIST[socket.id] = socket;
@@ -287,13 +298,13 @@ io.sockets.on('connection', function(socket) {
   PING_LIST[socket.id] = {};
   PING_LIST[socket.id].missedPings = 0;
   PING_LIST[socket.id].identified = false;
-  socket.on('pong', function(data) {
+  socket.on('pong', function (data) {
     // console.log(`Check if ${socket.id} pCount ${data.pCount} matches pingCounter ${pingCounter}`);
     if (data.pCount == pingCounter) { PING_LIST[socket.id].missedPings = 0; }
   });
 
   // Identify client type
-  socket.on('identify', function(data) {
+  socket.on('identify', function (data) {
 
     // console.log('===[ Send initialData:       '+socket.id);
     socket.emit('initialData', { clientId: socket.id });
@@ -301,7 +312,7 @@ io.sockets.on('connection', function(socket) {
     // console.log('===[ Client identified, ping '+socket.id);
     PING_LIST[socket.id].identified = true;
 
-    switch(data.type) {
+    switch (data.type) {
       case 'touchscreen':
         socket.type = 'touchscreen';
         Touchscreen(socket.id);
@@ -332,14 +343,14 @@ io.sockets.on('connection', function(socket) {
 
 /* -- Ping loop -- */
 /* -------------------------------------------------------------------------------------- */
-let ping = setInterval(function() {
+let ping = setInterval(function () {
   pingCounter++;
   for (let i in PING_LIST) {
     if (PING_LIST[i].identified == true) {
       if (PING_LIST[i].missedPings > 0) {
-        console.log('=! Client ping mismatch ('+PING_LIST[i].missedPings+')  '+i);
+        console.log('=! Client ping mismatch (' + PING_LIST[i].missedPings + ')  ' + i);
         if (PING_LIST[i].missedPings > 2) {
-          console.log('=X Client ping lost          '+i);
+          console.log('=X Client ping lost          ' + i);
           delete PING_LIST[i];
           SOCKET_LIST[i].disconnect();
         }
@@ -355,9 +366,9 @@ let ping = setInterval(function() {
 
 /* -- Session loop -- */
 /* -------------------------------------------------------------------------------------- */
-let sessionLoop = new Interval(function() {
+let sessionLoop = new Interval(function () {
 
   // if (sectionPack.updatePack.screenPack) { Touchscreen.update(sectionPack.updatePack.screenPack); }
   // if (sectionPack.updatePack.screenPack) { Display.update(sectionPack.updatePack.screenPack); }
 
-}, 1000/60);
+}, 1000 / 60);

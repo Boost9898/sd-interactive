@@ -222,10 +222,11 @@ function switchPhotoButtons() {
 
 // Start image generation process via API in sd.js
 function initDiscoverScreen() {
+  console.log('touchscreen.js: initDiscoverScreen()');
+
   sd.img2img(photoDataUrl);
-  
+
   socket.emit('pass_photo_data_url', photoDataUrl);
-  console.log('touchscreen.js: initDiscoverScreen()')
 
   // load painting in
   document.getElementById('painting').style.backgroundImage = 'url("./images/input/image-01.png")';
@@ -296,10 +297,25 @@ function initDiscoverScreen() {
         console.error('Error:', error);
       });
   }
-
-
-
 }
+
+export function catchGeneratedImageData(generatedImageData) {
+  console.log(generatedImageData)
+  sendGeneratedImageData(generatedImageData)
+}
+
+
+// create div, place base64image in dom and send to app.js
+function sendGeneratedImageData(GeneratedImageData) {
+  // socket.emit('pass_photo_data_url', GeneratedImageData);
+  socket.emit('pass_photo_data', { photoData: GeneratedImageData });
+  
+  const newDiv = document.createElement('div');
+  newDiv.id = 'generated-image';
+  newDiv.style.backgroundImage = `url('data:image/png;base64, ${GeneratedImageData}')`;
+  document.querySelector('#touch-discover-state #photo-field').appendChild(newDiv);
+}
+
 
 
 // 
