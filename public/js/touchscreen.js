@@ -229,7 +229,7 @@ function initDiscoverScreen() {
   socket.emit('pass_photo_data_url', photoDataUrl);
 
   // load painting in
-  document.getElementById('painting').style.backgroundImage = 'url("./images/input/image-01.png")';
+  document.getElementById('painting').style.backgroundImage = 'url("./images/input/image-02.png")';
 
   createDiscoverButtons();
   createDiscoverMarkers();
@@ -307,15 +307,13 @@ export function catchGeneratedImageData(generatedImageData) {
 
 // create div, place base64image in dom and send to app.js
 function sendGeneratedImageData(GeneratedImageData) {
-  // socket.emit('pass_photo_data_url', GeneratedImageData);
-  socket.emit('pass_photo_data', { photoData: GeneratedImageData });
+  socket.emit('pass_generated_image_data', { photoData: GeneratedImageData });
   
   const newDiv = document.createElement('div');
   newDiv.id = 'generated-image';
   newDiv.style.backgroundImage = `url('data:image/png;base64, ${GeneratedImageData}')`;
   document.querySelector('#touch-discover-state #photo-field').appendChild(newDiv);
 }
-
 
 
 // 
