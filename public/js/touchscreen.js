@@ -12,9 +12,11 @@ const photoPreviewElement = document.getElementById('photo-preview');
 
 let videoStream = null;
 let photoDataUrl = undefined;
+let generatedImage = undefined;
 
 // enable photo preview in advance, (if not, too much delay from webcam request)
 enablePhotoPreview();
+overlayManager()
 
 // ************************************************** \\
 // TOUCHSCREEN CLIENT FOR SOCKET.IO SERVER
@@ -44,7 +46,6 @@ document.getElementById('send-button').addEventListener('click', function () {
   console.log('clicked: send-button');
   socket.emit('touchscreen_data');
 });
-
 
 
 // 
@@ -96,7 +97,7 @@ takePhotoButton.addEventListener('click', function () {
 
 function startCountdown() {
   countdownElement.style.display = 'block';
-  let count = 0;
+  let count = 1; // DEV
 
   function flashBackground() {
     photoFieldElement.style.backgroundColor = 'white';
@@ -249,9 +250,29 @@ function initDiscoverScreen() {
     discoverButtons.appendChild(getPhotoButton);
     discoverButtons.appendChild(deletePhotoButton);
 
-    // ddd event listeners to the buttons
-    deletePhotoButton.addEventListener('click', function () {
-      console.log('deletePhotoButton clicked');
+    // create toggle used in deletePhotoButton() to prevent overload
+    let toggle = false
+
+    // add event listeners to the buttons
+    deletePhotoButton.addEventListener('click', function () {  
+      if (generatedImage && toggle === false) {
+        toggle = true;
+        socket.emit('delete_generated_image', true);
+        generatedImage.remove();
+        getPhotoButton.remove();
+        deletePhotoButton.style.width = '36.6%';
+        deletePhotoButton.style.right = '0px';
+        deletePhotoButton.style.backgroundColor = '#646464';
+        deletePhotoButton.style.opacity = '50%';
+        deletePhotoButton.textContent = 'Verwijderd';
+        console.log('Genereated image removed');
+      } else if (!generatedImage) {
+        console.log('Generated image not present');
+      } else if (toggle === true) {
+        console.log('Generated image is already removed');
+      } else {
+        console.log('Something else is broken');
+      }
     });
 
     getPhotoButton.addEventListener('click', function () {
@@ -259,15 +280,18 @@ function initDiscoverScreen() {
     });
   }
 
+
   function createDiscoverMarkers() {
     const divContainer = document.getElementById('markers');
+    let activeMarker = null; // Store the reference to the active marker
+
     // Fetch json data
     fetch('/data/data.json')
       .then(response => response.json())
       .then(data => {
-
         data.markers.forEach(marker => {
           const markerElement = document.createElement('div');
+
           // markerElement.textContent = marker.id; //DEV: show marker id inside marker
           markerElement.classList.add('marker');
           markerElement.id = `marker-${marker.id}`;
@@ -279,15 +303,23 @@ function initDiscoverScreen() {
           // Set animation delay based on index
           markerElement.style.animationDelay = `${getRandomNumber(0, 10)}s`;
 
-          // Return random round number between min and max (including extremes)
-          function getRandomNumber(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-          }
-
-
-          // TODO: handle emit to display
           markerElement.addEventListener('click', () => {
+            // Remove 'active' class from the previous active marker (if any)
+            if (activeMarker) {
+              activeMarker.classList.remove('active');
+            }
+
+            // Add 'active' class to the clicked marker
+            markerElement.classList.add('active');
+
+            // Store the reference to the current active marker
+            activeMarker = markerElement;
+
+            // DEV purposes
             console.log(`Clicked marker with ID: ${marker.id}`);
+
+            // Send data to app.js -> display.js
+            socket.emit('marker_data', { marker });
           });
 
           divContainer.appendChild(markerElement);
@@ -296,6 +328,11 @@ function initDiscoverScreen() {
       .catch(error => {
         console.error('Error:', error);
       });
+
+    // Return random round number between min and max (including extremes)
+    function getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
   }
 }
 
@@ -304,31 +341,39 @@ export function catchGeneratedImageData(generatedImageData) {
   sendGeneratedImageData(generatedImageData)
 }
 
-
 // create div, place base64image in dom and send to app.js
-function sendGeneratedImageData(GeneratedImageData) {
-  socket.emit('pass_generated_image_data', { photoData: GeneratedImageData });
-  
-  const newDiv = document.createElement('div');
-  newDiv.id = 'generated-image';
-  newDiv.style.backgroundImage = `url('data:image/png;base64, ${GeneratedImageData}')`;
-  document.querySelector('#touch-discover-state #photo-field').appendChild(newDiv);
+function sendGeneratedImageData(generatedImageData) {
+  socket.emit('pass_generated_image_data', { photoData: generatedImageData });
+
+  generatedImage = document.createElement('div');
+  generatedImage.id = 'generated-image';
+  generatedImage.style.backgroundImage = `url('data:image/png;base64, ${generatedImageData}')`;
+  document.querySelector('#touch-discover-state #photo-field').appendChild(generatedImage);
 }
 
 
 // 
 // OVERLAY MANAGER
 //
-const buttonIds = ['header-info-button', 'header-restart-button', 'header-language-button'];
+function overlayManager() {
+  // TODO: fix this, there are now multiple instances of the same HTML, make it dry
+  const buttonParentIds = ['header-buttons-1', 'header-buttons-2'];
+  const buttonIds = ['header-info-button', 'header-restart-button', 'header-language-button'];
 
-for (const buttonId of buttonIds) {
-  const button = document.getElementById(buttonId);
-  button.addEventListener('click', () => buttonClickHandler(buttonId));
-}
+  for (const parentId of buttonParentIds) {
+    const parent = document.getElementById(parentId);
+    for (const buttonId of buttonIds) {
+      const button = parent.querySelector(`#${buttonId}`);
+      button.onclick = function () {
+        buttonClickHandler(buttonId);
+      };
+    }
+  }
 
-function buttonClickHandler(buttonId) {
-  console.log(`Button ${buttonId} was clicked!`);
-  // Handle button click event here
+  function buttonClickHandler(buttonId) {
+    console.log(`Button ${buttonId} was clicked!`);
+    // Handle button click event here
+  }
 }
 
 

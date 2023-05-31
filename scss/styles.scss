@@ -265,7 +265,6 @@ body {
 }
 
 #touch-photograph-state {
-
   @include header-style;
 
   #content {
@@ -463,8 +462,15 @@ body {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        animation: pulse 9s infinite;
+        animation: pulse 8s infinite;
         border: none;
+        transition: all 0.3s ease;
+      }
+
+      .active {
+        background-color: $w;
+        opacity: 50%;
+        transition: all 0.4s ease;
       }
     }
 
@@ -545,4 +551,11 @@ body {
     }
   }
 
+}
+
+// TODO: to it's own DISPLAY file, keep separated from TOUCHSCREEN
+#marker-data-container {
+  padding: 10px;
+  display: inline-block;
+  background-color: royalblue;
 }

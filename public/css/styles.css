@@ -1,7 +1,7 @@
 /* ______________________________________________________________ */
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
   }
   70% {
     box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
@@ -238,7 +238,7 @@ body .dev-state-title {
 #touch-photograph-state #header #header-title {
   padding-left: 18px;
 }
-#touch-photograph-state #header #header-buttons {
+#touch-photograph-state #header #header-buttons-1, #touch-photograph-state #header #header-buttons-2 {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
@@ -402,7 +402,7 @@ body .dev-state-title {
 #touch-discover-state #header #header-title {
   padding-left: 18px;
 }
-#touch-discover-state #header #header-buttons {
+#touch-discover-state #header #header-buttons-1, #touch-discover-state #header #header-buttons-2 {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
@@ -477,8 +477,14 @@ body .dev-state-title {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  animation: pulse 9s infinite;
+  animation: pulse 8s infinite;
   border: none;
+  transition: all 0.3s ease;
+}
+#touch-discover-state #photo-field #markers .active {
+  background-color: #FFF;
+  opacity: 50%;
+  transition: all 0.4s ease;
 }
 #touch-discover-state #photo-field #painting, #touch-discover-state #photo-field #photo-overlay {
   position: absolute;
@@ -545,6 +551,12 @@ body .dev-state-title {
   margin: 0 auto;
   background-color: #0F62FE;
   background-color: tomato;
+}
+
+#marker-data-container {
+  padding: 10px;
+  display: inline-block;
+  background-color: royalblue;
 }
 
 /*# sourceMappingURL=styles.css.map */

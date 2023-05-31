@@ -62,13 +62,47 @@ socket.on('generated_image', function (photoData) {
 
 function displayBase64Image(base64String) {
   const image = new Image();
+
+  // make sure base64 string has correct format
   if (base64String.startsWith('data:image/png;base64,')) {
     image.src = base64String;
   } else {
     image.src = `data:image/png;base64,${base64String}`;
   }
+  image.id = 'generated-image';
   document.body.appendChild(image);
 }
+
+//
+// DELETE GENERATED IMAGE
+//
+socket.on('delete_generated_image', function (data) {
+  if (data === true) {
+    // document.getElementById('generated-image').remove();
+    const generatedImages = document.querySelectorAll('#generated-image');
+    generatedImages.forEach(image => {
+      image.remove();
+    });
+  }
+})
+
+
+// 
+// RECEIVING AND SHOWING MARKER DATA
+//
+socket.on('marker_data', function (markerData) {
+  const container = document.getElementById('marker-data-container');
+  container.innerHTML = ''; // Clear previous data
+
+  Object.entries(markerData.marker).forEach(([key, value]) => {
+    console.log(`${key}: ${value}`);
+
+    const dataElement = document.createElement('p');
+    dataElement.textContent = `${key}: ${value}`;
+    container.appendChild(dataElement);
+  });
+  console.log('-----------------------')
+});
 
 
 

@@ -149,6 +149,16 @@ Touchscreen.onConnect = function (socket) {
     Display.generatedImageData(data)
   });
 
+  socket.on('delete_generated_image', (data) => {
+    Display.deleteGeneratedImage(data)
+  });
+
+  socket.on('marker_data', (data) => {
+    Display.markerData(data)
+  });
+
+
+
 
   // 
   // LANGUAGE
@@ -203,19 +213,6 @@ Touchscreen.onDisconnect = function (socket) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -------------------------------------------------------------------------------------- */
 // DISPLAY
 /* -------------------------------------------------------------------------------------- */
@@ -245,6 +242,18 @@ Display.photoDataUrl = function (data) {
 Display.generatedImageData = function (data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('generated_image', data);
+  }
+};
+
+Display.deleteGeneratedImage = function (data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('delete_generated_image', data);
+  }
+};
+
+Display.markerData = function (data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('marker_data', data);
   }
 };
 
