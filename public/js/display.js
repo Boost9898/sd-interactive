@@ -19,7 +19,9 @@ socket.on('update', function (data) {
   }
 });
 
-// Socket: identify
+// 
+// SOCKET IDENTIFY
+//
 socket.emit('identify', { type: clientType });
 
 socket.on('send_test_data', function (data) {
@@ -52,7 +54,7 @@ socket.on('photo_data_url', function (photoDataUrl) {
   displayBase64Image(photoDataUrl);
 })
 
-socket.on('photo_data', function (photoData) {
+socket.on('generated_image', function (photoData) {
   console.log(2);
   console.log(photoData.photoData);
   displayBase64Image(photoData.photoData);
