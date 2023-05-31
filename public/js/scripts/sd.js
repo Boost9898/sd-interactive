@@ -92,7 +92,7 @@ export function img2img(photoDataUrl) {
   // Load async image and mask, process them, and pass them to the img2imgapi() function
   async function loadImageAndMask() {
     const [base64StringImage, base64StringMask, base64StringtestPhoto] = await Promise.all([
-      fetchBase64FromUrl('images/input/image-01.png'),
+      fetchBase64FromUrl('images/input/image-02.png'),
       fetchBase64FromUrl('images/input/image-01-mask.png'),
     ]);
 
@@ -112,23 +112,23 @@ export function img2img(photoDataUrl) {
       init_images: [image],
       resize_mode: 0,
       denoising_strength: 0.7,
-      mask_blur: 36,
-      inpainting_fill: 0,
-      inpaint_full_res: true,
-      inpaint_full_res_padding: 72,
-      inpainting_mask_invert: 0,
-      initial_noise_multiplier: 1,
-      prompt: "young man, brown hair, portrait painting, detailed oil painting, renaissance, hyper realistic, 8k, detail, <lora:monet-wd14v10-000015:0.5>", // DEV make it customisable
-      negative_prompt: "EasyNegative:0.2",
-      seed: 1472411147,
+      // mask_blur: 36,
+      // inpainting_fill: 0,
+      // inpaint_full_res: true,
+      // inpaint_full_res_padding: 72,
+      // inpainting_mask_invert: 0,
+      // initial_noise_multiplier: 1,
+      prompt: "bright, young man, brown hair, portrait painting, detailed oil painting, renaissance, hyper realistic, 8k, detail, <lora:monet-wd14v10-000015:0.8>", // DEV make it customisable
+      negative_prompt: "red lips:0.8, EasyNegative:0.2",
+      // seed: 1472411147,
       sampler_name: "Euler",
       sampler_index: "Euler",
       batch_size: 1,
-      steps: 10,
+      steps: 15,
       cfg_scale: 7,
       width: 512,
       height: 768,
-      restore_faces: false,
+      restore_faces: true,
       tiling: false,
       send_images: true, // DEV
       save_images: true, // DEV
@@ -143,16 +143,15 @@ export function img2img(photoDataUrl) {
               weight: 1,
               width: 512,
               height: 768,
-              processor_res: 512,
+              // processor_res: 512,
               resize_mode: "Crop and Resize",
               lowvram: false,
               control_mode: "Balanced", //My prompt is more important //ControlNet is more important //Balanced
               pixel_perfect: true,
-              "threshold_a": 10,
-              "threshold_b": 220,
-              "guidance_start": 0.0,
-              "guidance_end": 1.0,
-              "pixel_perfect": true
+              threshold_a: 20,
+              threshold_b: 175,
+              guidance_start: 0.0,
+              guidance_end: 1.0
             },
             {
               enabled: false,

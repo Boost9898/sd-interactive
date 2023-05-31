@@ -1,39 +1,48 @@
 {
+  "generic": {
+    "artist": "Willem van der Vliet",
+    "name": "Willem Reyersz de Langue",
+    "date": "1584 - 1642",
+    "info": "Willem de Langue werd vermoedelijk in 1599 geboren als zoon van Reyer de Langue. Op 9 februari 1623 werd hij door het Hof van Holland tot het notarisambt toegelaten en begon hij zijn praktijk als notaris in Delft. Zijn complete protocol over de periode februari 1623 tot en met december 1655 is in Delft bewaard gebleven (Gemeente Archief Delft, Oud Notarieel Archief, protocolnummers 1684-1696). Hij trouwde op 19 oktober 1625 voor het gerecht van de stad Delft met Maria Jorisdr. van Pijnaecker. Ter ere van dit huwelijk werden ze in 1626 door Van der Vliet geportretteerd. Willem de Langue stierf begin 1656. Op 5 januari 1656 werd hij in de Nieuwe Kerk in Delft begraven. Bijzonder is dat deze notaris een belangrijke rol speelde binnen het artistieke milieu van Delft in de eerste helft van de 17e eeuw. Hij was een gepassioneerd kunstliefhebber, kunstbeoefenaar (dichtkunst en kalligrafie) en collectioneur. Al op jonge leeftijd begon hij tekeningen en schilderijen te verzamelen. De vroegste vermelding van De Langue's verzamelactiviteit is te vinden in het dagboek van de Haagse schoolmeester David Beck. Deze bezocht De Langue meerdere malen in zijn huis in Delft, onder meer op 3 november 1624 en schreef 'ter loops eens sijne schilderijkens ende andere fraeyigheyt' te hebben gezien. De Langue onderhield nauwe banden met zeer veel Delftse kunstenaars. Een groot aantal van hen maakte gebruik van zijn notariële diensten waaronder Johannes Vermeer, Leonart Bramer, Jacob Delff, Hans Jordaens, Baltazar van der Ast, Evert van Aelst, Harmen van Bolgerstein, Willem van den Bundel, Jacob van Geel en Abram Vromans. Ook Willem van der Vliet zelf was klant bij de notaris. De overgeleverde acten uit de praktijk van De Langue vormen een zeer waardevolle bron van informatie over de geschiedenis van de Delftse kunst in de belangrijkste bloeiperiode. Samen met de schilders Leonart Bramer en Jacob Delff II is De Langue ook nog sergeant in het schuttersgilde van het Witte Vendel. In die hoedanigheid laat hij zich in 1648 nogmaals portretteren; dit keer door Jacob Delff II, de kleinzoon van Michiel van Mierevelt. Dat De Langue zelf ook als expert op het gebied van de schilderkunst werd beschouwd blijkt uit een in 1653 gesloten contract tussen Leonart Bramer en een opdrachtgever, waarin werd vermeld dat het uitgevoerde werk door Willem de Langue zou worden beoordeeld.",
+    "material": "Olieverf op paneel",
+    "credits": "Collectie Museum Prinsenhof Delft. Aankoop met steun van Vereniging Rembrandt, Mondriaan Fonds, SNS Reaal Fonds en VSB Fonds",
+    "pds": 318
+  },
   "markers": [
     {
       "id": 1,
       "title": "Element 1",
-      "desc": "Random text that will describe element 1",
-      "x": 80,
+      "desc": "Grote zwarte hoed en plooikraag (TODO: extra info opvragen)",
+      "x": 125,
       "y": 100
     },
     {
       "id": 2,
       "title": "Element 2",
-      "desc": "Random text that will describe element 2",
+      "desc": "Placeholder text that will describe element 2 (TODO: extra info opvragen)",
       "x": 210,
-      "y": 240
+      "y": 320
     },
     {
       "id": 3,
       "title": "Element 3",
-      "desc": "Random text that will describe element 3",
-      "x": 540,
-      "y": 340
+      "desc": "Familiewapen (TODO: extra info opvragen)",
+      "x": 562,
+      "y": 55
     },
     {
       "id": 4,
       "title": "Element 4",
-      "desc": "Random text that will describe element 4",
-      "x": 140,
+      "desc": "Placeholder text that will describe element 4 (TODO: extra info opvragen)",
+      "x": 260,
       "y": 550
     },
     {
       "id": 5,
       "title": "Element 5",
-      "desc": "Random text that will describe element 5",
+      "desc": "Notarispapieren (TODO: extra info opvragen)",
       "x": 560,
-      "y": 650
+      "y": 580
     }
   ]
 }
