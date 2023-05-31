@@ -494,6 +494,26 @@ body {
       height: 40%;
       background-size: cover;
     }
+
+    #photo-loader {
+      position: absolute;
+      width: 704px;
+      height: 795px;
+      border: 20px solid $btn-bg;
+      background-image: url('/images/input/photo-preview-load-02.png');
+      background-size: cover;
+      opacity: 100%;
+      z-index: 2;
+    }
+    
+    .pulse-overlay {
+      animation: pulse-overlay 3s infinite ease;
+    }
+
+    .fade-out {
+      animation: fade-out 1s ease;
+      animation-fill-mode: forwards;
+    }
   }
 
   #take-photo-button {

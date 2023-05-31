@@ -337,8 +337,13 @@ function initDiscoverScreen() {
 }
 
 export function catchGeneratedImageData(generatedImageData) {
-  console.log(generatedImageData)
+  console.log('caught generated image');
   sendGeneratedImageData(generatedImageData)
+
+  // stop pulse-overlay animation and fade overlay out to reveal generated result
+  const photoLoader = document.getElementById('photo-loader')
+  photoLoader.classList.remove('pulse-overlay');
+  photoLoader.classList.add('fade-out');
 }
 
 // create div, place base64image in dom and send to app.js
