@@ -254,7 +254,7 @@ function initDiscoverScreen() {
     let toggle = false
 
     // add event listeners to the buttons
-    deletePhotoButton.addEventListener('click', function () {  
+    deletePhotoButton.addEventListener('click', function () {
       if (generatedImage && toggle === false) {
         toggle = true;
         socket.emit('delete_generated_image', true);
@@ -356,25 +356,41 @@ function sendGeneratedImageData(generatedImageData) {
 // OVERLAY MANAGER
 //
 function overlayManager() {
-  // TODO: fix this, there are now multiple instances of the same HTML, make it dry
   const buttonParentIds = ['header-buttons-1', 'header-buttons-2'];
-  const buttonIds = ['header-info-button', 'header-restart-button', 'header-language-button'];
+  const buttonFunctions = {
+    'header-info-button': handleInfoButtonClick,
+    'header-restart-button': handleRestartButtonClick,
+    'header-language-button': handleLanguageButtonClick
+  };
 
   for (const parentId of buttonParentIds) {
     const parent = document.getElementById(parentId);
-    for (const buttonId of buttonIds) {
+    for (const buttonId in buttonFunctions) {
       const button = parent.querySelector(`#${buttonId}`);
-      button.onclick = function () {
-        buttonClickHandler(buttonId);
-      };
+      if (button) {
+        button.onclick = buttonFunctions[buttonId];
+      }
     }
   }
 
-  function buttonClickHandler(buttonId) {
-    console.log(`Button ${buttonId} was clicked!`);
-    // Handle button click event here
+  function handleInfoButtonClick() {
+    console.log('Header Info Button clicked!');
+    // Handle 'header-info-button' click here
+  }
+
+  function handleRestartButtonClick() {
+    console.log('Header Restart Button clicked!');
+    // TODO handle this from app.js to restart the entire application without fresreshing
+    location.reload();
+  }
+
+  function handleLanguageButtonClick() {
+    console.log('Header Language Button clicked!');
+    // Handle 'header-language-button' click here
   }
 }
+
+
 
 
 // 
