@@ -145,8 +145,8 @@ Touchscreen.onConnect = function (socket) {
   // 
   // DISCOVER SCREEN
   //
-  socket.on('pass_photo_data', (photoData) => {
-    Display.photoData(photoData)
+  socket.on('pass_generated_image_data', (data) => {
+    Display.generatedImageData(data)
   });
 
 
@@ -242,9 +242,9 @@ Display.photoDataUrl = function (data) {
   }
 };
 
-Display.photoData = function (data) {
+Display.generatedImageData = function (data) {
   for (let i in Display.list) {
-    SOCKET_LIST[Display.list[i].id].emit('photo_data', data);
+    SOCKET_LIST[Display.list[i].id].emit('generated_image', data);
   }
 };
 
