@@ -612,7 +612,11 @@ body {
     #delete-photo-button {
       left: -373px;
       right: 0;
-      background-color: $negative;
+      background-color: $disabled;
+
+      &.enabled {
+        background-color: $negative;
+      }
     }
   }
 }

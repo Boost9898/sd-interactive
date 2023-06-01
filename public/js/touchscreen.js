@@ -97,7 +97,7 @@ takePhotoButton.addEventListener('click', function () {
 
 function startCountdown() {
   countdownElement.style.display = 'block';
-  let count = 1; // DEV
+  let count = 3; // DEV: countdown duration in seconds
 
   function flashBackground() {
     photoFieldElement.style.backgroundColor = 'white';
@@ -379,11 +379,24 @@ function initDiscoverScreen() {
     }
     columnLeft.innerHTML = '<p><b>Mag jouw portret deel uit maken van deze interactive?</b></p><p>Klik op ‘ja’ en jouw portret zal toegevoegd worden aan het beginscherm van deze interactieve applicatie.</p><p>Wil je dit niet? Dan hoef je niets te doen. Jouw werk zal automatisch verwijderd worden na het gebruik.</p><div id="allow-usage-button">Ja</div>';
   }
+
+  // decline usage of generated image, handle in app.js
+  document.getElementById('finish-application-button').addEventListener('click', function () {
+    socket.emit('allow_usage', false);
+    location.reload(); // TODO: send to app.js and let app.js reset touchscreen.js/display.js
+  });
+
+  // allow usage of generated image, handle in app.js (no need to pass image since it's already present in app.js/display.js)
+  // document.getElementById('allow-usage-button').addEventListener('click', function () {
+  //   socket.emit('allow_usage', true); 
+  // });
+  
 }
 
+// export function to make it accessable in sd.js, function 
 export function catchGeneratedImageData(generatedImageData) {
   console.log('caught generated image');
-  enableGetPhotoButton();
+  enablePhotoButtons();
   sendGeneratedImageData(generatedImageData)
 
   // stop pulse-overlay animation and fade overlay out to reveal generated result
@@ -392,12 +405,13 @@ export function catchGeneratedImageData(generatedImageData) {
   photoLoader.classList.add('fade-out');
 }
 
-// Own function to activate get-photo-button
-function enableGetPhotoButton() {
+// enable photo buttons when generated image is present
+function enablePhotoButtons() {
   document.getElementById('get-photo-button').classList.add('enabled')
+  document.getElementById('delete-photo-button').classList.add('enabled')
 }
 
-// create div, place base64image in dom and send to app.js
+// create div, place base64image in dom and send to app.js > display.js
 function sendGeneratedImageData(generatedImageData) {
   socket.emit('pass_generated_image_data', { photoData: generatedImageData });
 

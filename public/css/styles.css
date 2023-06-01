@@ -638,6 +638,9 @@ body .dev-state-title {
 #touch-discover-state #discover-buttons #delete-photo-button {
   left: -373px;
   right: 0;
+  background-color: #646464;
+}
+#touch-discover-state #discover-buttons #delete-photo-button.enabled {
   background-color: #ff4747;
 }
 
