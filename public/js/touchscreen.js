@@ -194,13 +194,14 @@ function switchPhotoButtons() {
 
   // create and show continue and retake photo buttons
   const continuePhotoButton = document.createElement('div');
-  const retakePhotobutton = document.createElement('div');
+  const retakePhotoButton = document.createElement('div');
+  
   takePhotoButton.parentNode.insertBefore(continuePhotoButton, takePhotoButton.nextSibling);
-  takePhotoButton.parentNode.insertBefore(retakePhotobutton, takePhotoButton.nextSibling);
+  takePhotoButton.parentNode.insertBefore(retakePhotoButton, takePhotoButton.nextSibling);
   continuePhotoButton.id = 'continue-photo-button';
   continuePhotoButton.textContent = 'Ga door';
-  retakePhotobutton.id = 'retake-photo-button';
-  retakePhotobutton.textContent = 'Opnieuw';
+  retakePhotoButton.id = 'retake-photo-button';
+  retakePhotoButton.textContent = 'Opnieuw';
 
   // click handlers for continue and retake buttons
   continuePhotoButton.addEventListener('click', function () {
@@ -208,7 +209,7 @@ function switchPhotoButtons() {
     initDiscoverScreen();
   });
 
-  retakePhotobutton.addEventListener('click', function () {
+  retakePhotoButton.addEventListener('click', function () {
     startCountdown()
 
     // remove current photo-preview-capture
@@ -313,7 +314,7 @@ function initDiscoverScreen() {
 
           // Set inline css properties values in JSON
           // Set animation delay based on function getRandomNumber()
-          markerElement.textContent = marker.id; //DEV: show marker id inside marker
+          // markerElement.textContent = marker.id; //DEV: show marker id inside marker
           markerElement.classList.add('marker');
           markerElement.id = `marker-${marker.id}`;
           markerElement.style.left = `${marker.x}px`;
@@ -358,6 +359,7 @@ function initDiscoverScreen() {
 
   function showColumnRight() {
     console.log('showColumnRight()')
+    document.getElementById('column-right').classList.add('active');;
 
   }
 }
