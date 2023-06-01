@@ -428,10 +428,41 @@ body {
   #column-right {
     margin-right: 40px;
     opacity: 0;
+
+    &.active {
+      animation: fade-in 1s ease;
+      animation-fill-mode: forwards;
+    }
+
+    #finish-application-button {
+      width: 528px;
+      height: 65px;
+      position: absolute;
+      display: flex;
+      bottom: 40px;
+      height: 65px;
+      font-size: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      background-color: $color-main;
+    }
   }
 
   #column-left {
     margin-left: 40px;
+
+    #allow-usage-button {
+      width: 528px;
+      height: 65px;
+      position: absolute;
+      display: flex;
+      bottom: 40px;
+      height: 65px;
+      font-size: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      background-color: $color-main;
+    }
   }
 
   #photo-field {

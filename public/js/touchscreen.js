@@ -187,34 +187,39 @@ function displayPhotoPreview() {
 
 function switchPhotoButtons() {
 
-  // hide first take photo button
+  // Hide first take photo button
   if (takePhotoButton) {
     takePhotoButton.style.display = 'none';
   }
 
-  // create and show continue and retake photo buttons
-  const continuePhotoButton = document.createElement('div');
-  const retakePhotoButton = document.createElement('div');
-  
-  takePhotoButton.parentNode.insertBefore(continuePhotoButton, takePhotoButton.nextSibling);
-  takePhotoButton.parentNode.insertBefore(retakePhotoButton, takePhotoButton.nextSibling);
-  continuePhotoButton.id = 'continue-photo-button';
-  continuePhotoButton.textContent = 'Ga door';
-  retakePhotoButton.id = 'retake-photo-button';
-  retakePhotoButton.textContent = 'Opnieuw';
 
-  // click handlers for continue and retake buttons
-  continuePhotoButton.addEventListener('click', function () {
-    socket.emit('continue_photo_button_clicked');
-    initDiscoverScreen();
-  });
+  // Check if the buttons are already created, to prevent multiple instances
+  if (!document.getElementById('continue-photo-button') && !document.getElementById('retake-photo-button')) {
+    const continuePhotoButton = document.createElement('div');
+    const retakePhotoButton = document.createElement('div');
 
-  retakePhotoButton.addEventListener('click', function () {
-    startCountdown()
+    continuePhotoButton.id = 'continue-photo-button';
+    continuePhotoButton.textContent = 'Ga door';
+    retakePhotoButton.id = 'retake-photo-button';
+    retakePhotoButton.textContent = 'Opnieuw';
 
-    // remove current photo-preview-capture
-    document.getElementById('photo-preview-capture').remove();
-  });
+    const parentElement = takePhotoButton.parentNode;
+    parentElement.insertBefore(continuePhotoButton, takePhotoButton.nextSibling);
+    parentElement.insertBefore(retakePhotoButton, takePhotoButton.nextSibling);
+
+    // Click handlers for continue and retake buttons
+    continuePhotoButton.addEventListener('click', function () {
+      socket.emit('continue_photo_button_clicked');
+      initDiscoverScreen();
+    });
+
+    retakePhotoButton.addEventListener('click', function () {
+      startCountdown()
+
+      // remove current photo-preview-capture
+      document.getElementById('photo-preview-capture').remove();
+    });
+  }
 }
 
 
@@ -334,6 +339,7 @@ function initDiscoverScreen() {
             if (clickedMarkers.size === markers.length) {
               console.log('All markers have been clicked!');
               showColumnRight();
+              updateColumnLeft();
             }
 
             markerElement.classList.add('active');
@@ -359,8 +365,19 @@ function initDiscoverScreen() {
 
   function showColumnRight() {
     console.log('showColumnRight()')
-    document.getElementById('column-right').classList.add('active');;
 
+    const columnRight = document.querySelector('#touch-discover-state #column-right');
+    columnRight.classList.add('active')
+  }
+
+  function updateColumnLeft() {
+    console.log('updateColumnLeft()')
+
+    const columnLeft = document.querySelector('#touch-discover-state #column-left');
+    while (columnLeft.firstChild) {
+      columnLeft.removeChild(columnLeft.firstChild);
+    }
+    columnLeft.innerHTML = '<p><b>Mag jouw portret deel uit maken van deze interactive?</b></p><p>Klik op ‘ja’ en jouw portret zal toegevoegd worden aan het beginscherm van deze interactieve applicatie.</p><p>Wil je dit niet? Dan hoef je niets te doen. Jouw werk zal automatisch verwijderd worden na het gebruik.</p><div id="allow-usage-button">Ja</div>';
   }
 }
 
