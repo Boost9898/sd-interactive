@@ -24,7 +24,7 @@ set COMMANDLINE_ARGS=--xformers --medvram --cors-allow-origins=* --api --nowebui
 - api: enables api (api documentation is accessible on: [http://127.0.0.1:7861/docs](http://127.0.0.1:7861/docs))
 - nowebui: disables webui (remove this argument to enable webui, note that this will disable the API, accessible on: [http://127.0.0.1:786](http://127.0.0.1:7860)
 
-<br><br>
+<br>
 
 ## Installation ControlNet
 Install ControlNet using the Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies)
