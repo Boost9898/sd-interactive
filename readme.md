@@ -27,57 +27,51 @@ set COMMANDLINE_ARGS=--xformers --medvram --cors-allow-origins=* --api --nowebui
 <br>
 
 ## Installation ControlNet
-Install ControlNet using the Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies)
+Install ControlNet, make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies) are installed.
 
-1. Open "Extensions" tab
-2. Open "Install from URL" tab in the tab
-3. Enter `https://github.com/Mikubill/sd-webui-controlnet.git` to "URL for extension's git repository"
-4. Press "Install" button
-5. Wait, you will see the message "Installed into stable-diffusion-webui\extensions\sd-webui-controlnet. Use Installed tab to restart"
-6. Go to "Installed" tab, click "Check for updates", and then click "Apply and restart UI". (The next time you can also use these buttons to update ControlNet.)
-7. Completely restart A1111 webui including your terminal
-8. Download models (see below)
-9. After you put models in the correct folder, you may need to refresh to see the models
+1. Launch StableDiffusion webui by starting `webui-user.bat`
+2. Open "Extensions" tab
+3. Open "Install from URL" tab in the tab
+4. Enter `https://github.com/Mikubill/sd-webui-controlnet.git` to "URL for extension's git repository"
+5. Press "Install" button
+6. Wait, you will see the message "Installed into stable-diffusion-webui\extensions\sd-webui-controlnet. Use Installed tab to restart"
+7. Go to "Installed" tab, click "Check for updates", and then click "Apply and restart UI". (The next time you can also use these buttons to update ControlNet.)
+8. Completely restart A1111 webui including your terminal
+9. Download models (see below)
+10. After you put models in the correct folder, you may need to refresh to see the models
 
-### Download and install models
-1. Download the models from ControlNet 1.1: https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main, you need to download model files ending with ".pth".
-2. Put models in your "stable-diffusion-webui\extensions\sd-webui-controlnet\models". You only need to download "pth" files.
+### Download and install ControlNet models
+1. Navigate to [ControlNet-v1-1](https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main)
+2. Click on the three dots upper right corner
+3. Click on clone repository
+4. Run the first line (if never executed before)
+5. Run 'git clone' line in the following folder: C:\Projects\sd\stable-diffusion-webui\models\ControlNet
+6. Note: terminal does not update it's status, wait until cursor is back
+7. Move all the cloned content up by one folder
+8. Put models in your "stable-diffusion-webui\extensions\sd-webui-controlnet\models". You only need to download "pth" files.
 
+<br>
 
-
-
-
-
-
-
-
+## Set-up and configure interactive application
 
 ### Setup
- - Update project name in package.json + package-lock.json
- - Run "npm install"
- - Update path in sass-watch.bat to root of project folder
+1. Run "npm install"
+2. Update path in `sass-watch.bat` to path's root of project folder
+3. Configure the desired StableDiffusion API payload in: `public\js\scripts\sd.js`
+4. If you want to use your own images, set them in `sd-interactive\images\input` and `sd-interactive\images\preview` and make sure they have the same resolution as the POST request sends.
+5. Download [EasyNegative](https://civitai.com/models/7808/easynegative) and place the embeddings for negative prompts in path: `C:\your-local-directory\stable-diffusion-webui\embeddings`
+6. Download [monet](https://civitai.com/images/375698?modelId=21482&postId=81508&id=21482&slug=claude-monet-painting-style) and place the lora in path: `C:\your-local-directory\stable-diffusion-webui\models\Lora`
 
-### Input images resolution
-Make sure images in `sd-interactive\images\input` have the same resolution as the POST request sends
-
-### SETUP: Install ControlNet models
-- https://huggingface.co/lllyasviel/ControlNet-v1-1/tree/main
-- click on the three dots upper right corner
-- click on clone repository
-- run the first line (if never executed before)
-- run 'git clone' line in the following folder: C:\Projects\sd\stable-diffusion-webui\models\ControlNet
-- Note: terminal does not update it's status, wait until cursor is back
-- Move all the cloned content up by one folder
 
 ### SETUP: Requirements
 - ControlNet: https://github.com/Mikubill/sd-webui-controlnet (Path: stable-diffusion-webui\extensions\sd-webui-controlnet\models)
-- Embeddings for negative prompts, path: C:\your-local-directory\stable-diffusion-webui\embeddings
+- 
 
-## DEV: fix API
-run the line below to start the application
-- npm run dev
-run the line below to watch scss
-- npm run scss
+<br>
+
+## Start application
+1. Run `npm run dev` to start the application
+2. When developing, run `npm run scss` to start SASS watch (CSS compiler)
 
 ## DEV notes
 - Gradio removed the possibility to use the webui and API documentation at the same time.
