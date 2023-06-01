@@ -62,11 +62,6 @@ Install ControlNet, make sure the required [dependencies](https://github.com/AUT
 5. Download [EasyNegative](https://civitai.com/models/7808/easynegative) and place the embeddings for negative prompts in path: `C:\your-local-directory\stable-diffusion-webui\embeddings`
 6. Download [monet](https://civitai.com/images/375698?modelId=21482&postId=81508&id=21482&slug=claude-monet-painting-style) and place the lora in path: `C:\your-local-directory\stable-diffusion-webui\models\Lora`
 
-
-### SETUP: Requirements
-- ControlNet: https://github.com/Mikubill/sd-webui-controlnet (Path: stable-diffusion-webui\extensions\sd-webui-controlnet\models)
-- 
-
 <br>
 
 ## Start application
