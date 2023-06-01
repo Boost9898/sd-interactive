@@ -73,6 +73,8 @@ Install ControlNet, make sure the required [dependencies](https://github.com/AUT
 1. Run `npm run dev` to start the application
 2. When developing, run `npm run scss` to start SASS watch (CSS compiler)
 
+<br>
+
 ## DEV notes
 - Gradio removed the possibility to use the webui and API documentation at the same time.
 - If you want to read the API dcoumation, make sure to add `--nowebui` to the COMMANDLINE_ARGS. 
