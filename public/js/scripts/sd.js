@@ -118,13 +118,13 @@ export function img2img(photoDataUrl) {
       // inpaint_full_res_padding: 72,
       // inpainting_mask_invert: 0,
       // initial_noise_multiplier: 1,
-      prompt: "bright, young man, brown hair, portrait painting, detailed oil painting, renaissance, hyper realistic, 8k, detail, <lora:monet-wd14v10-000015:0.75>", // DEV make it customisable
+      prompt: "bright, young man, brown hair, portrait painting, detailed oil painting, renaissance, hyper realistic, 8k, detail, <lora:monet-wd14v10-000015:0.9>", // DEV make it customisable
       negative_prompt: "bald, EasyNegative:0.2",
       // seed: 1472411147,
       sampler_name: "Euler",
       sampler_index: "Euler",
       batch_size: 1,
-      steps: 10,
+      steps: 2,
       cfg_scale: 7,
       width: 512,
       height: 768,
@@ -146,7 +146,7 @@ export function img2img(photoDataUrl) {
               // processor_res: 512,
               resize_mode: "Crop and Resize",
               lowvram: false,
-              control_mode: "ControlNet is more important", //My prompt is more important //ControlNet is more important //Balanced
+              control_mode: "Balanced", //My prompt is more important //ControlNet is more important //Balanced
               pixel_perfect: true,
               threshold_a: 15,
               threshold_b: 175,

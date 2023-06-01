@@ -260,11 +260,10 @@ function initDiscoverScreen() {
         generatedImage.remove();
         getPhotoButton.remove();
         deletePhotoButton.style.width = '36.6%';
-        deletePhotoButton.style.right = '0px';
+        deletePhotoButton.style.left = '0px';
         deletePhotoButton.style.backgroundColor = '#646464';
         deletePhotoButton.style.opacity = '50%';
         deletePhotoButton.textContent = 'Verwijderd';
-        console.log('Genereated image removed');
       } else if (!generatedImage) {
         console.log('Generated image not present');
       } else if (toggle === true) {
@@ -274,9 +273,26 @@ function initDiscoverScreen() {
       }
     });
 
+    // change z-index to lay it over the markers, set active class to button
     getPhotoButton.addEventListener('click', function () {
+      if (!generatedImage) {
+        console.log('Generated image not present');
+        return;
+      }
+
       const getPhotoContainer = document.getElementById('get-photo-overlay');
+      const currentZIndex = getPhotoContainer.style.zIndex;
+      let newZIndex;
+
+      if (currentZIndex === '15') {
+        newZIndex = '0';
+      } else {
+        newZIndex = '15';
+      }
+
       getPhotoContainer.classList.toggle('active');
+      getPhotoButton.classList.toggle('active');
+      getPhotoContainer.style.zIndex = newZIndex;
     });
   }
 
@@ -289,36 +305,41 @@ function initDiscoverScreen() {
     fetch('/data/data.json')
       .then(response => response.json())
       .then(data => {
-        data.markers.forEach(marker => {
+        const markers = data.markers;
+        const clickedMarkers = new Set();
+
+        markers.forEach(marker => {
           const markerElement = document.createElement('div');
 
-          // markerElement.textContent = marker.id; //DEV: show marker id inside marker
+          // Set inline css properties values in JSON
+          // Set animation delay based on function getRandomNumber()
+          markerElement.textContent = marker.id; //DEV: show marker id inside marker
           markerElement.classList.add('marker');
           markerElement.id = `marker-${marker.id}`;
-
-          // Set inline css left and top properties based on 'x' and 'y' values in JSON
           markerElement.style.left = `${marker.x}px`;
           markerElement.style.top = `${marker.y}px`;
-
-          // Set animation delay based on index
           markerElement.style.animationDelay = `${getRandomNumber(0, 10)}s`;
 
+          // Listen to clicked markers
           markerElement.addEventListener('click', () => {
-            // Remove 'active' class from the previous active marker (if any)
             if (activeMarker) {
               activeMarker.classList.remove('active');
             }
 
-            // Add 'active' class to the clicked marker
-            markerElement.classList.add('active');
+            // Add clicked marker to Set object (very fancy)
+            clickedMarkers.add(marker.id);
 
-            // Store the reference to the current active marker
+            // Check if all markers have been clicked
+            if (clickedMarkers.size === markers.length) {
+              console.log('All markers have been clicked!');
+              showColumnRight();
+            }
+
+            markerElement.classList.add('active');
             activeMarker = markerElement;
 
-            // DEV purposes
-            console.log(`Clicked marker with ID: ${marker.id}`);
-
-            // Send data to app.js -> display.js
+            // console.log(`Clicked marker with ID: ${marker.id}`); // DEV
+            // send clicked markerdata to app.js > display.js
             socket.emit('marker_data', { marker });
           });
 
@@ -334,16 +355,27 @@ function initDiscoverScreen() {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
   }
+
+  function showColumnRight() {
+    console.log('showColumnRight()')
+
+  }
 }
 
 export function catchGeneratedImageData(generatedImageData) {
   console.log('caught generated image');
+  enableGetPhotoButton();
   sendGeneratedImageData(generatedImageData)
 
   // stop pulse-overlay animation and fade overlay out to reveal generated result
   const photoLoader = document.getElementById('photo-loader')
   photoLoader.classList.remove('pulse-overlay');
   photoLoader.classList.add('fade-out');
+}
+
+// Own function to activate get-photo-button
+function enableGetPhotoButton() {
+  document.getElementById('get-photo-button').classList.add('enabled')
 }
 
 // create div, place base64image in dom and send to app.js

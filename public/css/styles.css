@@ -132,7 +132,7 @@ body .dev-state-title {
 #touch-overlay {
   position: absolute;
   display: block;
-  background-color: yellowgreen;
+  background-color: #9acd32;
   width: 100vw;
   height: 100vh;
   opacity: 50%;
@@ -386,8 +386,7 @@ body .dev-state-title {
   left: 0;
   right: -373px;
   margin: 0 auto;
-  background-color: #0F62FE;
-  background-color: yellowgreen;
+  background-color: #9acd32;
 }
 #touch-photograph-state #retake-photo-button {
   position: absolute;
@@ -402,8 +401,7 @@ body .dev-state-title {
   left: -373px;
   right: 0;
   margin: 0 auto;
-  background-color: #0F62FE;
-  background-color: tomato;
+  background-color: #ff4747;
 }
 
 #touch-discover-state #header {
@@ -505,7 +503,9 @@ body .dev-state-title {
   opacity: 50%;
   transition: all 0.4s ease;
 }
-#touch-discover-state #photo-field #painting, #touch-discover-state #photo-field #photo-overlay, #touch-discover-state #photo-field #get-photo-overlay {
+#touch-discover-state #photo-field #painting,
+#touch-discover-state #photo-field #photo-overlay,
+#touch-discover-state #photo-field #get-photo-overlay {
   position: absolute;
   width: 704px;
   height: 795px;
@@ -522,7 +522,6 @@ body .dev-state-title {
   justify-content: center;
   background-color: #002E66;
   opacity: 0;
-  z-index: 15;
 }
 #touch-discover-state #photo-field #get-photo-overlay #qr-code {
   width: 500px;
@@ -572,22 +571,7 @@ body .dev-state-title {
   margin: 0 auto;
   background-color: #0F62FE;
 }
-#touch-discover-state #discover-buttons #get-photo-button {
-  position: absolute;
-  display: flex;
-  bottom: 40px;
-  height: 65px;
-  width: calc(20% - 53px);
-  font-size: 1.5rem;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  left: -373px;
-  right: 0;
-  margin: 0 auto;
-  background-color: #0F62FE;
-  background-color: yellowgreen;
-}
+#touch-discover-state #discover-buttons #get-photo-button,
 #touch-discover-state #discover-buttons #delete-photo-button {
   position: absolute;
   display: flex;
@@ -598,11 +582,25 @@ body .dev-state-title {
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin: 0 auto;
+}
+#touch-discover-state #discover-buttons #get-photo-button {
   left: 0;
   right: -373px;
-  margin: 0 auto;
-  background-color: #0F62FE;
-  background-color: tomato;
+  background-color: #646464;
+}
+#touch-discover-state #discover-buttons #get-photo-button.enabled {
+  background-color: #9acd32;
+}
+#touch-discover-state #discover-buttons #get-photo-button.active {
+  width: 36.6%;
+  right: 1px;
+  z-index: 1;
+}
+#touch-discover-state #discover-buttons #delete-photo-button {
+  left: -373px;
+  right: 0;
+  background-color: #ff4747;
 }
 
 #marker-data-container {

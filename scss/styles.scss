@@ -135,7 +135,7 @@ body {
 #touch-overlay {
   position: absolute;
   display: block;
-  background-color: yellowgreen;
+  background-color: $positive;
   width: 100vw;
   height: 100vh;
   opacity: 50%;
@@ -366,7 +366,6 @@ body {
     left: 0;
     right: 0;
     margin: 0 auto;
-
     background-color: $color-main;
   }
 
@@ -383,10 +382,7 @@ body {
     left: 0;
     right: -373px;
     margin: 0 auto;
-
-    background-color: $color-main;
-    // todo dev
-    background-color: yellowgreen;
+    background-color: $positive;
   }
 
   #retake-photo-button {
@@ -402,10 +398,7 @@ body {
     left: -373px;
     right: 0;
     margin: 0 auto;
-
-    background-color: $color-main;
-    // todo dev
-    background-color: tomato;
+    background-color: $negative;
   }
 }
 
@@ -474,29 +467,34 @@ body {
       }
     }
 
-    #painting, #photo-overlay, #get-photo-overlay {
+    #painting,
+    #photo-overlay,
+    #get-photo-overlay {
       position: absolute;
       width: 704px;
       height: 795px;
       border: 20px solid $btn-bg;
       background-size: cover;
     }
+
     #photo-overlay {
       z-index: 1;
       background-image: url('/images/input/image-02-mask-cut.png');
     }
+
     #get-photo-overlay {
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: $btn-bg;
       opacity: 0;
-      z-index: 15;
+
       #qr-code {
         width: 500px;
         height: 500px;
         background-image: url('/images/qr/wip-qr.svg');
       }
+
       &.active {
         opacity: 1;
       }
@@ -521,7 +519,7 @@ body {
       opacity: 100%;
       z-index: 2;
     }
-    
+
     .pulse-overlay {
       animation: pulse-overlay 3s infinite ease;
     }
@@ -545,29 +543,12 @@ body {
     left: 0;
     right: 0;
     margin: 0 auto;
-
     background-color: $color-main;
   }
 
   #discover-buttons {
-    #get-photo-button {
-      position: absolute;
-      display: flex;
-      bottom: 40px;
-      height: 65px;
-      width: calc(20% - 53px);
-      font-size: 1.5rem;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      left: -373px;
-      right: 0;
-      margin: 0 auto;
-      background-color: $color-main;
-      // todo dev
-      background-color: yellowgreen;
-    }
 
+    #get-photo-button,
     #delete-photo-button {
       position: absolute;
       display: flex;
@@ -578,15 +559,31 @@ body {
       justify-content: center;
       align-items: center;
       text-align: center;
+      margin: 0 auto;
+    }
+
+    #get-photo-button {
       left: 0;
       right: -373px;
-      margin: 0 auto;
-      background-color: $color-main;
-      // todo dev
-      background-color: tomato;
+      background-color: $disabled;
+
+      &.enabled {
+        background-color: $positive;
+      }
+
+      &.active {
+        width: 36.6%;
+        right: 1px;
+        z-index: 1;
+      }
+    }
+
+    #delete-photo-button {
+      left: -373px;
+      right: 0;
+      background-color: $negative;
     }
   }
-
 }
 
 // TODO: to it's own DISPLAY file, keep separated from TOUCHSCREEN
