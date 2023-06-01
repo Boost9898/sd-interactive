@@ -1,5 +1,7 @@
 # Ontdek de kunst interactive 🎨🖌️🖼️
 
+<br>
+
 ## Installation Stable Diffusion and dependencies
 Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies) are met and follow the instructions available for [NVidia](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Install-and-Run-on-NVidia-GPUs) GPUs.
 
