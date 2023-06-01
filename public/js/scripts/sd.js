@@ -146,7 +146,7 @@ export function img2img(photoDataUrl) {
               // processor_res: 512,
               resize_mode: "Crop and Resize",
               lowvram: false,
-              control_mode: "Balanced", //My prompt is more important //ControlNet is more important //Balanced
+              control_mode: "ControlNet is more important", //My prompt is more important //ControlNet is more important //Balanced
               pixel_perfect: true,
               threshold_a: 15,
               threshold_b: 175,

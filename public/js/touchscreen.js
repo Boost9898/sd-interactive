@@ -247,8 +247,7 @@ function initDiscoverScreen() {
 
     // append the div elements to parent DOM element
     const discoverButtons = document.getElementById('discover-buttons');
-    discoverButtons.appendChild(getPhotoButton);
-    discoverButtons.appendChild(deletePhotoButton);
+    discoverButtons.append(getPhotoButton, deletePhotoButton);
 
     // create toggle used in deletePhotoButton() to prevent overload
     let toggle = false
