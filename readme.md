@@ -69,6 +69,7 @@ Install ControlNet, make sure the required [dependencies](https://github.com/AUT
 <br>
 
 ## DEV notes
-- Gradio removed the possibility to use the webui and API documentation at the same time.
-- If you want to read the API documentation, make sure to add `--nowebui` to the COMMANDLINE_ARGS. 
+- IMPORTANT: in `public\js\scripts\sd.js`, set `save_images: true` to false in the payload to prevent automatic savings of generated results
+- Gradio removed the possibility to use the webui and API documentation at the same time
+- If you want to read the API documentation, make sure to add `--nowebui` to the COMMANDLINE_ARGS.
 - Make sure to check the port number, this might swap between :7860 and :7861
