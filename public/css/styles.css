@@ -505,7 +505,7 @@ body .dev-state-title {
   opacity: 50%;
   transition: all 0.4s ease;
 }
-#touch-discover-state #photo-field #painting, #touch-discover-state #photo-field #photo-overlay {
+#touch-discover-state #photo-field #painting, #touch-discover-state #photo-field #photo-overlay, #touch-discover-state #photo-field #get-photo-overlay {
   position: absolute;
   width: 704px;
   height: 795px;
@@ -515,6 +515,22 @@ body .dev-state-title {
 #touch-discover-state #photo-field #photo-overlay {
   z-index: 1;
   background-image: url("/images/input/image-02-mask-cut.png");
+}
+#touch-discover-state #photo-field #get-photo-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #002E66;
+  opacity: 0;
+  z-index: 15;
+}
+#touch-discover-state #photo-field #get-photo-overlay #qr-code {
+  width: 500px;
+  height: 500px;
+  background-image: url("/images/qr/wip-qr.svg");
+}
+#touch-discover-state #photo-field #get-photo-overlay.active {
+  opacity: 1;
 }
 #touch-discover-state #photo-field #generated-image {
   position: relative;

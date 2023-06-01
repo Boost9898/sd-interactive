@@ -474,7 +474,7 @@ body {
       }
     }
 
-    #painting, #photo-overlay {
+    #painting, #photo-overlay, #get-photo-overlay {
       position: absolute;
       width: 704px;
       height: 795px;
@@ -484,6 +484,22 @@ body {
     #photo-overlay {
       z-index: 1;
       background-image: url('/images/input/image-02-mask-cut.png');
+    }
+    #get-photo-overlay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $btn-bg;
+      opacity: 0;
+      z-index: 15;
+      #qr-code {
+        width: 500px;
+        height: 500px;
+        background-image: url('/images/qr/wip-qr.svg');
+      }
+      &.active {
+        opacity: 1;
+      }
     }
 
     #generated-image {

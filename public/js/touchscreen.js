@@ -276,7 +276,8 @@ function initDiscoverScreen() {
     });
 
     getPhotoButton.addEventListener('click', function () {
-      console.log('getPhotoButton clicked');
+      const getPhotoContainer = document.getElementById('get-photo-overlay');
+      getPhotoContainer.classList.toggle('active');
     });
   }
 

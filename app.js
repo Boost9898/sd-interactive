@@ -8,7 +8,6 @@ const app = express();
 const serv = require('http').Server(app);
 const io = require('socket.io')(serv, { pingTimeout: 30000 });
 
-
 /* -- Variables -- */
 /* -------------------------------------------------------------------------------------- */
 global.debugMode = false;
@@ -24,7 +23,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/dev', function (req, res) { res.sendFile('./public/pages/test-screens.html', { root: __dirname }); });
 app.get('/touchscreen', function (req, res) { res.sendFile('./public/touchscreen.html', { root: __dirname }); });
 app.get('/display', function (req, res) { res.sendFile('./public/display.html', { root: __dirname }); });
-app.get('/webcam', function (req, res) { res.sendFile('./public/webcam-demo.html', { root: __dirname }); });
+// app.get('/webcam', function (req, res) { res.sendFile('./public/webcam-demo.html', { root: __dirname }); });
 
 
 /* -- Start server -- */
