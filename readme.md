@@ -2,9 +2,9 @@
 Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies) are met and follow the instructions available for [NVidia](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Install-and-Run-on-NVidia-GPUs) GPUs.
 
 ### Installation on Windows 10/11 with NVidia-GPUs using release package
-1. Download `sd.webui.zip` from [v1.0.0-pre](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.0.0-pre) and extract it's contents.
-2. Run `update.bat` to fetch the latest version.
-3. Run `run.bat`.
+1. Download `sd.webui.zip` from [v1.0.0-pre](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.0.0-pre) and extract it's contents
+2. Run `update.bat` to fetch the latest version
+3. Run `run.bat`
 > For more details see [Install-and-Run-on-NVidia-GPUs](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Install-and-Run-on-NVidia-GPUs)
 
 ### Automatic Installation on Windows
@@ -15,13 +15,16 @@ Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-di
 ```bash
 set COMMANDLINE_ARGS=--xformers --medvram --cors-allow-origins=* --api --nowebui
 ```
+1. Run `webui-user.bat` from Windows Explorer
+
+### Explaination of commandline arguments:
 - xformers: imrpove speed of generation process
 - medvram: makes the system use less GPU VRAM
 - cors: allow cross origin usage
 - api: enables api (api documentation is accessible on: [http://127.0.0.1:7861/docs](http://127.0.0.1:7861/docs))
 - nowebui: disables webui (remove this argument to enable webui, note that this will disable the API, accessible on: [http://127.0.0.1:786](http://127.0.0.1:7860)
-5. Run `webui-user.bat` from Windows Explorer as normal, non-administrator, user.
 
+<br><br>
 
 ## Installation ControlNet
 Install ControlNet using the Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies)
