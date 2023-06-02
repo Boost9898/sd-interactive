@@ -153,6 +153,12 @@ Touchscreen.onConnect = function (socket) {
   });
 
 
+  // 
+  // GENERAL FUNCTIONS
+  //
+  socket.on('reload_application', (data) => {
+    Display.reloadApplication(data)
+  });
 
 
   // 
@@ -249,6 +255,16 @@ Display.deleteGeneratedImage = function (data) {
 Display.markerData = function (data) {
   for (let i in Display.list) {
     SOCKET_LIST[Display.list[i].id].emit('marker_data', data);
+  }
+};
+
+
+// 
+// GENERAL FUNCTIONS
+//
+Display.reloadApplication = function (data) {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('reload_application', data);
   }
 };
 

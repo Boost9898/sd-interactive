@@ -124,7 +124,7 @@ export function img2img(photoDataUrl) {
       sampler_name: "Euler",
       sampler_index: "Euler",
       batch_size: 1,
-      steps: 20,
+      steps: 15,
       cfg_scale: 7,
       width: 512,
       height: 768,

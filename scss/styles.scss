@@ -74,7 +74,7 @@ body {
     top: 30%;
     left: 0;
     right: 0;
-    font-size: 4rem;
+    font-size: 4.5rem;
     text-align: center;
     color: $attract-text;
 
@@ -150,20 +150,26 @@ body {
       top: 10rem;
 
       h2 {
-        font-size: 3.5rem;
+        font-size: 5.5rem;
       }
 
       h3 {
-        font-size: 2rem;
+        font-size: 3.2rem;
       }
+
     }
 
     #body-text {
       position: relative;
-      top: 20rem;
+      top: 28rem;
       font-weight: lighter;
       line-height: 1.5rem;
       margin: 0 auto;
+
+      p {
+        font-size: 1.5rem;
+        line-height: 3rem;
+      }
     }
 
     #confirm-application-button {
@@ -206,7 +212,7 @@ body {
     p {
       padding: 40px;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
     }
   }
 
@@ -344,7 +350,7 @@ body {
     p {
       padding: 40px;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
     }
   }
 
@@ -588,6 +594,7 @@ body {
       color: rgb(54, 24, 4);
       text-align: center;
     }
+
     .marker-element {
       width: 250px;
       height: 335px;

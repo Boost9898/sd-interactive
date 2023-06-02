@@ -379,10 +379,11 @@ function initDiscoverScreen() {
   // decline usage of generated image, handle in app.js
   document.getElementById('finish-application-button').addEventListener('click', function () {
     socket.emit('allow_usage', false);
-    location.reload(); // TODO: send to app.js and let app.js reset touchscreen.js/display.js
+    socket.emit('reload_application', true);
+    location.reload();
   });
 
-  // allow usage of generated image, handle in app.js (no need to pass image since it's already present in app.js/display.js)
+  // // allow usage of generated image, handle in app.js (no need to pass image since it's already present in app.js/display.js)
   // document.getElementById('allow-usage-button').addEventListener('click', function () {
   //   socket.emit('allow_usage', true); 
   // });
@@ -446,6 +447,7 @@ function overlayManager() {
 
   function handleRestartButtonClick() {
     console.log('Header Restart Button clicked!');
+    socket.emit('reload_application', true);
     // TODO handle this from app.js to restart the entire application without fresreshing
     location.reload();
   }

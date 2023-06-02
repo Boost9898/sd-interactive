@@ -118,6 +118,13 @@ socket.on('marker_data', function (markerData) {
 });
 
 
+// 
+// FINNISH APPLICATION
+//
+socket.on('reload_application', function (data) {
+  location.reload();
+});
+
 
 // ************************************************** \\
 // IMPORTS

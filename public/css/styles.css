@@ -155,7 +155,7 @@ body .dev-state-title {
   top: 30%;
   left: 0;
   right: 0;
-  font-size: 4rem;
+  font-size: 4.5rem;
   text-align: center;
   color: #e5dfcf;
 }
@@ -220,17 +220,21 @@ body .dev-state-title {
   top: 10rem;
 }
 #touch-legal-state #content #title h2 {
-  font-size: 3.5rem;
+  font-size: 5.5rem;
 }
 #touch-legal-state #content #title h3 {
-  font-size: 2rem;
+  font-size: 3.2rem;
 }
 #touch-legal-state #content #body-text {
   position: relative;
-  top: 20rem;
+  top: 28rem;
   font-weight: lighter;
   line-height: 1.5rem;
   margin: 0 auto;
+}
+#touch-legal-state #content #body-text p {
+  font-size: 1.5rem;
+  line-height: 3rem;
 }
 #touch-legal-state #content #confirm-application-button {
   position: absolute;
@@ -310,7 +314,7 @@ body .dev-state-title {
 #touch-photograph-state #column-right p {
   padding: 40px;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 #touch-photograph-state #column-right {
   margin-right: 40px;
@@ -473,7 +477,7 @@ body .dev-state-title {
 #touch-discover-state #column-right p {
   padding: 40px;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 #touch-discover-state #column-right {
   margin-right: 40px;
