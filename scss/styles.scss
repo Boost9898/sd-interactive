@@ -1,89 +1,3 @@
-// #staticImage {
-//   position: absolute;
-//   width: 512px;
-//   height: 768px;
-// }
-
-// #generatedImage {
-//   width: 512px;
-//   height: 768px;
-//   background-color: #e8e8e8;
-// }
-
-// #show-models-button,
-// #generate-txt2img-button,
-// #generate-img2img-button,
-// #load-model-button,
-// #send-button,
-// #delete-button {
-//   width: 253px;
-//   height: 40px;
-//   color: white;
-//   font-weight: bold;
-//   margin-top: 6px;
-// }
-
-// #show-models-button {
-//   background-color: #c77313;
-// }
-
-// #generate-txt2img-button,
-// #generate-img2img-button {
-//   background-color: #3aa23a;
-// }
-
-
-// #load-model-button {
-//   background-color: #2d71c0;
-// }
-
-// #send-button,
-// #delete-button {
-//   background-color: rgb(225, 65, 65);
-// }
-
-
-// #loader-container {
-//   position: absolute;
-//   z-index: 10;
-//   opacity: 0;
-// }
-
-// #loader-container.show {
-//   opacity: 1;
-// }
-
-// #loader h2 {
-//   text-align: center;
-//   color: #e8e8e8;
-// }
-
-// #loader {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 512px;
-//   height: 768px;
-//   background: linear-gradient(-45deg, #00000000, #000000);
-//   background-size: 500% 500%;
-//   animation: gradient 2500ms ease-in-out infinite;
-// }
-
-// @keyframes gradient {
-//   0% {
-//     background-position: 0% 50%;
-//   }
-
-//   50% {
-//     background-position: 100% 50%;
-//   }
-
-//   100% {
-//     background-position: 0% 50%;
-//   }
-// }
-
-/* ______________________________________________________________ */
 @import 'utilities/variables';
 @import 'utilities/mixins';
 
@@ -93,6 +7,10 @@
 @import 'layout/common';
 @import 'components/buttons';
 
+
+// 
+// GLOBAL SCSS (TOUCHSCREEN + DISPLAY)
+// 
 
 * {
   margin: 0;
@@ -117,16 +35,21 @@ body {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    opacity: 50%;
+    opacity: 0%;
   }
 
   .dev-state-title {
     position: absolute;
     top: 0px;
     left: 0px;
-    opacity: 50%;
+    opacity: 0%;
   }
 }
+
+
+// 
+// TOUCHSCREEN SCSS
+// 
 
 .touchscreen-state {
   display: none;
@@ -621,9 +544,90 @@ body {
   }
 }
 
-// TODO: to it's own DISPLAY file, keep separated from TOUCHSCREEN
-#marker-data-container {
-  padding: 10px;
-  display: inline-block;
-  background-color: royalblue;
+
+// 
+// DISPLAY SCSS
+// 
+#display {
+  #display-mockup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('/images/bg/mockup-display.png');
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  #generated-image,
+  #display-artwork {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #generated-image {
+    position: absolute;
+    left: 886px;
+    top: 341px;
+    width: 198px;
+    z-index: -1;
+  }
+
+  #display-artwork {
+    width: 466px;
+    height: 699px;
+    background: url('/images/input/image-02.png');
+    background-size: cover;
+  }
+
+  #marker-data-container {
+    p {
+      font-size: 1.9rem;
+      color: rgb(54, 24, 4);
+      text-align: center;
+    }
+    .marker-element {
+      width: 250px;
+      height: 335px;
+      opacity: 0;
+    }
+
+    .marker-element.show {
+      animation: fade-in 0.3s ease-in forwards;
+    }
+
+    #marker-title {
+      position: absolute;
+      left: 290px;
+      top: 155px;
+      font-weight: bold;
+    }
+
+    #marker-desc {
+      position: absolute;
+      left: 290px;
+      top: 595px;
+    }
+
+    #marker-image {
+      position: absolute;
+      left: 1378px;
+      top: 155px;
+    }
+
+    #marker-x {
+      position: absolute;
+      left: 1378px;
+      top: 155px;
+    }
+
+    #marker-y {
+      position: absolute;
+      left: 1378px;
+      top: 155px;
+    }
+  }
+
 }

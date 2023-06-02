@@ -20,7 +20,6 @@ let SOCKET_LIST = {},
 /* -- Routing -- */
 /* -------------------------------------------------------------------------------------- */
 app.use(express.static(__dirname + '/public'));
-app.get('/dev', function (req, res) { res.sendFile('./public/pages/test-screens.html', { root: __dirname }); });
 app.get('/touchscreen', function (req, res) { res.sendFile('./public/touchscreen.html', { root: __dirname }); });
 app.get('/display', function (req, res) { res.sendFile('./public/display.html', { root: __dirname }); });
 
@@ -31,10 +30,8 @@ serv.listen(3000, () => {
   console.log('Server listening on port 3000');
   console.log(' ');
   console.log('--== Server started ==--');
-  console.log('Open http://localhost:3000/dev           to monitor screens');
   console.log('Open http://localhost:3000/touchscreen   for main touchscreen');
   console.log('Open http://localhost:3000/display       for display');
-  console.log('Open http://localhost:3000/webcam        for test webcam demo');
 });
 
 

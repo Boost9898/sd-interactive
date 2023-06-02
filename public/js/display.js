@@ -49,16 +49,20 @@ socket.on('display_language_switch', function (data) {
 // RECEIVING AND SHOWING IMAGES
 //
 socket.on('photo_data_url', function (photoDataUrl) {
-  console.log(1);
   console.log(photoDataUrl);
-  displayBase64Image(photoDataUrl);
+  // Displays taken photo
+  // displayBase64Image(photoDataUrl);
 })
 
 socket.on('generated_image', function (photoData) {
-  console.log(2);
+  console.log('display: caught generated_image')
   console.log(photoData.photoData);
   displayBase64Image(photoData.photoData);
+
+  // TODO: pre-load image to avoid flickering
+  document.getElementById('display-artwork').style.backgroundImage = 'url(/images/input/image-02-mask-cut.png)';
 })
+
 
 function displayBase64Image(base64String) {
   const image = new Image();
@@ -73,16 +77,15 @@ function displayBase64Image(base64String) {
   document.body.appendChild(image);
 }
 
+
 //
 // DELETE GENERATED IMAGE
 //
 socket.on('delete_generated_image', function (data) {
   if (data === true) {
     // document.getElementById('generated-image').remove();
-    const generatedImages = document.querySelectorAll('#generated-image');
-    generatedImages.forEach(image => {
-      image.remove();
-    });
+    document.getElementById('display-artwork').style = '';
+    document.getElementById('generated-image').remove();
   }
 })
 
@@ -97,9 +100,19 @@ socket.on('marker_data', function (markerData) {
   Object.entries(markerData.marker).forEach(([key, value]) => {
     console.log(`${key}: ${value}`);
 
-    const dataElement = document.createElement('p');
-    dataElement.textContent = `${key}: ${value}`;
-    container.appendChild(dataElement);
+    if (key === 'image') {
+      const imageMarker = document.createElement('div');
+      imageMarker.classList.add('marker-element', 'show');
+      imageMarker.id = `marker-${key}`;
+      imageMarker.style.backgroundImage = `url(${value})`;
+      container.appendChild(imageMarker);
+    } else if (key === 'title' || key === 'desc') {
+      const dataMarker = document.createElement('p');
+      dataMarker.classList.add('marker-element', 'show');
+      dataMarker.id = `marker-${key}`;
+      dataMarker.textContent = value;
+      container.appendChild(dataMarker);
+    }
   });
   console.log('-----------------------')
 });

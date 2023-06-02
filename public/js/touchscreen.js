@@ -42,24 +42,20 @@ socket.on('update', function (data) {
 // Socket: identify
 socket.emit('identify', { type: clientType });
 
-document.getElementById('send-button').addEventListener('click', function () {
-  console.log('clicked: send-button');
-  socket.emit('touchscreen_data');
-});
 
+// // 
+// // TEST
+// //
 
-// 
-// TEST
-//
-document.getElementById('delete-button').addEventListener('click', function () {
-  socketSendDeleteTest();
-});
+// document.getElementById('send-button').addEventListener('click', function () {
+//   console.log('clicked: send-button');
+//   socket.emit('touchscreen_data');
+// });
 
-function socketSendDeleteTest() {
-  console.log('Sent delete');
-  socket.emit('touchscreen_data_delete', 'delete');
-}
-
+// document.getElementById('delete-button').addEventListener('click', function () {
+//   console.log('Sent delete');
+//   socket.emit('touchscreen_data_delete', 'delete');
+// });
 
 
 // 
