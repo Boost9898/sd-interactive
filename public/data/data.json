@@ -11,38 +11,43 @@
   "markers": [
     {
       "id": 1,
-      "title": "Element 1",
-      "desc": "Grote zwarte hoed en plooikraag (TODO: extra info opvragen)",
+      "title": "Grote zwarte hoed",
+      "desc": "Grote zwarte hoed (TODO: extra info opvragen)",
       "x": 125,
-      "y": 100
+      "y": 100,
+      "image": "/images/details/element-01.png"
     },
     {
       "id": 2,
       "title": "Element 2",
       "desc": "Placeholder text that will describe element 2 (TODO: extra info opvragen)",
       "x": 210,
-      "y": 320
+      "y": 320,
+      "image": "/images/details/element-02.png"
     },
     {
       "id": 3,
       "title": "Element 3",
       "desc": "Familiewapen (TODO: extra info opvragen)",
       "x": 562,
-      "y": 55
+      "y": 55,
+      "image": "/images/details/element-03.png"
     },
     {
       "id": 4,
       "title": "Element 4",
       "desc": "Placeholder text that will describe element 4 (TODO: extra info opvragen)",
       "x": 260,
-      "y": 550
+      "y": 550,
+      "image": "/images/details/element-04.png"
     },
     {
       "id": 5,
       "title": "Element 5",
       "desc": "Notarispapieren (TODO: extra info opvragen)",
       "x": 560,
-      "y": 580
+      "y": 580,
+      "image": "/images/details/element-05.png"
     }
   ]
 }
