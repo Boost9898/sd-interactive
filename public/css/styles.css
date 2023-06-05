@@ -162,7 +162,7 @@ body .dev-state-title {
 #touch-attract-state #language-buttons {
   position: absolute;
   display: flex;
-  top: 50%;
+  top: 55%;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -170,16 +170,17 @@ body .dev-state-title {
   width: fit-content;
   text-transform: uppercase;
   font-weight: bold;
-  column-gap: 20px;
+  column-gap: 30px;
 }
 #touch-attract-state #language-buttons p {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #002E66;
-  width: 100px;
-  height: 100px;
+  width: 125px;
+  height: 125px;
   font-size: 2rem;
+  animation: pulse-overlay 3.5s ease-in-out infinite;
 }
 #touch-attract-state #language-buttons p.active {
   background-color: #0F62FE;
