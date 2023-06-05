@@ -380,14 +380,18 @@ function initDiscoverScreen() {
   document.getElementById('finish-application-button').addEventListener('click', function () {
     socket.emit('allow_usage', false);
     socket.emit('reload_application', true);
-    location.reload();
+
+    // Delay execution of location.reload() to ensure socket.emit calls are processed before the page reloads
+    setTimeout(() => {
+      location.reload();
+    }, 0);
   });
 
   // // allow usage of generated image, handle in app.js (no need to pass image since it's already present in app.js/display.js)
   // document.getElementById('allow-usage-button').addEventListener('click', function () {
   //   socket.emit('allow_usage', true); 
   // });
-  
+
 }
 
 // export function to make it accessable in sd.js, function 
@@ -440,10 +444,33 @@ function overlayManager() {
     }
   }
 
+
+  let infoOverlay = null;
   function handleInfoButtonClick() {
     console.log('Header Info Button clicked!');
-    // Handle 'header-info-button' click here
+
+    if (infoOverlay) {
+      // If overlay exists, remove it
+      infoOverlay.remove();
+      infoOverlay = null;
+    } else {
+      // Create overlay element
+      infoOverlay = document.createElement('div');
+      infoOverlay.classList.add('info-overlay');
+
+      // Create text element
+      let infoOverlayText = document.createElement('h1');
+      infoOverlayText.textContent = 'TODO: Informatie ter ondersteuning van de interactive';
+      infoOverlayText.classList.add('info-overlay-text');
+
+      // Append text to the overlay
+      infoOverlay.appendChild(infoOverlayText);
+
+      // Append overlay to the body
+      document.body.appendChild(infoOverlay);
+    }
   }
+
 
   function handleRestartButtonClick() {
     console.log('Header Restart Button clicked!');
@@ -452,12 +479,32 @@ function overlayManager() {
     location.reload();
   }
 
+  let languageOverlay = null;
   function handleLanguageButtonClick() {
     console.log('Header Language Button clicked!');
-    // Handle 'header-language-button' click here
+
+    if (languageOverlay) {
+      // If overlay exists, remove it
+      languageOverlay.remove();
+      languageOverlay = null;
+    } else {
+      // Create overlay element
+      languageOverlay = document.createElement('div');
+      languageOverlay.classList.add('language-overlay');
+
+      // Create text element
+      let languageOverlayText = document.createElement('h1');
+      languageOverlayText.textContent = 'TODO: Taalselectie overlay';
+      languageOverlayText.classList.add('language-overlay-text');
+
+      // Append text to the overlay
+      languageOverlay.appendChild(languageOverlayText);
+
+      // Append overlay to the body
+      document.body.appendChild(languageOverlay);
+    }
   }
 }
-
 
 
 

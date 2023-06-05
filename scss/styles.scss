@@ -550,6 +550,25 @@ body {
   }
 }
 
+.info-overlay, .language-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.info-overlay-text, .language-overlay-text {
+  color: $w;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 
 // 
 // DISPLAY SCSS
@@ -672,7 +691,7 @@ body {
 
   #marker-data-container {
     p {
-      font-size: 1.9rem;
+      font-size: 1.5rem;
       color: rgb(54, 24, 4);
       text-align: center;
     }
@@ -691,6 +710,7 @@ body {
       position: absolute;
       left: 290px;
       top: 155px;
+      font-size: 2rem;
       font-weight: bold;
     }
 
