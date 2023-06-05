@@ -647,6 +647,30 @@ body .dev-state-title {
   background-color: #ff4747;
 }
 
+#display #display-attract-screen #small-frames-container .small-frames {
+  position: absolute;
+  width: 250px;
+  height: 335px;
+  object-fit: cover;
+  transition: opacity 1500ms ease-in-out;
+  opacity: 0;
+}
+#display #display-attract-screen #small-frames-container #small-frame-1 {
+  left: 290px;
+  top: 155px;
+}
+#display #display-attract-screen #small-frames-container #small-frame-2 {
+  left: 290px;
+  top: 595px;
+}
+#display #display-attract-screen #small-frames-container #small-frame-3 {
+  left: 1378px;
+  top: 155px;
+}
+#display #display-attract-screen #small-frames-container #small-frame-4 {
+  left: 1378px;
+  top: 595px;
+}
 #display #display-mockup-background {
   position: absolute;
   top: 0;

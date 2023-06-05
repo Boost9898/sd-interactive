@@ -111,6 +111,7 @@ Touchscreen.onConnect = function (socket) {
   socket.on('language_clicked', function (data) {
     console.log(`${socket.id} language_clicked: ${data}`);
     Display.languageSwitch(data)
+    Display.continueAttract();
     nextStateSwitch();
   });
 
@@ -162,11 +163,17 @@ Touchscreen.onConnect = function (socket) {
 
 
   // 
-  // LANGUAGE
+  // ATTRACT (LANGUAGE)
   //
   Display.languageSwitch = function (display_data) {
     for (let i in Display.list) {
       SOCKET_LIST[Display.list[i].id].emit('display_language_switch', display_data);
+    }
+  };
+
+  Display.continueAttract = function () {
+    for (let i in Display.list) {
+      SOCKET_LIST[Display.list[i].id].emit('continue_attract', true);
     }
   };
 

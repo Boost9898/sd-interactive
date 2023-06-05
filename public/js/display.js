@@ -38,10 +38,67 @@ socket.on('data_delete', function () {
   testContainer.removeChild(testContainer.lastChild);
 });
 
+// 
+// ATTRACT (LANGUAGE)
+//
+function activateAttract() {
+  console.log('activateAttract')
+
+  const smallFrames = document.querySelectorAll('.small-frames');
+  const imagePaths = [
+    'images/attract/1.jpg',
+    'images/attract/2.jpg',
+    'images/attract/3.jpg',
+    'images/attract/4.jpg',
+    'images/attract/5.jpg',
+    'images/attract/6.jpg',
+    'images/attract/7.jpg',
+    'images/attract/8.jpg',
+    'images/attract/9.jpg',
+    'images/attract/10.jpg',
+    'images/attract/11.jpg',
+    'images/attract/12.jpg',
+  ];
+
+  crossFade();
+
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  function crossFade() {
+    smallFrames.forEach((frame) => {
+      const randomImageIndex = Math.floor(Math.random() * imagePaths.length);
+      frame.style.opacity = '0';
+      console.log('crossFade')
+
+      setTimeout(() => {
+        console.log('fade-in')
+        frame.style.backgroundImage = `url(${imagePaths[randomImageIndex]})`;
+        frame.style.opacity = '1';
+        setTimeout(() => {
+          console.log('fade-out')
+          frame.style.opacity = '0';
+        }, getRandomNumber(7000, 7500));
+
+      }, getRandomNumber(1500, 3000));
+    });
+  }
+
+  setInterval(crossFade, 10_000);
+
+};
+activateAttract()
+
 // DEV TODO: testing purpose
 socket.on('display_language_switch', function (data) {
   const setLanguageElement = document.getElementById('set-language');
   setLanguageElement.textContent = `Language set to: ${data} `;
+});
+
+socket.on('continue_attract', function (data) {
+  // const setLanguageElement = document.getElementById('set-language');
+  // setLanguageElement.textContent = `Language set to: ${data} `;
 });
 
 

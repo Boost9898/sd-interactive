@@ -554,7 +554,44 @@ body {
 // 
 // DISPLAY SCSS
 // 
+
 #display {
+
+  #display-attract-screen {
+
+    #small-frames-container {
+
+      .small-frames {
+        position: absolute;
+        width: 250px;
+        height: 335px;
+        object-fit: cover;
+        transition: opacity 1500ms ease-in-out;
+        opacity: 0;
+      }
+    
+      #small-frame-1 {
+        left: 290px;
+        top: 155px;
+      }
+    
+      #small-frame-2 {
+        left: 290px;
+        top: 595px;
+      }
+    
+      #small-frame-3 {
+        left: 1378px;
+        top: 155px;
+      }
+    
+      #small-frame-4 {
+        left: 1378px;
+        top: 595px;
+      }
+    }    
+  }
+
   #display-mockup-background {
     position: absolute;
     top: 0;
