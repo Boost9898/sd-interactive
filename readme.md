@@ -2,6 +2,11 @@
 
 <br>
 
+## Introduction
+This project has undergone several technical iterations and currently stands as a proof of concept prototype or minimum viable product. It is important to note that deploying this in a live environment without further refinement and testing may not be advisable.
+
+<br>
+
 ## Installation Stable Diffusion and dependencies
 Make sure the required [dependencies](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Dependencies) are met and follow the instructions available for [NVidia](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Install-and-Run-on-NVidia-GPUs) GPUs.
 
@@ -68,8 +73,27 @@ Install ControlNet, make sure the required [dependencies](https://github.com/AUT
 
 <br>
 
-## DEV notes
+## DEV: notes
 - IMPORTANT: in `public\js\scripts\sd.js`, set `save_images: true` to false in the payload to prevent automatic savings of generated results
 - Gradio removed the possibility to use the webui and API documentation at the same time
 - If you want to read the API documentation, make sure to add `--nowebui` to the COMMANDLINE_ARGS.
 - Make sure to check the port number, this might swap between :7860 and :7861
+
+<br>
+
+## DEV: TODO
+The code has been thoughtfully commented to provide clarity on the purpose and functionality of each code segment. Additionally, below is listed which parts of the code need to be improved to keep it maintainable and scalable.
+
+1. Improve the Stable Diffusion API payload; alignment of input image, ControlNet parameters, research new preprocessors, possibility to create a LoRA which suites the diresed style and use the latest style transferring methods.
+2. Add functionality to language switch overlay.
+3. Add information to corrosponding state to infoOverlay.
+4. Remove unused code in app.js (no need for looping through multiple Displays).
+5. Handle the end/stop of the application in app.js by resetting the application, instead of reloading both screens.
+6. When the users grants permission, save the result locally and fetch it in Display attract screen function.
+7. Prevent duplicated images in the attract state of Display.
+8. Change (S)CSS according to desired design of client.
+9. Minor bug: when updating the image at the Discover state, the swap causes a very little flash (need to pre-load image).
+10. Encapsulate and move code to own object/functions (or even files) to keep it modular.
+11. Remove unused commented-out code.
+
+It is also recommended to use a high-quality webcam for the best results.
