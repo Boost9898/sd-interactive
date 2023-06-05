@@ -131,7 +131,7 @@ export function img2img(photoDataUrl) {
       restore_faces: true,
       tiling: false,
       send_images: true, // DEV
-      save_images: true, // DEV
+      save_images: false, // DEV
       alwayson_scripts: {
         ControlNet: {
           args: [
