@@ -130,6 +130,7 @@ Touchscreen.onConnect = function (socket) {
   //
   socket.on('continue_photo_button_clicked', function () {
     console.log(`${socket.id} continue_photo_button_clicked`);
+    Display.hideAttractScreen();
     nextStateSwitch();
   });
 
@@ -237,6 +238,16 @@ Display.onConnect = function (socket) {
   connectedScreens++;
   // TODO: Add emission catchers here
 };
+
+//
+// ATTRACT SCREEN
+//
+Display.hideAttractScreen = function () {
+  for (let i in Display.list) {
+    SOCKET_LIST[Display.list[i].id].emit('hide_attract_screen', );
+  }
+};
+
 
 // 
 // DISCOVER SCREEN

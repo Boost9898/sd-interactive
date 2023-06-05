@@ -559,6 +559,44 @@ body {
 
   #display-attract-screen {
 
+    #large-frame-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 466px;
+      height: 699px;
+      background: url('/images/bg/display-blobs.svg');
+      background-color: $app-bg;
+      text-align: center;
+      color: $attract-text;
+      z-index: 1;
+
+      h1 {
+        margin-top: 7rem;
+        letter-spacing: 0.1rem;
+      }
+
+      h2 {
+        font-size: 1.55rem;
+        line-height: 2rem;
+        letter-spacing: 0.05rem;
+        font-weight: normal;
+        margin-top: 0.25rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin: 2rem;
+        margin-top: 18.5rem;
+      }
+    }
+
+    .fade-out {
+      animation: fade-out 2s ease-in-out;
+      animation-fill-mode: forwards;
+    }
+
     #small-frames-container {
 
       .small-frames {
@@ -569,27 +607,34 @@ body {
         transition: opacity 1500ms ease-in-out;
         opacity: 0;
       }
-    
+
       #small-frame-1 {
         left: 290px;
         top: 155px;
       }
-    
+
       #small-frame-2 {
         left: 290px;
         top: 595px;
       }
-    
+
       #small-frame-3 {
         left: 1378px;
         top: 155px;
       }
-    
+
       #small-frame-4 {
         left: 1378px;
         top: 595px;
       }
-    }    
+    }
+
+
+  }
+
+  .fade-out {
+    animation: fade-out 2s ease-in-out;
+    animation-fill-mode: forwards;
   }
 
   #display-mockup-background {

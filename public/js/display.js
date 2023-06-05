@@ -39,11 +39,12 @@ socket.on('data_delete', function () {
 });
 
 // 
-// ATTRACT (LANGUAGE)
+// INIT ATTRACT (LANGUAGE)
 //
 function activateAttract() {
   console.log('activateAttract')
 
+  // TODO: fetch available images dynamically instead of fixed amount
   const smallFrames = document.querySelectorAll('.small-frames');
   const imagePaths = [
     'images/attract/1.jpg',
@@ -66,27 +67,25 @@ function activateAttract() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+  // Create random in- and out-fade behaviour for small image frames on attract screen
   function crossFade() {
     smallFrames.forEach((frame) => {
       const randomImageIndex = Math.floor(Math.random() * imagePaths.length);
       frame.style.opacity = '0';
-      console.log('crossFade')
-
+      // console.log('crossFade') //DEV: debug log
       setTimeout(() => {
-        console.log('fade-in')
+        // console.log('fade-in') //DEV: debug log
         frame.style.backgroundImage = `url(${imagePaths[randomImageIndex]})`;
         frame.style.opacity = '1';
         setTimeout(() => {
-          console.log('fade-out')
+          // console.log('fade-out') //DEV: debug log
           frame.style.opacity = '0';
         }, getRandomNumber(7000, 7500));
 
       }, getRandomNumber(1500, 3000));
     });
   }
-
   setInterval(crossFade, 10_000);
-
 };
 activateAttract()
 
@@ -99,6 +98,15 @@ socket.on('display_language_switch', function (data) {
 socket.on('continue_attract', function (data) {
   // const setLanguageElement = document.getElementById('set-language');
   // setLanguageElement.textContent = `Language set to: ${data} `;
+});
+
+
+// 
+// DISCOVER
+//
+socket.on('hide_attract_screen', function () {
+  document.getElementById('large-frame-container').classList.add('fade-out');
+  document.getElementById('small-frames-container').classList.add('fade-out');
 });
 
 
