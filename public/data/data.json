@@ -11,40 +11,40 @@
   "markers": [
     {
       "id": 1,
-      "title": "Grote zwarte hoed",
-      "desc": "Grote zwarte hoed (TODO: extra info opvragen)",
+      "title": "Grote zwarte hoed (1)",
+      "desc": "In de 17e eeuw was een brede hoed met een hoge kroon en een brede rand, gemaakt van zwarte wol of vilt, gedragen als een modieus en statusverhogend accessoire.",
       "x": 125,
       "y": 100,
       "image": "/images/details/element-01.png"
     },
     {
       "id": 2,
-      "title": "Element 2",
-      "desc": "Placeholder text that will describe element 2 (TODO: extra info opvragen)",
+      "title": "Lubbenkraag (2)",
+      "desc": "Een ronde kraag van geplooid fijn linnen batist. De molensteenkraag is in de tweede helft van de 16e eeuw door Spanjaarden in de Zuidelijke Nederlanden geïntroduceerd.",
       "x": 210,
       "y": 320,
       "image": "/images/details/element-02.png"
     },
     {
       "id": 3,
-      "title": "Element 3",
-      "desc": "Familiewapen (TODO: extra info opvragen)",
+      "title": "Familiewapen (3)",
+      "desc": "Een familiewapen is een herkenbaar symbool of embleem dat vaak wordt gebruikt om de identiteit en afkomst van een familie te vertegenwoordigen.",
       "x": 562,
       "y": 55,
       "image": "/images/details/element-03.png"
     },
     {
       "id": 4,
-      "title": "Element 4",
-      "desc": "Placeholder text that will describe element 4 (TODO: extra info opvragen)",
+      "title": "Deftig zwart (4)",
+      "desc": "In de 17e eeuw werd het dragen van deftig zwart beschouwd als een modieuze keuze die symbool stond voor ernst en statigheid in de kledingcultuur van die periode.",
       "x": 260,
       "y": 550,
       "image": "/images/details/element-04.png"
     },
     {
       "id": 5,
-      "title": "Element 5",
-      "desc": "Notarispapieren (TODO: extra info opvragen)",
+      "title": "Notarispapieren (5)",
+      "desc": "De documenten van Willem Reyersz de Langue bevatten belangrijke juridische documenten en aktes die zijn persoonlijke en zakelijke transacties tijdens zijn leven vastleggen.",
       "x": 560,
       "y": 580,
       "image": "/images/details/element-05.png"
