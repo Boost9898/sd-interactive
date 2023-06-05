@@ -91,9 +91,10 @@ The code has been thoughtfully commented to provide clarity on the purpose and f
 5. Handle the end/stop of the application in app.js by resetting the application, instead of reloading both screens.
 6. When the users grants permission, save the result locally and fetch it in Display attract screen function.
 7. Prevent duplicated images in the attract state of Display.
-8. Change (S)CSS according to desired design of client.
-9. Minor bug: when updating the image at the Discover state, the swap causes a very little flash (need to pre-load image).
-10. Encapsulate and move code to own object/functions (or even files) to keep it modular.
-11. Remove unused commented-out code.
+8. In some rare cases, there will be used diplicates of HTML IDs. Replace them with unique IDs.
+9. Change (S)CSS according to desired design of client.
+10. Minor bug: when updating the image at the Discover state, the swap causes a very little flash (need to pre-load image).
+11. Encapsulate and move code to own object/functions (or even files) to keep it modular.
+12. Remove unused commented-out code.
 
 It is also recommended to use a high-quality webcam for the best results.
