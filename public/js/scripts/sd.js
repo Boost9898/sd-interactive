@@ -111,27 +111,27 @@ export function img2img(photoDataUrl) {
     const payload = {
       init_images: [image],
       resize_mode: 0,
-      denoising_strength: 0.90,
+      denoising_strength: 0.9,
       // mask_blur: 36,
       // inpainting_fill: 0,
       // inpaint_full_res: true,
       // inpaint_full_res_padding: 72,
       // inpainting_mask_invert: 0,
       // initial_noise_multiplier: 1,
-      prompt: "person, portrait painting, oil painting, paint strokes, renaissance, <lora:monet-wd14v10-000015:0.2>", // DEV make it customisable
-      // negative_prompt: "bald, EasyNegative:0.3",
-      // seed: 1472411147,
+      prompt: "person, portrait painting, paint painting, paint strokes, renaissance, <lora:monet-wd14v10-000015:0.20>", // DEV make it customisable
+      negative_prompt: "EasyNegative:0.33",
+      seed: 1472411147,
       sampler_name: "Euler",
       sampler_index: "Euler",
-      batch_size: 1,
-      steps: 15,
+      batch_size: 3,
+      steps: 16,
       cfg_scale: 7,
       width: 512,
       height: 768,
       restore_faces: true,
       tiling: false,
       send_images: true, // DEV
-      save_images: false, // DEV
+      // save_images: true, // DEV
       alwayson_scripts: {
         ControlNet: {
           args: [
@@ -152,7 +152,7 @@ export function img2img(photoDataUrl) {
               threshold_b: 200,
               guidance_start: 0.0,
               guidance_end: 1.0,
-              controlnet_guidance: 1,
+              controlnet_guidance: 0.7,
             },
             {
               enabled: false,
