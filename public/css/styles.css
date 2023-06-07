@@ -112,6 +112,7 @@ p {
   vertical-align: baseline;
   box-sizing: border-box;
   user-select: none;
+  touch-action: none;
   outline-offset: -1px;
 }
 
