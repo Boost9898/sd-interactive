@@ -119,11 +119,11 @@ export function img2img(photoDataUrl) {
       // inpainting_mask_invert: 0,
       // initial_noise_multiplier: 1,
       prompt: "person, portrait painting, paint painting, paint strokes, renaissance, <lora:monet-wd14v10-000015:0.20>", // DEV make it customisable
-      negative_prompt: "EasyNegative:0.33",
+      negative_prompt: "bald:1, EasyNegative:0.33",
       seed: 1472411147,
       sampler_name: "Euler",
       sampler_index: "Euler",
-      batch_size: 3,
+      batch_size: 1,
       steps: 16,
       cfg_scale: 7,
       width: 512,
