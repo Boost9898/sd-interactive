@@ -93,7 +93,7 @@ takePhotoButton.addEventListener('click', function () {
 
 function startCountdown() {
   countdownElement.style.display = 'block';
-  let count = 3; // DEV: countdown duration in seconds
+  let count = 5; // DEV: countdown duration in seconds
 
   function flashBackground() {
     photoFieldElement.style.backgroundColor = 'white';
