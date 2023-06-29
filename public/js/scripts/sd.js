@@ -118,13 +118,13 @@ export function img2img(photoDataUrl) {
       // inpaint_full_res_padding: 72,
       // inpainting_mask_invert: 0,
       // initial_noise_multiplier: 1,
-      prompt: "person, portrait painting, paint painting, paint strokes, renaissance, <lora:monet-wd14v10-000015:0.20>", // DEV make it customisable
-      negative_prompt: "bald:1, EasyNegative:0.33",
+      prompt: "person, portrait painting, paint painting, masterpiece, paint strokes, renaissance, <lora:monet-wd14v10-000015:0.20>", // DEV make it customisable
+      negative_prompt: "bald:1, EasyNegative:0.33, Horror, zombie",
       // seed: 1472411147,
-      sampler_name: "Euler",
-      sampler_index: "Euler",
+      sampler_name: "DDIM",
+      sampler_index: "DDIM",
       batch_size: 1,
-      steps: 20,
+      steps: 15,
       cfg_scale: 7,
       width: 512,
       height: 768,
